@@ -143,7 +143,7 @@ const HeaderWeb: React.FC = () => {
     }
 
     const sxButton: SxProps<Theme> = {
-        color: 'var(--color-green-500)',
+        color: 'var(--color-red-500)',
         fontWeight: '600',
         fontSize: 'var(--text-xl)',
         position: "relative",
@@ -164,6 +164,53 @@ const HeaderWeb: React.FC = () => {
             color: 'black'
         },
     }
+
+    const sxButtonSearch: SxProps<Theme> = {
+        background: "linear-gradient(135deg, var(--color-green-100), var(--color-emerald-100))",
+        border: "none",
+        color: 'white',
+        borderRadius: '50%',
+        width: '45px',
+        height: '45px',
+        fontWeight: '600',
+        fontSize: 'var(--text-xl)',
+        position: "relative",
+        overflow: "hidden",
+        textTransform: "none",
+        "&:active": { transform: "scale(0.95)" },
+        "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: "50%",
+            height: "100%",
+            width: 0,
+            background: "linear-gradient(135deg, var(--color-green-600), var(--color-emerald-600))",
+            opacity: 0,
+            transition: "all 0.5s ease",
+            zIndex: -1,
+        },
+        "&:hover::before": {
+            border: 'none',
+            left: 0,
+            width: "100%",
+            opacity: 1,
+        },
+        "& span": {
+            display: 'block',
+            transition: 'all 0.3s ease-in-out'
+        },
+        "& svg": {
+            display: 'block',
+            transformOrigin: 'center center',
+            transition: 'transform 0.3s ease-in-out',
+        },
+        "&:hover .svgWrapper": {
+            animation: `${fly1} 0.6s ease-in-out infinite alternate`,
+            color: 'black'
+        },
+    }
+
 
     const router = useRouter();
 
@@ -532,51 +579,27 @@ const HeaderWeb: React.FC = () => {
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <IconButton
-                                                        sx={{
-                                                            ...sxButton,
-                                                            background: "rgba(74, 222, 128, 0.1)",
-                                                            border: '1px solid rgba(74, 222, 128, 0.2)',
-                                                            color: 'var(--color-green-500)',
-                                                            borderRadius: '25px',
-                                                            fontWeight: '600',
-                                                            fontSize: 'var(--text-xl)',
-                                                            position: "relative",
-                                                            overflow: "hidden",
-                                                            textTransform: "none",
-                                                            "&::before": {
-                                                                content: '""',
-                                                                position: "absolute",
-                                                                top: 0,
-                                                                left: "50%",
-                                                                height: "100%",
-                                                                width: 0,
-                                                                background: "var(--color-green-400)",
-                                                                opacity: 0,
-                                                                transition: "all 0.5s ease",
-                                                                zIndex: -1,
-                                                            },
-                                                            "&:hover::before": {
-                                                                border: 'none',
-                                                                left: 0,
-                                                                width: "100%",
-                                                                opacity: 1,
-                                                            },
-                                                        }}
+                                                        className='group relative transition-all duration-300 hover:scale-105'
+                                                        sx={sxButtonSearch}
                                                     >
-                                                        <div className="relative flex items-center gap-2 svgWrapper">
-                                                            <IoMdSearch className="mx-auto" />
+                                                        <div className="relative flex items-center">
+                                                            <IoMdSearch className="mx-auto text-green-600 group-hover:text-white transition" />
                                                         </div>
+                                                        <div className="absolute inset-0 overflow-hidden">
+                                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                        </div>
+                                                        <div className="absolute inset-0 rounded-[25px] animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                    </IconButton>
+                                                    < IconButton
+                                                        sx={sxButton}
+                                                        onClick={() => setIsSearch(false)}>
+                                                        <IoClose className=" mx-auto" />
                                                     </IconButton>
                                                 </InputAdornment>
                                             ),
                                         }}
                                     />
                                 </div>
-                                < IconButton
-                                    sx={sxButton}
-                                    onClick={() => setIsSearch(false)}>
-                                    <IoClose className=" mx-auto" />
-                                </IconButton>
                             </>
                         </Backdrop>
                     }
