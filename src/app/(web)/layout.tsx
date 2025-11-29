@@ -39,6 +39,7 @@ const RootLayout = ({
         <AuthProvider>
           <BackToTop />
           <Loading />
+          <p className="w-full text-center py-2 bg-gray-100 text-sm">Welcome to the Spree Commerce Demo!</p>
           <HeaderWeb />
           <main className="min-h-[60vh]">{children}</main>
           <FooterWeb />
