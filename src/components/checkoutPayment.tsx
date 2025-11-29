@@ -350,8 +350,11 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
         }
     };
 
+    const [key, setKey] = useState<string>("")
+    const [showSetKey, setShowSetKey] = useState<boolean>(false)
+
     const handlePayNow = async () => {
-        const stripe = new Stripe('sk_test_51SWqj0BuXLUBsTeOJKdqHvV341Rwc1YtM2eEqmwz4WX5j3WX52u8jGn8OTOGEGD7mWUMxtmzIiLA51Xvh3OWTn0q00dOFMy5Pw');
+        const stripe = new Stripe(key);
         try {
             setLoading(true)
             const paymentIntent = await stripe.paymentIntents.create({
@@ -742,6 +745,25 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
 
                             </RadioGroup>
                         </div>
+                        {showSetKey &&
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="key" className="block text-md font-medium text-gray-700">
+                                    Payment intent ID
+                                </label>
+                                <TextField
+                                    type="password"
+                                    autoComplete="key"
+                                    placeholder="Key"
+                                    name="key"
+                                    variant="outlined"
+                                    sx={sxTextField}
+                                    value={key}
+                                    onChange={(e) =>
+                                        setKey(e.target.value)
+                                    }
+                                />
+                            </div>
+                        }
                         <div className="flex justify-end gap-5">
                             <button className="px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
                                 // disabled={activeStep === 1}
@@ -753,7 +775,13 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                 Back
                             </button>
                             <button
-                                onClick={handlePayNow}
+                                onClick={() => {
+                                    if (showSetKey) {
+                                        handlePayNow()
+                                    } else {
+                                        setShowSetKey(true)
+                                    }
+                                }}
                                 className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group">
@@ -832,6 +860,25 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                                             transition-opacity duration-500
                                                             -z-5`}></div>
                                     </div>
+                                    {showSetKey &&
+                                        <div className="flex flex-col gap-1">
+                                            <label htmlFor="key" className="block text-md font-medium text-gray-700">
+                                                Payment intent ID
+                                            </label>
+                                            <TextField
+                                                type="password"
+                                                autoComplete="key"
+                                                placeholder="Key"
+                                                name="key"
+                                                variant="outlined"
+                                                sx={sxTextField}
+                                                value={key}
+                                                onChange={(e) =>
+                                                    setKey(e.target.value)
+                                                }
+                                            />
+                                        </div>
+                                    }
                                     <div className="flex justify-end gap-5">
                                         <button className="px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
                                             // disabled={activeStep === 1}
@@ -843,7 +890,13 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                             Back
                                         </button>
                                         <button
-                                            onClick={handlePayNow}
+                                            onClick={() => {
+                                                if (showSetKey) {
+                                                    handlePayNow()
+                                                } else {
+                                                    setShowSetKey(true)
+                                                }
+                                            }}
                                             className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group">
