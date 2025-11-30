@@ -1078,11 +1078,19 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                 <section
                     data-aos="fade-up"
                     data-aos-duration="3000"
-                    className={`${taxonsRetrieve?.data.attributes.header_url ? 'shadow-xl rounded-xl' : ''} relative w-full  overflow-hidden  group`}>
+                    className={`${taxonsRetrieve?.data.attributes.header_url ? 'shadow-xl ' : ''} rounded-xl relative w-full  overflow-hidden  group`}>
                     {/* Ảnh nền */}
                     {!taxonsRetrieve ?
                         <>
-                            <div className=" border-b-[2px] border-b-gray-200 grid gap-3 pb-5 w-full">
+                            <img
+                                src="https://cdn.vendo.dev/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQ3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--2ea59e9a7f3e0127203fa19260ee4f0c827a725d/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwic2F2ZXIiOnsic3RyaXAiOnRydWUsInF1YWxpdHkiOjc1LCJsb3NzbGVzcyI6ZmFsc2UsImFscGhhX3EiOjg1LCJyZWR1Y3Rpb25fZWZmb3J0Ijo2LCJzbWFydF9zdWJzYW1wbGUiOnRydWV9LCJyZXNpemVfdG9fbGltaXQiOls2NDAsbnVsbF19LCJwdXIiOiJ2YXJpYXRpb24ifX0=--d96e3e5279c093271eeb921db9065be22fee62e4/Image%20banner.jpg"
+                                alt="banner"
+                                className="w-full aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            {/* Lớp phủ gradient tối giúp chữ nổi */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+
+                            <div className="absolute left-0 bottom-0  p-10 text-white z-10 w-3/4 grid gap-3">
                                 <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
                                     Shop all
                                 </h3>

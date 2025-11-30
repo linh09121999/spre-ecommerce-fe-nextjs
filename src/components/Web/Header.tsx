@@ -1,16 +1,20 @@
 "use client"
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Nav from './Nav';
 import {
     TextField,
     InputAdornment, MenuItem, Menu,
-    IconButton, Avatar, Stack, Badge, styled, Backdrop
+    IconButton, Avatar, Stack, Badge, styled, Backdrop,
+    Autocomplete,
+    debounce,
+    CircularProgress,
+    Typography
 } from '@mui/material'
 import type { SxProps, Theme } from "@mui/material/styles";
-import { keyframes } from "@mui/system";
+import { Box, keyframes } from "@mui/system";
 
 import { useStateGeneral } from '@/useState/useStateGeneralStoreFront';
-import { useState_ResAccount, useState_ResStores, useState_ResTaxons } from '@/useState/useStatestorefront';
+import { useState_ResAccount, useState_ResProducts, useState_ResStores, useState_ResTaxons } from '@/useState/useStatestorefront';
 import { FaRegHeart, FaRegUser } from 'react-icons/fa';
 import { MdOutlineSettings, MdOutlineShoppingCart } from 'react-icons/md';
 import { IoMdSearch } from 'react-icons/io';
@@ -26,6 +30,8 @@ import { RetrieveAnAccount } from '@/service/storefront/account';
 import { LuLayoutDashboard } from 'react-icons/lu';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
+import { ListAllProducts } from '@/service/storefront/products';
+import { IncludedImage } from '@/interface/interface';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     width: '35px',
@@ -126,7 +132,7 @@ const HeaderWeb: React.FC = () => {
         },
 
         '& .MuiInputBase-input': {
-            color: 'var(--color-green-300)',
+            // color: 'var(--color-green-300)',
             paddingLeft: '14px',
             fontSize: 'var(--text-lg)',
             border: 'none',
@@ -211,16 +217,65 @@ const HeaderWeb: React.FC = () => {
         },
     }
 
+    const componentsProps: SxProps<Theme> = {
+        paper: {
+            sx: {
+                background: 'rgb(255,255,255)',
+                backdropFilter: 'blur(20px)',
+                zIndex: 100,
+                minHeight: '70px',
+                '& .MuiAutocomplete-noOptions': {
+                    minHeight: '30px !important',
+                    // color: 'var(--color-green-600) !important',
+                },
+                '& .MuiAutocomplete-option': {
+                    minHeight: '30px !important',
+                    // color: 'var(--color-green-600) !important',
+                },
+                '& .MuiAutocomplete-option:hover': {
+                    background: 'rgb(255,255,255,0.4)',
+                    backdropFilter: 'blur(10px)',
+                    color: 'var(--color-green-600) !important',
+                    fontWeight: 600
+                },
+                '& .MuiAutocomplete-option[aria-selected="true"]': {
+                    background: 'rgb(255,255,255,0.4)',
+                    backdropFilter: 'blur(10px)',
+                    color: 'var(--color-green-600) !important',
+                    fontWeight: 600
+                }
+            }
+        }
+    }
 
     const router = useRouter();
 
     const { setResStores } = useState_ResStores()
     const { resTaxons_List, setResTaxons_List } = useState_ResTaxons()
     const { resAccount, setResAccount } = useState_ResAccount()
+    const { resDataIcludes_Search, resDataProducts_Search, setResDataIcludes_Search, setResDataProduct_Search } = useState_ResProducts()
+
+    const [loadingSearch, setLoadingSearch] = useState<boolean>(false)
+
+    const getApiProducts = async (filter_name: string, page: number, per_page: number, include: string) => {
+        try {
+            setLoadingSearch(true)
+            const res = await ListAllProducts({ filter_name, page, per_page, include })
+            setResDataProduct_Search(res.data.data);
+            setResDataIcludes_Search(res.data.included)
+        } catch (error: any) {
+            toast.error(`Products: ` + error.response.data.error)
+            setResDataProduct_Search([])
+            setResDataIcludes_Search([])
+        }
+        finally {
+            setLoadingSearch(false);
+        }
+    }
 
     const {
         setLoading, heartNumber,
-        setIsSearch, isSearch,
+        setIsSearch, isSearch, loading,
         hoveredNav, setHoveredNav } = useStateGeneral()
 
     const getApiStores = async () => {
@@ -424,6 +479,64 @@ const HeaderWeb: React.FC = () => {
             router.push('/login')
         }
     }
+    const lastQueryRef = useRef("");
+    const [selectSearchSlug, setSelectSearchSlug] = useState<string | null>(null)
+
+    const debouncedFetch = useMemo(
+        () =>
+            debounce(async (value: string) => {
+                const trimmed = value.trim();
+                // Nếu từ khóa giống lần trước thì bỏ qua (chặn call liên tục)
+                if (trimmed === lastQueryRef.current) return;
+
+                lastQueryRef.current = trimmed;
+
+                if (trimmed.length > 0) {
+                    getApiProducts(trimmed, 1, 25, "default_variant,variants,option_types,product_properties,taxons,images,primary_variant")
+                } else {
+                    setResDataProduct_Search([])
+                    setResDataIcludes_Search([])
+                }
+            }, 400),
+        []
+    );
+
+
+    const handleChangeSearch = (_: any, newValue: { slug: string, name: string } | null) => {
+        if (!newValue) return;
+        setSelectSearchSlug(newValue.slug)
+        // Clear kết quả tìm kiếm sau khi chọn
+        setResDataProduct_Search([])
+        setResDataIcludes_Search([])
+        lastQueryRef.current = "";
+        router.push(`/product/${newValue.slug}`)
+    };
+
+    const handleInputChange = (_: any, value: string, reason: string) => {
+        // MUI gọi event "reset" khi chọn option → bỏ qua tránh gọi lại API
+        if (reason === "reset") return;
+
+        // Nếu input rỗng, clear kết quả ngay lập tức
+        if (value.trim().length === 0) {
+            setResDataProduct_Search([])
+            setResDataIcludes_Search([])
+            lastQueryRef.current = "";
+        } else {
+            debouncedFetch(value);
+        }
+    };
+
+    useEffect(() => {
+        return () => {
+            debouncedFetch.clear();
+        };
+    }, [debouncedFetch]);
+
+    const priceInfo = (price: string, comparePrice: string | null) => {
+        return comparePrice && comparePrice > price
+            ? Math.round(((parseFloat(comparePrice) - parseFloat(price)) / parseFloat(comparePrice)) * 100)
+            : 0;
+    }
 
     return (
         <>
@@ -569,7 +682,138 @@ const HeaderWeb: React.FC = () => {
                         >
                             <>
                                 <div className="w-full md:w-[600px] sm:w-auto ">
-                                    <TextField
+                                    <Autocomplete
+                                        noOptionsText={loadingSearch ?
+                                            < Backdrop
+                                                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                                                open={loading}
+                                            >
+                                                <CircularProgress color="inherit" />
+                                            </Backdrop>
+                                            : <p className='text-center h-full items-center'>There is no data</p>}
+                                        options={resDataProducts_Search}
+                                        componentsProps={componentsProps}
+                                        getOptionLabel={(option) => option.attributes.name}
+                                        renderOption={(props, option) => {
+                                            const { key, ...optionProps } = props;
+                                            const getProductImage = () => {
+                                                try {
+                                                    if (!option.relationships?.images?.data?.length) return null;
+
+                                                    const imageId = option.relationships.images.data[0].id;
+                                                    const imageData = resDataIcludes_Search?.find(
+                                                        (item): item is IncludedImage => item.type === 'image' && item.id === imageId
+                                                    );
+
+                                                    return imageData?.attributes?.original_url || null;
+                                                } catch (error) {
+                                                    console.error('Error loading product image:', error);
+                                                    return null;
+                                                }
+                                            };
+
+                                            const productImage = getProductImage();
+                                            return (
+                                                <Box
+                                                    key={key}
+                                                    component="li"
+                                                    sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                                                    {...optionProps}
+                                                >
+                                                    <Box sx={{ display: 'flex', alignItems: 'center', py: 1, gap: 2 }}>
+                                                        {productImage ? (
+                                                            <div className="relative overflow-hidden rounded-xl w-21 h-21">
+                                                                <img src={productImage} alt={option.attributes.name} />
+                                                                <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                                                                {(option.attributes.compare_at_price && priceInfo(option.attributes.price, option.attributes.compare_at_price) > 0) &&
+                                                                    <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
+                                                                        -{priceInfo(option.attributes.price, option.attributes.compare_at_price)}%
+                                                                    </span>
+                                                                }
+                                                            </div>
+
+                                                        ) : (
+                                                            // Placeholder khi không có image
+                                                            <Box
+                                                                sx={{
+                                                                    width: 60,
+                                                                    height: 60,
+                                                                    bgcolor: 'grey.200',
+                                                                    mr: 2,
+                                                                    borderRadius: 1,
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    justifyContent: 'center',
+                                                                    flexShrink: 0
+                                                                }}
+                                                            >
+                                                                <span style={{ color: 'grey.500', fontSize: 12 }}>No Image</span>
+                                                            </Box>
+                                                        )}
+
+                                                        <Box>
+                                                            <Typography variant="body1" fontWeight="medium">
+                                                                {option.attributes.name}
+                                                            </Typography>
+                                                            <div className="flex items-center gap-3">
+                                                                <span className="text-xl font-semibold text-green-700">${option.attributes.price}</span>
+                                                                {Number(option.attributes.compare_at_price) > 0 && (
+                                                                    <span className="text-gray-400 line-through text-sm">
+                                                                        ${option.attributes.compare_at_price}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        </Box>
+                                                    </Box>
+                                                </Box>
+                                            );
+                                        }}
+                                        filterOptions={(x) => x}
+                                        value={
+                                            selectSearchSlug
+                                                ? resDataProducts_Search.find((c) => c.attributes.slug === selectSearchSlug) ?? undefined
+                                                : null
+                                        }
+                                        // onChange={handleChangeSearch}
+                                        onInputChange={handleInputChange}
+                                        renderInput={(params) => (
+                                            <TextField  {...params}
+                                                type="search"
+                                                placeholder="Search of name..."
+                                                sx={sxTextField}
+                                                InputProps={{
+                                                    ...params.InputProps,
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                className='group relative transition-all duration-300 hover:scale-105'
+                                                                sx={sxButtonSearch}
+                                                            >
+                                                                <div className="relative flex items-center">
+                                                                    <IoMdSearch className="mx-auto text-green-600 group-hover:text-white transition" />
+                                                                </div>
+                                                                <div className="absolute inset-0 overflow-hidden">
+                                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                                </div>
+                                                                <div className="absolute inset-0 rounded-[25px] animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                            </IconButton>
+                                                            < IconButton
+                                                                sx={sxButton}
+                                                                onClick={() => {
+                                                                    setIsSearch(false)
+                                                                    setResDataProduct_Search([])
+                                                                    setResDataIcludes_Search([])
+                                                                }}>
+                                                                <IoClose className=" mx-auto" />
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+
+                                            />
+                                        )}
+                                    />
+                                    {/* <TextField
                                         type="search"
                                         placeholder="Search..."
                                         sx={sxTextField}
@@ -598,7 +842,7 @@ const HeaderWeb: React.FC = () => {
                                                 </InputAdornment>
                                             ),
                                         }}
-                                    />
+                                    /> */}
                                 </div>
                             </>
                         </Backdrop>

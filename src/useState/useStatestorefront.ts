@@ -230,6 +230,11 @@ interface State_ResProducts {
 
     resProduct_Cart: ResProduct_Retrieve[]
     setResProduct_Cart: React.Dispatch<React.SetStateAction<ResProduct_Retrieve[]>>
+
+    resDataProducts_Search: Product[]
+    setResDataProduct_Search: React.Dispatch<React.SetStateAction<Product[]>>
+    resDataIcludes_Search: IncludedItem[]
+    setResDataIcludes_Search: React.Dispatch<React.SetStateAction<IncludedItem[]>>
 }
 
 export const useState_ResProducts = create<State_ResProducts>((set) => ({
@@ -293,6 +298,19 @@ export const useState_ResProducts = create<State_ResProducts>((set) => ({
         set((state) => ({
             resProduct_Cart:
                 typeof value === "function" ? value(state.resProduct_Cart) : value,
+        })),
+
+    resDataProducts_Search: [],
+    setResDataProduct_Search: (value) =>
+        set((state) => ({
+            resDataProducts_Search:
+                typeof value === "function" ? value(state.resDataProducts_Search) : value,
+        })),
+    resDataIcludes_Search: [],
+    setResDataIcludes_Search: (value) =>
+        set((state) => ({
+            resDataIcludes_Search:
+                typeof value === "function" ? value(state.resDataIcludes_Search) : value,
         })),
 }))
 
