@@ -197,7 +197,7 @@ const FooterWeb: React.FC = () => {
                         </p>
                     </div>
 
-                    <div className='grid md:grid-cols-3 gap-5'>
+                    <div className='grid grid-cols-2 md:grid-cols-3 gap-5'>
                         {/* Shop */}
                         <div className="flex flex-col gap-4">
                             <h3 className="text-xl font-semibold tracking-wide">Shop</h3>
