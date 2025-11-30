@@ -14,6 +14,7 @@ import { IoMdSearch } from "react-icons/io";
 import { toast, ToastContainer } from "react-toastify";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Image from 'next/image';
 
 interface ListProduct extends ProductCardProps {
     taxonsRetrieve: ResTaxons_Retrieve;
@@ -1092,7 +1093,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                         <>
                             {taxonsRetrieve?.data.attributes.header_url ?
                                 <>
-                                    <img
+                                    <Image
                                         src={taxonsRetrieve?.data.attributes.header_url}
                                         alt={taxonsRetrieve?.data.attributes.name}
                                         className="w-full aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
@@ -1138,7 +1139,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                 </section>
                 {products.length === 0 ?
                     <div className="flex flex-col gap-1">
-                        <img src="../../No_Product_Found.png" alt="no product" className="w-[300px] opacity-50 mx-auto" />
+                        <Image src="../../No_Product_Found.png" alt="no product" className="w-[300px] opacity-50 mx-auto" />
                     </div>
                     :
                     <div className="grid lg:grid-cols-[300px_1fr] gap-10">

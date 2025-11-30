@@ -26,7 +26,7 @@ import { RetrieveAnAccount } from '@/service/storefront/account';
 import { LuLayoutDashboard } from 'react-icons/lu';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
-
+import Image from 'next/image';
 const StyledBadge = styled(Badge)(({ theme }) => ({
     width: '35px',
     height: '35px',
@@ -435,7 +435,7 @@ const HeaderWeb: React.FC = () => {
                     <a onClick={() => {
                         router.push('/')
                     }}>
-                        <img className="w-30 custom-desktop-height "
+                        <Image className="w-30 custom-desktop-height "
                             alt="Spree Commerce DEMO logo"
                             src="../../LogoFullBlack.webp" />
                     </a>
@@ -649,7 +649,9 @@ const HeaderWeb: React.FC = () => {
                                 ))}
                                 {filteredFashionImg?.map((data, id) => (
                                     <div key={id} className='flex-grow gap-4 flex flex-col '>
-                                        <img src={data.attributes.header_url} alt={data.attributes.name} className='rounded-xl' />
+                                        {data.attributes.header_url &&
+                                            <Image src={data.attributes.header_url} alt={data.attributes.name} className='rounded-xl' />
+                                        }
                                     </div>
                                 ))}
                             </div>
@@ -697,7 +699,7 @@ const HeaderWeb: React.FC = () => {
                                     <>
                                         {data.attributes.header_url &&
                                             <div key={id} className='flex-grow gap-4 flex flex-col '>
-                                                <img src={data.attributes.header_url} alt={data.attributes.name} />
+                                                <Image src={data.attributes.header_url} alt={data.attributes.name} />
                                             </div>
                                         }
                                     </>

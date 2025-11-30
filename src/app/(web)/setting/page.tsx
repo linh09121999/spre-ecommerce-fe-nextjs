@@ -30,6 +30,7 @@ import {
     Elements,
 } from '@stripe/react-stripe-js';
 import StripePaymentForm from '@/components/stripePaymentForm';
+import Image from 'next/image';
 
 const SettingWeb: React.FC = () => {
     const sxTextField: SxProps<Theme> = {
@@ -998,7 +999,7 @@ const SettingWeb: React.FC = () => {
                             </h3>
                             <div className="grid">
                                 <div className="flex flex-col gap-1">
-                                    <img src="../../gift-card.svg" alt="no gift" className="w-[200px] opacity-10 mx-auto" />
+                                    <Image src="../../gift-card.svg" alt="no gift" className="w-[200px] opacity-10 mx-auto" />
                                     <p className="text-center text-gray-500 text-md">You currently have no gift cards</p>
                                 </div>
                             </div>

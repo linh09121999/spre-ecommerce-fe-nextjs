@@ -2,7 +2,7 @@ import { ColorOption, IncludedImage, IncludedVariant, IncludedTaxon, PriceInfo, 
 import { Product } from '@/interface/responseData/interfaceStorefront';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-
+import Image from 'next/image';
 const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => {
     const router = useRouter();
     const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({});
@@ -212,7 +212,7 @@ const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => 
                         {/* --- Product Image --- */}
                         <div className="relative overflow-hidden group-hover:rounded-t-xl">
                             {displayImage ? (
-                                <img
+                                <Image
                                     src={displayImage}
                                     alt={product.attributes.name}
                                     onError={handleImageError}

@@ -6,6 +6,7 @@ import { useStateGeneral } from '@/useState/useStateGeneralStoreFront';
 import { useState_ResPosts } from '@/useState/useStatestorefront';
 import { ListAllPost } from '@/service/storefront/posts';
 import { FaArrowLeft } from 'react-icons/fa';
+import Image from 'next/image';
 
 const Posts: React.FC = () => {
     const router = useRouter();
@@ -57,7 +58,7 @@ const Posts: React.FC = () => {
                             }}
                         >
                             <div className="relative group overflow-hidden rounded-xl shadow-lg">
-                                <img src={res.attributes.image_url!} alt={res.attributes.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                <Image src={res.attributes.image_url!} alt={res.attributes.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity"></div>
                                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-b-md">
                                     <h3 className="text-xl text-white font-semibold mt-1">{res.attributes.title}</h3>
