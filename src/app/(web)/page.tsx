@@ -163,7 +163,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch max-md:hidden">
           {resTaxons_List?.data
             .filter(({ attributes }) =>
               ["categories/fashion/men", "categories/fashion/women"].includes(
@@ -206,7 +206,7 @@ const Home: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             <ListProductCard products={resDataProducts_SaleList ?? []} included={resDataIcludes_SaleList ?? []} />
           </div>
         </section>
@@ -224,7 +224,7 @@ const Home: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             <ListProductCard products={resDataProducts_NewList ?? []} included={resDataIcludes_NewList ?? []} />
           </div>
         </section>
