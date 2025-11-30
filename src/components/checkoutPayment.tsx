@@ -350,11 +350,11 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
         }
     };
 
-    const [key, setKey] = useState<string>("")
-    const [showSetKey, setShowSetKey] = useState<boolean>(false)
+    // const [key, setKey] = useState<string>("")
+    // const [showSetKey, setShowSetKey] = useState<boolean>(false)
 
     const handlePayNow = async () => {
-        const stripe = new Stripe(key);
+        const stripe = new Stripe('sk_test_51SWqj0BuXLUBsTeOJKdqHvV341Rwc1YtM2eEqmwz4WX5j3WX52u8jGn8OTOGEGD7mWUMxtmzIiLA51Xvh3OWTn0q00dOFMy5Pw');
         try {
             setLoading(true)
             const paymentIntent = await stripe.paymentIntents.create({
@@ -745,7 +745,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
 
                             </RadioGroup>
                         </div>
-                        {showSetKey &&
+                        {/* {showSetKey &&
                             <div className="flex flex-col gap-1">
                                 <label htmlFor="key" className="block text-md font-medium text-gray-700">
                                     Payment intent ID
@@ -763,7 +763,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                     }
                                 />
                             </div>
-                        }
+                        } */}
                         <div className="flex justify-end gap-5">
                             <button className="px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
                                 // disabled={activeStep === 1}
@@ -776,11 +776,11 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                             </button>
                             <button
                                 onClick={() => {
-                                    if (showSetKey) {
+                                    // if (showSetKey) {
                                         handlePayNow()
-                                    } else {
-                                        setShowSetKey(true)
-                                    }
+                                    // } else {
+                                    //     setShowSetKey(true)
+                                    // }
                                 }}
                                 className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
@@ -860,7 +860,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                                             transition-opacity duration-500
                                                             -z-5`}></div>
                                     </div>
-                                    {showSetKey &&
+                                    {/* {showSetKey &&
                                         <div className="flex flex-col gap-1">
                                             <label htmlFor="key" className="block text-md font-medium text-gray-700">
                                                 Payment intent ID
@@ -878,7 +878,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                                 }
                                             />
                                         </div>
-                                    }
+                                    } */}
                                     <div className="flex justify-end gap-5">
                                         <button className="px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
                                             // disabled={activeStep === 1}
@@ -891,11 +891,11 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                         </button>
                                         <button
                                             onClick={() => {
-                                                if (showSetKey) {
+                                                // if (showSetKey) {
                                                     handlePayNow()
-                                                } else {
-                                                    setShowSetKey(true)
-                                                }
+                                                // } else {
+                                                //     setShowSetKey(true)
+                                                // }
                                             }}
                                             className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
