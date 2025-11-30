@@ -17,7 +17,6 @@ import { Product, WishListItem } from "@/interface/responseData/interfaceStorefr
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { BsBox2Heart } from "react-icons/bs";
-import Image from 'next/image';
 
 const HeartFrom: React.FC = () => {
     const router = useRouter()
@@ -398,7 +397,7 @@ const HeartFrom: React.FC = () => {
                                             }}
                                             className="group relative hover:bg-gradient-to-br hover:from-white hover:via-gray-50 hover:to-gray-100 hover:rounded-xl hover:shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden border border-transparent hover:border-gray-100" key={res.id}>
                                             <div className="relative overflow-hidden hover:rounded-t-xl">
-                                                <Image src={res.original_url} alt={`img ${res.id}`}
+                                                <img src={res.original_url} alt={`img ${res.id}`}
                                                     className="w-full aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
@@ -448,7 +447,7 @@ const HeartFrom: React.FC = () => {
                                 </div>
                                 :
                                 <div className="flex flex-col gap-5 justify-center items-center">
-                                    <Image className="w-56" src="../../no-items-in-wishlist.webp" alt="no items in wishlist" />
+                                    <img className="w-56" src="../../no-items-in-wishlist.webp" alt="no items in wishlist" />
                                     <button
                                         onClick={() => router.push('/all-product')}
                                         className="flex items-center justify-center gap-2 group transition-all duration-300 text-green-500 hover:text-green-700"
@@ -470,7 +469,7 @@ const HeartFrom: React.FC = () => {
                         </section>
                         :
                         <div className="flex flex-col gap-5 justify-center items-center">
-                            <Image className="w-56" src="../../no-items-in-wishlist.webp" alt="no items in wishlist" />
+                            <img className="w-56" src="../../no-items-in-wishlist.webp" alt="no items in wishlist" />
                             <p className="text-center text-gray-500 text-md">Please select wishlist</p>
 
                         </div>

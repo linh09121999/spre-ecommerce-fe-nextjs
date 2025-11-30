@@ -18,7 +18,6 @@ import CheckOutAddress from "@/components/checkOutAddress";
 import CheckoutDelivery from "@/components/checkoutDelivery";
 import CheckoutPaymetPage from "@/components/checkoutPayment";
 import { IncludedImage, IncludedVariant, ProcessedWishedItem } from "@/interface/interface";
-import Image from 'next/image';
 
 const CheckoutFrom: React.FC = () => {
     const router = useRouter()
@@ -337,7 +336,7 @@ const CheckoutFrom: React.FC = () => {
 
                         {activeStep === 4 &&
                             <div className="flex flex-col gap-5 items-center order-2 lg:order-1">
-                                <Image src="../../success.png" alt="success" className="h-30 w-30" />
+                                <img src="../../success.png" alt="success" className="h-30 w-30" />
                                 <p className="text-xl text-green-500">Thanks {filterAddressCheckout.length > 0 && filterAddressCheckout[0].attributes.firstname} for your order!</p>
                                 <div className="rounded-xl shadow-lg p-5 flex flex-col gap-3">
                                     <div className="flex gap-5">
@@ -383,7 +382,7 @@ const CheckoutFrom: React.FC = () => {
                                             <div className="flex gap-10 items-center">
                                                 <Badge badgeContent={res?.quantity} sx={sxBadge}>
                                                     <div className="relative overflow-hidden rounded-2xl ">
-                                                        <Image src={res.original_url} alt={res?.product_name} className="w-[100px] aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                                                        <img src={res.original_url} alt={res?.product_name} className="w-[100px] aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                                                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
                                                     </div>
                                                 </Badge>

@@ -18,7 +18,6 @@ import { MdOutlineErrorOutline } from 'react-icons/md';
 import { PiBarcodeBold } from 'react-icons/pi';
 import { TbTag } from 'react-icons/tb';
 import { toast, ToastContainer } from 'react-toastify';
-import Image from 'next/image';
 
 interface SelectedOptions {
     [key: string]: string;
@@ -374,7 +373,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                                 onClick={() => setSelectedImageIndex(index)}
                             >
                                 <div className="relative w-full h-full">
-                                    <Image
+                                    <img
                                         src={image.attributes.styles[2]?.url || image.attributes.original_url}
                                         alt={`${data?.attributes.name} ${index + 1}`}
                                         className="w-full h-full object-cover aspect-[1/1]"
@@ -393,7 +392,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                         rounded-xl="fade-up"
                     >
                         {mainImage && (
-                            <Image
+                            <img
                                 src={mainImage.attributes.original_url}
                                 alt={data?.attributes.name ?? ""}
                                 className="w-full h-full aspect-[1/1] object-cover transition-transform duration-700 group-hover:scale-105"

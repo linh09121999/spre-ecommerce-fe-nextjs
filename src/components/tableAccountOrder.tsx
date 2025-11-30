@@ -4,7 +4,6 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import type { SxProps, Theme } from "@mui/material/styles";
 import { useState } from "react";
 import { FaAngleDoubleLeft, FaAngleDoubleRight, FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import Image from 'next/image';
 
 const TableAccountOrder: React.FC<ResAccountOrder_ListAll> = ({ data, included, meta, links }) => {
     const sxTableCellHead: SxProps<Theme> = {
@@ -198,7 +197,7 @@ const TableAccountOrder: React.FC<ResAccountOrder_ListAll> = ({ data, included, 
                 </div>
                 :
                 <div className="flex flex-col gap-1">
-                    <Image src="../../no-order.png" alt="no order" className="w-[200px] opacity-50 mx-auto" />
+                    <img src="../../no-order.png" alt="no order" className="w-[200px] opacity-50 mx-auto" />
                     <p className="text-center text-gray-500 text-md">You don’t have any orders at the moment.</p>
                     <p className="text-center text-gray-500 text-sm">Your orders will appear here once you make a purchase.</p>
                 </div>

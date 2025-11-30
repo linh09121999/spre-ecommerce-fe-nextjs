@@ -4,10 +4,8 @@ import { ResAccountCreditCard_ListAll } from "@/interface/responseData/interface
 import { RemoveACreditCard } from "@/service/storefront/accountCreditCards";
 import { useStateGeneral } from "@/useState/useStateGeneralStoreFront";
 import { JSX } from "react";
-import { FaDivide } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { toast } from "react-toastify";
-import Image from 'next/image';
 
 interface ResAccountCreditCard_ListAll_Prop extends ResAccountCreditCard_ListAll {
     fnCredit: () => void
@@ -154,7 +152,7 @@ const ListAccountStoreCredits: React.FC<ResAccountCreditCard_ListAll_Prop> = ({ 
                                         <div className="text-white relative z-10">
                                             <div className="flex justify-between items-center">
                                                 <span className="transition-all duration-300 group-hover:scale-110">{style.logo}</span>
-                                                <Image src="../../chip.png" alt="chip" className="w-[50px] h-[36px]" />
+                                                <img src="../../chip.png" alt="chip" className="w-[50px] h-[36px]" />
                                             </div>
                                         </div>
 
@@ -231,7 +229,7 @@ const ListAccountStoreCredits: React.FC<ResAccountCreditCard_ListAll_Prop> = ({ 
                 </div >
                 :
                 <div className="flex flex-col gap-1">
-                    <Image src="../../no-cerdit.png" alt="no cerdit" className="w-[200px] opacity-30 mx-auto" />
+                    <img src="../../no-cerdit.png" alt="no cerdit" className="w-[200px] opacity-30 mx-auto" />
                     <p className="text-center text-gray-500 text-md">No usable store credits</p>
                     <p className="text-center text-gray-500 text-sm">You’ll need credits to complete payment with this method.</p>
                 </div>

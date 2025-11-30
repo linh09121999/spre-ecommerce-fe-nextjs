@@ -15,7 +15,6 @@ import { PiBarbell } from "react-icons/pi";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { FaShieldAlt, FaShippingFast, FaUndo } from "react-icons/fa";
-import Image from 'next/image';
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -153,7 +152,7 @@ const Home: React.FC = () => {
           <div className="order-1 lg:order-2 rounded-xl overflow-hidden shadow-lg"
             data-aos-duration="3000"
             data-aos="zoom-in">
-            <Image
+            <img
               src="https://cdn.vendo.dev/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQ3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--2ea59e9a7f3e0127203fa19260ee4f0c827a725d/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwic2F2ZXIiOnsic3RyaXAiOnRydWUsInF1YWxpdHkiOjc1LCJsb3NzbGVzcyI6ZmFsc2UsImFscGhhX3EiOjg1LCJyZWR1Y3Rpb25fZWZmb3J0Ijo2LCJzbWFydF9zdWJzYW1wbGUiOnRydWV9LCJyZXNpemVfdG9fbGltaXQiOls2NDAsbnVsbF19LCJwdXIiOiJ2YXJpYXRpb24ifX0=--d96e3e5279c093271eeb921db9065be22fee62e4/Image%20banner.jpg"
               alt="banner"
               className=" inset-0 w-full h-64 sm:h-80 lg:h-[500px] object-cover object-cover transition-transform duration-[2s] ease-out hover:scale-125"
@@ -180,7 +179,7 @@ const Home: React.FC = () => {
                 onClick={() => router.push(`/${res.attributes.name.toLowerCase()}`)}
               >
                 {res.attributes.header_url &&
-                  <Image
+                  <img
                     src={res.attributes.header_url} alt={res.attributes.name.toLowerCase()}
                     className="w-full h-73 object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -259,7 +258,7 @@ const Home: React.FC = () => {
                     onClick={() => router.push(`/post/${res.id}`)}
                     className="relative group cursor-pointer rounded-xl overflow-hidden shadow-md"
                   >
-                    <Image
+                    <img
                       src={res.attributes.image_url!}
                       alt={res.attributes.title}
                       className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
@@ -295,7 +294,7 @@ const Home: React.FC = () => {
                     className="cursor-pointer flex flex-col gap-3"
                   >
                     <div className="relative overflow-hidden rounded-xl group">
-                      <Image
+                      <img
                         src={res.attributes.image_url!}
                         alt={res.attributes.title}
                         className="w-full h-50 object-cover transition-transform duration-500 group-hover:scale-110"

@@ -18,7 +18,6 @@ import { FaArrowLeft, FaHeart, FaRegHeart, FaShieldAlt, FaShippingFast, FaTrashA
 import { GrAddCircle } from "react-icons/gr";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
-import Image from 'next/image';
 
 const ViewCart: React.FC = () => {
 
@@ -410,7 +409,7 @@ const ViewCart: React.FC = () => {
                         )}
                     </div>
                     {(resCart && resCart?.data.relationships.line_items.data.length === 0) ?
-                        <Image src="../../no-items-in-cart.png" alt="no items in cart" />
+                        <img src="../../no-items-in-cart.png" alt="no items in cart" />
                         :
                         <>
                             {itemsWithImages && itemsWithImages?.map((res) => (
@@ -418,7 +417,7 @@ const ViewCart: React.FC = () => {
                                     onClick={() => router.push(`/product/${res.slug}`)}
                                     className="flex group relative gap-10 flex-col md:flex-row p-5 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg">
                                     <div className="relative overflow-hidden rounded-xl ">
-                                        <Image src={res.original_url} alt={res?.product_name} className="w-[200px] aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                                        <img src={res.original_url} alt={res?.product_name} className="w-[200px] aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                                         <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
                                         {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
                                             <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">

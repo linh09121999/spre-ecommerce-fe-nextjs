@@ -6,7 +6,6 @@ import { useStateGeneral } from '@/useState/useStateGeneralStoreFront';
 import { useState_ResPosts } from '@/useState/useStatestorefront';
 import { ListAllPost, RetrieveAPost } from '@/service/storefront/posts';
 import { FaArrowLeft, FaCalendarAlt, FaUser } from 'react-icons/fa';
-import Image from 'next/image';
 const PostDetail: React.FC = () => {
     const router = useRouter();
     const params = useParams();  // Trả về object { id: '123' }
@@ -74,7 +73,7 @@ const PostDetail: React.FC = () => {
                 <div className="max-w-[1536px] mx-auto flex flex-col gap-6 px-5 py-6">
                     {/* Thumbnail */}
                     <div className="relative rounded-xl overflow-hidden group shadow-md aspect-[16/6]">
-                        <Image
+                        <img
                             src={`${resPosts_Retrieve.data.attributes.image_url}`}
                             alt={resPosts_Retrieve.data.attributes.title}
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -136,7 +135,7 @@ const PostDetail: React.FC = () => {
                             className="relative group overflow-hidden rounded-xl shadow-md cursor-pointer"
                             onClick={() => router.push(`/post/${res.id}`)}
                         >
-                            <Image
+                            <img
                                 src={res.attributes.image_url!}
                                 alt={res.attributes.title}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"

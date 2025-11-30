@@ -14,7 +14,6 @@ import { MdOutlineErrorOutline, MdOutlinePhoneIphone } from "react-icons/md"
 import { toast, ToastContainer } from "react-toastify"
 import type { SxProps, Theme } from "@mui/material"
 import { LuMapPinHouse } from "react-icons/lu"
-import Image from 'next/image';
 
 interface ResAccountAddress_ListAll_Prop extends ResAccountAddress_ListAll {
     fnListAddress: () => void
@@ -742,7 +741,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
 
                 :
                 <div className="flex flex-col gap-1">
-                    <Image src="../../no-address.webp" alt="no order" className="w-[200px] mx-auto" />
+                    <img src="../../no-address.webp" alt="no order" className="w-[200px] mx-auto" />
                     <p className="text-center text-gray-500 text-md">No addresses yet.</p>
                     <p className="text-center text-gray-500 text-sm">Add a delivery address to proceed with checkout.</p>
                 </div>
