@@ -2154,7 +2154,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                                     </MenuItem>
                                 </Menu>
                             </div>
-                            <div className="grid grid-cols-1  xl:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                                 <ListProductCard products={filteredProducts ?? []} included={included ?? []} />
                             </div>
 

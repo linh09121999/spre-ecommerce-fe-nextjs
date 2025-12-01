@@ -8,14 +8,19 @@ import {
     Autocomplete,
     debounce,
     CircularProgress,
-    Typography
+    Typography,
+    Drawer,
+    Divider,
+    List,
+    ListItem,
+    ListItemText
 } from '@mui/material'
 import type { SxProps, Theme } from "@mui/material/styles";
-import { Box, keyframes } from "@mui/system";
+import { Box, display, height, keyframes } from "@mui/system";
 
 import { useStateGeneral } from '@/useState/useStateGeneralStoreFront';
 import { useState_ResAccount, useState_ResProducts, useState_ResStores, useState_ResTaxons } from '@/useState/useStatestorefront';
-import { FaRegHeart, FaRegUser } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaRegHeart, FaRegUser } from 'react-icons/fa';
 import { MdOutlineSettings, MdOutlineShoppingCart } from 'react-icons/md';
 import { IoMdSearch } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
@@ -32,6 +37,7 @@ import { FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
 import { ListAllProducts } from '@/service/storefront/products';
 import { IncludedImage } from '@/interface/interface';
+import { RiMenuFoldLine, RiMenuUnfold3Line, RiMenuUnfoldLine } from 'react-icons/ri';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     width: '35px',
@@ -248,6 +254,55 @@ const HeaderWeb: React.FC = () => {
         }
     }
 
+    const sxPaperPropsDrawer: SxProps<Theme> = {
+        sx: {
+            background: 'white',
+            backdropFilter: 'blur(10px)'
+        }
+    }
+
+    const sxDivider: SxProps<Theme> = {
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    }
+
+    const sxListItemDrawer: SxProps<Theme> = {
+        padding: '8px 24px',
+        cursor: 'pointer',
+        '&:hover': {
+            color: 'var(--color-green-600) !important',
+            background: "linear-gradient(135deg, var(--color-green-100), var(--color-emerald-100))",
+        },
+        '& .MuiListItemIcon-root': {
+            color: 'inherit',
+            minWidth: '40px'
+        }
+    }
+
+    const sxListItemDrawer1: SxProps<Theme> = {
+        padding: '8px 40px',
+        cursor: 'pointer',
+        '&:hover': {
+            color: 'var(--color-green-600) !important',
+            background: "linear-gradient(135deg, var(--color-green-100), var(--color-emerald-100))",
+        },
+        '& .MuiListItemIcon-root': {
+            color: 'inherit',
+            minWidth: '40px'
+        }
+    }
+
+    const sxBox1Drawer = {
+        width: '100vw',
+        height: '100vh',
+        display: 'grid',
+    }
+
+    const sxPrimaryTypographyProps = {
+        fontSize: '1rem',
+        fontWeight: 'medium',
+        transition: 'all 0.3s ease',
+    }
+
     const router = useRouter();
 
     const { setResStores } = useState_ResStores()
@@ -274,7 +329,7 @@ const HeaderWeb: React.FC = () => {
     }
 
     const {
-        setLoading, heartNumber,
+        setLoading, heartNumber, pages, setSelectNav,
         setIsSearch, isSearch, loading,
         hoveredNav, setHoveredNav } = useStateGeneral()
 
@@ -538,6 +593,26 @@ const HeaderWeb: React.FC = () => {
             : 0;
     }
 
+    const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpenDrawer(newOpen);
+    };
+
+    const [showFashion, setShowFashion] = useState<boolean>(false);
+    const [showWellness, setShowWellness] = useState<boolean>(false);
+
+    const handleClickAccountDrawer = () => {
+        const token = localStorage.getItem('token')
+        if (token) {
+            setOpenDrawer(false)
+            router.push('/setting')
+        } else {
+            setOpenDrawer(false)
+            router.push('/login')
+        }
+    }
+
     return (
         <>
             <header
@@ -545,6 +620,149 @@ const HeaderWeb: React.FC = () => {
                     }`}
             >
                 <div className='max-w-[1535px] mx-auto flex justify-between items-center'>
+                    <div className='lg:hidden'>
+                        <IconButton
+                            onClick={toggleDrawer(true)}
+                        >
+                            <RiMenuUnfoldLine className='mx-auto' size={24} />
+                        </IconButton>
+                        <Drawer
+                            anchor="left"
+                            open={openDrawer}
+                            onClose={toggleDrawer(false)}
+                            PaperProps={sxPaperPropsDrawer}
+                        >
+                            <Box sx={sxBox1Drawer}>
+                                <div>
+                                    <div className='flex justify-between items-center px-[16px] py-[12px] cursor-pointer'>
+                                        <a onClick={() => {
+                                            setOpenDrawer(false)
+                                            router.push('/')
+                                        }}>
+                                            <img className="w-30 custom-desktop-height "
+                                                alt="Spree Commerce DEMO logo"
+                                                src="../../LogoFullBlack.webp" />
+                                        </a>
+                                        <IconButton onClick={toggleDrawer(false)} >
+                                            <RiMenuFoldLine className='mx-auto' size={24} />
+                                        </IconButton>
+                                    </div>
+                                    <Divider sx={sxDivider} />
+                                    <List>
+                                        {pages.map((page, index) => (
+                                            <>
+                                                <ListItem
+                                                    component="button"
+                                                    key={index}
+                                                    onClick={() => {
+                                                        if (index === 1) {
+                                                            setShowFashion(!showFashion)
+                                                        }
+                                                        else if (index === 2) {
+                                                            setShowWellness(!showWellness)
+                                                        }
+                                                        else {
+                                                            setOpenDrawer(false)
+                                                            setSelectNav(index)
+                                                            router.push(page.path)
+                                                        }
+                                                    }}
+                                                    sx={sxListItemDrawer}
+                                                >
+                                                    <div className='flex justify-between w-full items-center'>
+                                                        <ListItemText
+                                                            primary={page.title}
+                                                            primaryTypographyProps={sxPrimaryTypographyProps}
+                                                        />
+                                                        {(index === 1) &&
+                                                            <span className="">{showFashion ? <FaChevronUp size={12} /> : <FaChevronDown size={12} />}</span>
+
+                                                        }
+                                                        {(index === 2) &&
+                                                            <span className="">{showWellness ? <FaChevronUp size={12} /> : <FaChevronDown size={12} />}</span>
+
+                                                        }
+                                                    </div>
+
+                                                </ListItem>
+                                                {(showFashion && index === 1) &&
+                                                    <div className='flex flex-col'>
+                                                        {[
+                                                            { filter: filterFashionMen, title: "Men" },
+                                                            { filter: filterFashionWomen, title: "Women" },
+                                                            { filter: filterFashionAccessories, title: "Accessories" },
+                                                        ].map(({ filter, title }) => (
+                                                            <ListItem
+                                                                component="button"
+                                                                key={index}
+                                                                onClick={() => {
+                                                                    setOpenDrawer(false)
+                                                                    router.push(`/${toPath(title)}`)
+                                                                }}
+                                                                sx={sxListItemDrawer1}
+                                                            >
+                                                                <ListItemText
+                                                                    primary={title}
+                                                                    primaryTypographyProps={sxPrimaryTypographyProps}
+                                                                />
+                                                            </ListItem>
+                                                        ))}
+                                                    </div>
+                                                }
+                                                {(showWellness && index === 2) &&
+                                                    <div className='flex flex-col'>
+                                                        {[
+                                                            { filter: filterWellnessFitness, title: "Fitness" },
+                                                            { filter: filterWellnessRelaxation, title: "Relaxation" },
+                                                            { filter: filterWellnessMentalStimulation, title: "Mental Stimulation" },
+                                                            { filter: filterWellnessNutrition, title: "Nutrition" },
+                                                        ].map(({ filter, title }) => (
+                                                            <ListItem
+                                                                component="button"
+                                                                key={index}
+                                                                onClick={() => {
+                                                                    setOpenDrawer(false)
+                                                                    router.push(`/${toPath(title)}`)
+                                                                }}
+                                                                sx={sxListItemDrawer1}
+                                                            >
+                                                                <ListItemText
+                                                                    primary={title}
+                                                                    primaryTypographyProps={sxPrimaryTypographyProps}
+                                                                />
+                                                            </ListItem>
+                                                        ))}
+                                                    </div>
+                                                }
+                                            </>
+                                        ))}
+                                    </List>
+                                </div>
+                                <div className='flex flex-col gap-4 px-[24px] p-5 mt-auto'>
+                                    <button className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                            hover:from-green-600 hover:to-emerald-700 hover:shadow-xl uppercase
+                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                        onClick={handleClickAccountDrawer}
+                                    >
+                                        My Account
+                                        <div className="absolute inset-0 overflow-hidden">
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                        </div>
+                                        <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    </button>
+                                    {token &&
+                                        <button
+                                            onClick={() => {
+                                                handleLogOut()
+                                            }}
+                                            className='px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105'
+                                        >Log out</button>
+                                    }
+                                </div>
+                            </Box>
+                        </Drawer>
+                    </div>
+
                     <a onClick={() => {
                         router.push('/')
                     }}>
@@ -553,7 +771,7 @@ const HeaderWeb: React.FC = () => {
                             src="../../LogoFullBlack.webp" />
                     </a>
                     <Nav
-                        classNameUl='flex list-none gap-7 uppercase text-lg'
+                        classNameUl='flex list-none gap-7 uppercase text-lg max-lg:hidden'
                         classNameA={` size-[24px] relative cursor-pointer transiton-all duration-300 mo-underline after:absolute after:bottom-[-5px] after:left-0 after:h-[2px]  after:transistion-all after:duration-300 after:w-full after:visible after:scale-x-0 hover:after:w-full hover:after:scale-x-100  menu-item header--nav-link`}
                         classNameAActive='text-green-500 after:scale-x-100 after:bg-green-500'
                         classNameAHover=' after:scale-x-100 after:bg-gray-200'
@@ -561,14 +779,157 @@ const HeaderWeb: React.FC = () => {
                     />
                     <div className='flex justify-between gap-4 items-center'>
                         {/* search */}
-                        <button className='p-2 css-icon' aria-label='search'
-                            onClick={() => setIsSearch(true)}
-                        >
-                            <span className='text-black text-2xl max-md:text-xl svgWrapper'>
-                                <IoMdSearch className="mx-auto" />
-                            </span>
-                        </button>
+                        <div className='max-lg:hidden'>
+                            <button className='p-2 css-icon ' aria-label='search'
+                                onClick={() => setIsSearch(true)}
+                            >
+                                <span className='text-black text-2xl max-md:text-xl svgWrapper'>
+                                    <IoMdSearch className="mx-auto" />
+                                </span>
+                            </button>
+                            {isSearch &&
+                                <Backdrop
+                                    sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                                    open={isSearch}
+                                >
+                                    <>
+                                        <div className="w-full md:w-[600px] sm:w-auto ">
+                                            <Autocomplete
+                                                noOptionsText={loadingSearch ?
+                                                    < Backdrop
+                                                        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                                                        open={loading}
+                                                    >
+                                                        <CircularProgress color="inherit" />
+                                                    </Backdrop>
+                                                    : <p className='text-center h-full items-center'>There is no data</p>}
+                                                options={resDataProducts_Search}
+                                                componentsProps={componentsProps}
+                                                getOptionLabel={(option) => option.attributes.name}
+                                                renderOption={(props, option) => {
+                                                    const { key, ...optionProps } = props;
+                                                    const getProductImage = () => {
+                                                        try {
+                                                            if (!option.relationships?.images?.data?.length) return null;
 
+                                                            const imageId = option.relationships.images.data[0].id;
+                                                            const imageData = resDataIcludes_Search?.find(
+                                                                (item): item is IncludedImage => item.type === 'image' && item.id === imageId
+                                                            );
+
+                                                            return imageData?.attributes?.original_url || null;
+                                                        } catch (error) {
+                                                            console.error('Error loading product image:', error);
+                                                            return null;
+                                                        }
+                                                    };
+
+                                                    const productImage = getProductImage();
+                                                    return (
+                                                        <Box
+                                                            key={key}
+                                                            component="li"
+                                                            sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                                                            {...optionProps}
+                                                        >
+                                                            <Box sx={{ display: 'flex', alignItems: 'center', py: 1, gap: 2 }}>
+                                                                {productImage ? (
+                                                                    <div className="relative overflow-hidden rounded-xl w-21 h-21">
+                                                                        <img src={productImage} alt={option.attributes.name} />
+                                                                        <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                                                                        {(option.attributes.compare_at_price && priceInfo(option.attributes.price, option.attributes.compare_at_price) > 0) &&
+                                                                            <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
+                                                                                -{priceInfo(option.attributes.price, option.attributes.compare_at_price)}%
+                                                                            </span>
+                                                                        }
+                                                                    </div>
+
+                                                                ) : (
+                                                                    // Placeholder khi không có image
+                                                                    <Box
+                                                                        sx={{
+                                                                            width: 60,
+                                                                            height: 60,
+                                                                            bgcolor: 'grey.200',
+                                                                            mr: 2,
+                                                                            borderRadius: 1,
+                                                                            display: 'flex',
+                                                                            alignItems: 'center',
+                                                                            justifyContent: 'center',
+                                                                            flexShrink: 0
+                                                                        }}
+                                                                    >
+                                                                        <span style={{ color: 'grey.500', fontSize: 12 }}>No Image</span>
+                                                                    </Box>
+                                                                )}
+
+                                                                <Box>
+                                                                    <Typography variant="body1" fontWeight="medium">
+                                                                        {option.attributes.name}
+                                                                    </Typography>
+                                                                    <div className="flex items-center gap-3">
+                                                                        <span className="text-xl font-semibold text-green-700">${option.attributes.price}</span>
+                                                                        {Number(option.attributes.compare_at_price) > 0 && (
+                                                                            <span className="text-gray-400 line-through text-sm">
+                                                                                ${option.attributes.compare_at_price}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                </Box>
+                                                            </Box>
+                                                        </Box>
+                                                    );
+                                                }}
+                                                filterOptions={(x) => x}
+                                                value={
+                                                    selectSearchSlug
+                                                        ? resDataProducts_Search.find((c) => c.attributes.slug === selectSearchSlug) ?? undefined
+                                                        : null
+                                                }
+                                                // onChange={handleChangeSearch}
+                                                onInputChange={handleInputChange}
+                                                renderInput={(params) => (
+                                                    <TextField  {...params}
+                                                        type="search"
+                                                        placeholder="Search of name..."
+                                                        sx={sxTextField}
+                                                        InputProps={{
+                                                            ...params.InputProps,
+                                                            endAdornment: (
+                                                                <InputAdornment position="end">
+                                                                    <IconButton
+                                                                        className='group relative transition-all duration-300 hover:scale-105'
+                                                                        sx={sxButtonSearch}
+                                                                    >
+                                                                        <div className="relative flex items-center">
+                                                                            <IoMdSearch className="mx-auto text-green-600 group-hover:text-white transition" />
+                                                                        </div>
+                                                                        <div className="absolute inset-0 overflow-hidden">
+                                                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                                        </div>
+                                                                        <div className="absolute inset-0 rounded-[25px] animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                                    </IconButton>
+                                                                    < IconButton
+                                                                        sx={sxButton}
+                                                                        onClick={() => {
+                                                                            setIsSearch(false)
+                                                                            setResDataProduct_Search([])
+                                                                            setResDataIcludes_Search([])
+                                                                        }}>
+                                                                        <IoClose className=" mx-auto" />
+                                                                    </IconButton>
+                                                                </InputAdornment>
+                                                            ),
+                                                        }}
+
+                                                    />
+                                                )}
+                                            />
+                                        </div>
+                                    </>
+                                </Backdrop>
+                            }
+                        </div>
                         {/* cart */}
                         <button className='p-2 css-icon' aria-label='cart'
                             onClick={() => router.push('/cart')}
@@ -581,7 +942,7 @@ const HeaderWeb: React.FC = () => {
                                 </span>
                             </Badge >
                         </button>
-                        <button className='p-2 css-icon' aria-label='heart'
+                        <button className='p-2 css-icon ' aria-label='heart'
                             onClick={handleHeart}
                         >
                             <Badge badgeContent={heartNumber} sx={sxBadge}>
@@ -591,262 +952,91 @@ const HeaderWeb: React.FC = () => {
                             </Badge >
                         </button>
                         {/* user */}
-                        <button className='p-2 css-icon' aria-label='user'
-                            onClick={handleClickAccount}
-                        >
-                            <Stack direction="row" spacing={2}>
-                                <StyledBadge
-                                    overlap="circular"
-                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                    variant="dot"
-                                >
-                                    <Avatar
-                                        sx={sxAvata}
-                                    >
-                                        {resAccount?.data.attributes.first_name.charAt(0).toUpperCase() ?? <FaRegUser className="mx-auto" />}
-                                    </Avatar>
-                                </StyledBadge >
-                            </Stack>
-                        </button>
-                        {token &&
-                            <Menu
-                                anchorEl={anchorElAccount}
-                                open={openAccount}
-                                onClose={handleCloseAccount}
-                                PaperProps={PaperProps}
-                                MenuListProps={MenuListProps}
+                        <div className='max-lg:hidden'>
+                            <button className='p-2 css-icon ' aria-label='user'
+                                onClick={handleClickAccount}
                             >
-                                <div className='bg-green-50 px-5 text-green-900 p-2 flex gap-3 items-center'>
-                                    <Stack direction="row" spacing={2}>
-                                        <StyledBadge
-                                            overlap="circular"
-                                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                            variant="dot"
+                                <Stack direction="row" spacing={2}>
+                                    <StyledBadge
+                                        overlap="circular"
+                                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                        variant="dot"
+                                    >
+                                        <Avatar
+                                            sx={sxAvata}
                                         >
-                                            <Avatar
-                                                sx={sxAvata}
+                                            {resAccount?.data.attributes.first_name.charAt(0).toUpperCase() ?? <FaRegUser className="mx-auto" />}
+                                        </Avatar>
+                                    </StyledBadge >
+                                </Stack>
+                            </button>
+                            {token &&
+                                <Menu
+                                    anchorEl={anchorElAccount}
+                                    open={openAccount}
+                                    onClose={handleCloseAccount}
+                                    PaperProps={PaperProps}
+                                    MenuListProps={MenuListProps}
+                                >
+                                    <div className='bg-green-50 px-5 text-green-900 p-2 flex gap-3 items-center'>
+                                        <Stack direction="row" spacing={2}>
+                                            <StyledBadge
+                                                overlap="circular"
+                                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                variant="dot"
                                             >
-                                                {resAccount?.data.attributes.first_name.charAt(0).toUpperCase() ?? <FaRegUser className="mx-auto" />}
-                                            </Avatar>
-                                        </StyledBadge >
-                                    </Stack>
-                                    <div className='flex flex-col gap-1'>
-                                        <p className='flex gap-1'>{resAccount?.data.attributes.first_name} {resAccount?.data.attributes.last_name}</p>
-                                        <p>{resAccount?.data.attributes.email}</p>
-                                    </div>
-                                </div>
-                                <MenuItem sx={sxMenuItem}
-                                    onClick={() => {
-                                        // router.push('/dashboard')
-                                        window.location.href = 'https://demo.spreecommerce.org/admin_user';
-                                        setAnchorElAccount(null);
-                                    }}
-                                >
-                                    <div className='flex gap-3 items-center'>
-                                        <span className='text-xl rotate-[180deg]'><LuLayoutDashboard /></span>
-                                        <span className={` text-lg transition-all duration-300 ease-in-out`}>Dashboard</span>
-                                    </div>
-
-                                </MenuItem>
-                                <MenuItem sx={sxMenuItem}
-                                    onClick={() => {
-                                        router.push('/setting')
-                                        setAnchorElAccount(null);
-                                    }}
-                                >
-                                    <div className='flex gap-3 items-center'>
-                                        <span className='text-xl rotate-[180deg]'><MdOutlineSettings /></span>
-                                        <span className={` text-lg transition-all duration-300 ease-in-out`}>Setting</span>
-                                    </div>
-
-                                </MenuItem>
-                                <MenuItem sx={sxMenuItem}
-                                    onClick={() => {
-                                        handleLogOut()
-                                    }
-
-                                    }
-                                >
-                                    <div className='flex gap-3 items-center'>
-                                        <span className='text-xl rotate-[180deg]'><FiLogOut /></span>
-                                        <span className={` text-lg transition-all duration-300 ease-in-out`}>Logout</span>
-                                    </div>
-                                </MenuItem>
-                            </Menu>
-                        }
-                    </div>
-                    {isSearch &&
-                        <Backdrop
-                            sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-                            open={isSearch}
-                        >
-                            <>
-                                <div className="w-full md:w-[600px] sm:w-auto ">
-                                    <Autocomplete
-                                        noOptionsText={loadingSearch ?
-                                            < Backdrop
-                                                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-                                                open={loading}
-                                            >
-                                                <CircularProgress color="inherit" />
-                                            </Backdrop>
-                                            : <p className='text-center h-full items-center'>There is no data</p>}
-                                        options={resDataProducts_Search}
-                                        componentsProps={componentsProps}
-                                        getOptionLabel={(option) => option.attributes.name}
-                                        renderOption={(props, option) => {
-                                            const { key, ...optionProps } = props;
-                                            const getProductImage = () => {
-                                                try {
-                                                    if (!option.relationships?.images?.data?.length) return null;
-
-                                                    const imageId = option.relationships.images.data[0].id;
-                                                    const imageData = resDataIcludes_Search?.find(
-                                                        (item): item is IncludedImage => item.type === 'image' && item.id === imageId
-                                                    );
-
-                                                    return imageData?.attributes?.original_url || null;
-                                                } catch (error) {
-                                                    console.error('Error loading product image:', error);
-                                                    return null;
-                                                }
-                                            };
-
-                                            const productImage = getProductImage();
-                                            return (
-                                                <Box
-                                                    key={key}
-                                                    component="li"
-                                                    sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
-                                                    {...optionProps}
+                                                <Avatar
+                                                    sx={sxAvata}
                                                 >
-                                                    <Box sx={{ display: 'flex', alignItems: 'center', py: 1, gap: 2 }}>
-                                                        {productImage ? (
-                                                            <div className="relative overflow-hidden rounded-xl w-21 h-21">
-                                                                <img src={productImage} alt={option.attributes.name} />
-                                                                <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
-                                                                {(option.attributes.compare_at_price && priceInfo(option.attributes.price, option.attributes.compare_at_price) > 0) &&
-                                                                    <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
-                                                                        -{priceInfo(option.attributes.price, option.attributes.compare_at_price)}%
-                                                                    </span>
-                                                                }
-                                                            </div>
-
-                                                        ) : (
-                                                            // Placeholder khi không có image
-                                                            <Box
-                                                                sx={{
-                                                                    width: 60,
-                                                                    height: 60,
-                                                                    bgcolor: 'grey.200',
-                                                                    mr: 2,
-                                                                    borderRadius: 1,
-                                                                    display: 'flex',
-                                                                    alignItems: 'center',
-                                                                    justifyContent: 'center',
-                                                                    flexShrink: 0
-                                                                }}
-                                                            >
-                                                                <span style={{ color: 'grey.500', fontSize: 12 }}>No Image</span>
-                                                            </Box>
-                                                        )}
-
-                                                        <Box>
-                                                            <Typography variant="body1" fontWeight="medium">
-                                                                {option.attributes.name}
-                                                            </Typography>
-                                                            <div className="flex items-center gap-3">
-                                                                <span className="text-xl font-semibold text-green-700">${option.attributes.price}</span>
-                                                                {Number(option.attributes.compare_at_price) > 0 && (
-                                                                    <span className="text-gray-400 line-through text-sm">
-                                                                        ${option.attributes.compare_at_price}
-                                                                    </span>
-                                                                )}
-                                                            </div>
-                                                        </Box>
-                                                    </Box>
-                                                </Box>
-                                            );
+                                                    {resAccount?.data.attributes.first_name.charAt(0).toUpperCase() ?? <FaRegUser className="mx-auto" />}
+                                                </Avatar>
+                                            </StyledBadge >
+                                        </Stack>
+                                        <div className='flex flex-col gap-1'>
+                                            <p className='flex gap-1'>{resAccount?.data.attributes.first_name} {resAccount?.data.attributes.last_name}</p>
+                                            <p>{resAccount?.data.attributes.email}</p>
+                                        </div>
+                                    </div>
+                                    <MenuItem sx={sxMenuItem}
+                                        onClick={() => {
+                                            // router.push('/dashboard')
+                                            window.location.href = 'https://demo.spreecommerce.org/admin_user';
+                                            setAnchorElAccount(null);
                                         }}
-                                        filterOptions={(x) => x}
-                                        value={
-                                            selectSearchSlug
-                                                ? resDataProducts_Search.find((c) => c.attributes.slug === selectSearchSlug) ?? undefined
-                                                : null
-                                        }
-                                        // onChange={handleChangeSearch}
-                                        onInputChange={handleInputChange}
-                                        renderInput={(params) => (
-                                            <TextField  {...params}
-                                                type="search"
-                                                placeholder="Search of name..."
-                                                sx={sxTextField}
-                                                InputProps={{
-                                                    ...params.InputProps,
-                                                    endAdornment: (
-                                                        <InputAdornment position="end">
-                                                            <IconButton
-                                                                className='group relative transition-all duration-300 hover:scale-105'
-                                                                sx={sxButtonSearch}
-                                                            >
-                                                                <div className="relative flex items-center">
-                                                                    <IoMdSearch className="mx-auto text-green-600 group-hover:text-white transition" />
-                                                                </div>
-                                                                <div className="absolute inset-0 overflow-hidden">
-                                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                                                </div>
-                                                                <div className="absolute inset-0 rounded-[25px] animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                                            </IconButton>
-                                                            < IconButton
-                                                                sx={sxButton}
-                                                                onClick={() => {
-                                                                    setIsSearch(false)
-                                                                    setResDataProduct_Search([])
-                                                                    setResDataIcludes_Search([])
-                                                                }}>
-                                                                <IoClose className=" mx-auto" />
-                                                            </IconButton>
-                                                        </InputAdornment>
-                                                    ),
-                                                }}
+                                    >
+                                        <div className='flex gap-3 items-center'>
+                                            <span className='text-xl rotate-[180deg]'><LuLayoutDashboard /></span>
+                                            <span className={` text-lg transition-all duration-300 ease-in-out`}>Dashboard</span>
+                                        </div>
 
-                                            />
-                                        )}
-                                    />
-                                    {/* <TextField
-                                        type="search"
-                                        placeholder="Search..."
-                                        sx={sxTextField}
-                                        // onChange={(e) => setInputValueSources(e.target.value)}
-                                        // value={inputValueSources}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        className='group relative transition-all duration-300 hover:scale-105'
-                                                        sx={sxButtonSearch}
-                                                    >
-                                                        <div className="relative flex items-center">
-                                                            <IoMdSearch className="mx-auto text-green-600 group-hover:text-white transition" />
-                                                        </div>
-                                                        <div className="absolute inset-0 overflow-hidden">
-                                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                                        </div>
-                                                        <div className="absolute inset-0 rounded-[25px] animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                                    </IconButton>
-                                                    < IconButton
-                                                        sx={sxButton}
-                                                        onClick={() => setIsSearch(false)}>
-                                                        <IoClose className=" mx-auto" />
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
+                                    </MenuItem>
+                                    <MenuItem sx={sxMenuItem}
+                                        onClick={() => {
+                                            router.push('/setting')
+                                            setAnchorElAccount(null);
                                         }}
-                                    /> */}
-                                </div>
-                            </>
-                        </Backdrop>
-                    }
+                                    >
+                                        <div className='flex gap-3 items-center'>
+                                            <span className='text-xl rotate-[180deg]'><MdOutlineSettings /></span>
+                                            <span className={` text-lg transition-all duration-300 ease-in-out`}>Setting</span>
+                                        </div>
+
+                                    </MenuItem>
+                                    <MenuItem sx={sxMenuItem}
+                                        onClick={() => {
+                                            handleLogOut()
+                                        }}
+                                    >
+                                        <div className='flex gap-3 items-center'>
+                                            <span className='text-xl rotate-[180deg]'><FiLogOut /></span>
+                                            <span className={` text-lg transition-all duration-300 ease-in-out`}>Logout</span>
+                                        </div>
+                                    </MenuItem>
+                                </Menu>
+                            }
+                        </div>
+                    </div>
+
                 </div>
                 {(hoveredNav === 1 || hoveredNav === 2) &&
                     <div
