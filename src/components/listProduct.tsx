@@ -3,7 +3,7 @@ import { ProductCardProps } from "@/interface/interface";
 
 import React, { useState, useMemo, useEffect } from "react";
 import ListProductCard from "./cardListProduct";
-import { Box, Checkbox, Divider, Drawer, FormControlLabel, IconButton, InputAdornment, List, Menu, MenuItem, Slider, TextField } from "@mui/material";
+import { Box, Checkbox, Divider, Drawer, FormControlLabel, IconButton, InputAdornment, List, ListItem, Menu, MenuItem, Slider, TextField } from "@mui/material";
 import { FaCheckCircle, FaChevronDown, FaChevronUp, FaMinusCircle, FaRegCircle, FaTrashAlt } from "react-icons/fa";
 import { useStateGeneral } from "@/useState/useStateGeneralStoreFront";
 import type { SxProps, Theme } from "@mui/material/styles";
@@ -3189,11 +3189,81 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                                     </Box>
                                 </Drawer>
                                 <button
-                                    onClick={() => { toggleDrawerSort(true) }}
+                                    onClick={toggleDrawerSort(true)}
                                     className="flex items-center w-full px-5 gap-3 h-[40px] transition-all duration-300 ease border border-gray-300 hover:shadow-xl rounded-xl">
                                     <span className="w-full text-black/70 text-lg">Sort</span>
                                     <FaChevronDown size={14} />
                                 </button>
+                                <Drawer
+                                    anchor="left"
+                                    open={openDrawerSort}
+                                    onClose={toggleDrawerSort(false)}
+                                    PaperProps={sxPaperPropsDrawer}
+                                >
+                                    <Box sx={sxBox1Drawer}>
+                                        <div className="max-h-70vh flex flex-col overflow-y-auto scroll-y">
+                                            <div className='flex justify-between items-center px-[16px] py-[12px] cursor-pointer'>
+                                                <h3 className=" text-2xl">Sort</h3>
+                                                <a onClick={() => {
+                                                    setOpenDrawerSort(false)
+                                                    router.push('/')
+                                                }}>
+                                                    <img className="w-30 custom-desktop-height "
+                                                        alt="Spree Commerce DEMO logo"
+                                                        src="../../LogoFullBlack.webp" />
+                                                </a>
+                                                <IconButton onClick={toggleDrawerSort(false)} >
+                                                    <IoClose className='mx-auto' size={24} />
+                                                </IconButton>
+                                            </div>
+                                            <Divider sx={sxDivider} />
+                                            <List>
+                                                <ListItem
+                                                    onClick={() => {
+                                                        handleSortDefault()
+                                                        setOpenDrawerSort(false)
+                                                    }}
+                                                    sx={sxListItemDrawer}>Relevance</ListItem>
+                                                <ListItem
+                                                    onClick={() => {
+                                                        handleSortHighest()
+                                                        setOpenDrawerSort(false)
+                                                    }}
+                                                    sx={sxListItemDrawer}>Price (Highest)</ListItem>
+                                                <ListItem
+                                                    onClick={() => {
+                                                        handleSortLowest()
+                                                        setOpenDrawerSort(false)
+                                                    }}
+                                                    sx={sxListItemDrawer}>Price (Lowest)</ListItem>
+                                                <ListItem
+                                                    onClick={() => {
+                                                        handleSortNewest()
+                                                        setOpenDrawerSort(false)
+                                                    }}
+                                                    sx={sxListItemDrawer}>Release Date (Newest)</ListItem>
+                                                <ListItem
+                                                    onClick={() => {
+                                                        handleSortOldest()
+                                                        setOpenDrawerSort(false)
+                                                    }}
+                                                    sx={sxListItemDrawer}>Release Date (Oldest)</ListItem>
+                                                <ListItem
+                                                    onClick={() => {
+                                                        handleSortAtoZ()
+                                                        setOpenDrawerSort(false)
+                                                    }}
+                                                    sx={sxListItemDrawer}>Title (A-Z)</ListItem>
+                                                <ListItem
+                                                    onClick={() => {
+                                                        handleSortZtoA()
+                                                        setOpenDrawerSort(false)
+                                                    }}
+                                                    sx={sxListItemDrawer}>Title (Z-A)</ListItem>
+                                            </List>
+                                        </div>
+                                    </Box>
+                                </Drawer>
                             </div>
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                                 <ListProductCard products={filteredProducts ?? []} included={included ?? []} />
