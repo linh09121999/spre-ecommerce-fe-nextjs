@@ -95,7 +95,7 @@ const Home: React.FC = () => {
           <div className="order-2 lg:order-1 flex flex-col gap-10" data-aos="fade-up"
             data-aos-duration="3000"
           >
-            <div className="bg-white/60 flex flex-col gap-5 backdrop-blur-md p-8 rounded-xl shadow-md">
+            <div className="bg-white/60 flex flex-col gap-5 backdrop-blur-md lg:p-8 lg:rounded-xl lg:shadow-md">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">Explore Your Style
                 <br className="hidden sm:inline" /> With <span className="text-green-600">Spree Commerce</span></h1>
               <p className=" text-slate-600 max-w-xl">Build fully customizable eCommerce experiences with Spree’s powerful open-source platform</p>
@@ -112,14 +112,14 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </button>
               <div className="flex flex-wrap gap-3 text-xs text-slate-500">
-                <span className="px-3 py-1 rounded-full bg-indigo-50 flex justify-center items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-green-50 flex justify-center items-center gap-2">
                   <FaShippingFast className='text-green-500' />
                   <span className='text-sm'>Free shipping</span>
                 </span>
-                <span className="px-3 py-1 rounded-full bg-indigo-50 flex justify-center items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-green-50 flex justify-center items-center gap-2">
                   <FaUndo className='text-green-500' />
                   <span className='text-sm'>Easy returns</span></span>
-                <span className="px-3 py-1 rounded-full bg-indigo-50 flex justify-center items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-green-50 flex justify-center items-center gap-2">
                   <FaShieldAlt className='text-green-500 ' />
                   <span className='text-sm'>Secure payment</span>
                 </span>
@@ -140,10 +140,10 @@ const Home: React.FC = () => {
                   <button
                     key={title}
                     onClick={() => router.push(`/${toPath(title)}`)}
-                    className="flex items-center w-fit gap-3 py-1 px-3 rounded-xl hover:bg-indigo-50 transition-smooth"
+                    className="flex group items-center w-fit gap-3 py-1 px-3 rounded-xl hover:bg-green-50 transition-all duration-500"
                   >
                     <div className=" css-icon text-green-500">{icon}</div>
-                    <div className="text-sm text-slate-700">{title}</div>
+                    <div className="text-sm text-slate-700 group-hover:text-green-500 transition-all duration-500">{title}</div>
                   </button>
                 ))}
               </div>

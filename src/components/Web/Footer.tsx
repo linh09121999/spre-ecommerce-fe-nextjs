@@ -31,6 +31,9 @@ const FooterWeb: React.FC = () => {
         position: "relative",
         overflow: "hidden",
         textTransform: "none",
+        '@media(max-width: 1024px)': {
+            height: '32px',
+        },
         "&:active": { transform: "scale(0.95)" },
         "&::before": {
             content: '""',
@@ -81,6 +84,9 @@ const FooterWeb: React.FC = () => {
             fontSize: 'var(--text-xl)',
             border: '1px solid var(--color-gray-300)',
             height: '60px',
+            '@media(max-width: 1024px)': {
+                height: '45px',
+            },
             "&:hover": { borderColor: "var(--color-green-400)" },
             "& input": {
                 paddingLeft: "14px",
@@ -251,7 +257,7 @@ const FooterWeb: React.FC = () => {
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                     >
-                                        <FaFacebookF className='mx-auto'/>
+                                        <FaFacebookF className='mx-auto' />
                                         <div className="absolute inset-0 overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                         </div>
@@ -269,7 +275,7 @@ const FooterWeb: React.FC = () => {
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                     >
-                                        <BsTwitterX className='mx-auto'/>
+                                        <BsTwitterX className='mx-auto' />
                                         <div className="absolute inset-0 overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                         </div>
@@ -287,7 +293,7 @@ const FooterWeb: React.FC = () => {
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                     >
-                                        <FaInstagram className='mx-auto'/>
+                                        <FaInstagram className='mx-auto' />
                                         <div className="absolute inset-0 overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                         </div>
