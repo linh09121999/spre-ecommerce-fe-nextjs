@@ -373,7 +373,7 @@ const ViewCart: React.FC = () => {
         }
     }
 
-    const [openEdit, setOpenEdit] = useState<boolean>(false)
+    const [editMode, setEditMode] = useState<boolean>(false)
 
     return (
         <>
@@ -409,10 +409,10 @@ const ViewCart: React.FC = () => {
                                     <span className="">Clear All</span>
                                 </button>
                                 <button
-                                    onClick={() => setOpenEdit(!openEdit)}
+                                    onClick={() => setEditMode(!editMode)}
                                     className="sm:hidden flex hover:underline transition-all duration-300 items-center gap-2 text-red-500 hover:text-red-600 text-sm font-medium transition"
                                 >
-                                    <span className="">Edit</span>
+                                    <span className="">{editMode ? "Done" : "Edit"}</span>
                                 </button>
                             </>
                         )}
@@ -421,118 +421,186 @@ const ViewCart: React.FC = () => {
                         <img src="../../no-items-in-cart.png" alt="no items in cart" />
                         :
                         <>
-                            {itemsWithImages && itemsWithImages?.map((res) => (
-                                <div
-                                    onClick={() => router.push(`/product/${res.slug}`)}
-                                    className="flex group relative sm:gap-10 gap-5 flex-row p-5 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg max-[500px]:items-center">
-                                    <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[500px]:min-w-[100px] max-[500px]:min-h-[100px] max-[500px]:max-h-[100px]">
-                                        <img src={res.original_url} alt={res?.product_name} height={200} width={200} className=" aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
-                                        <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
-                                        {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
-                                            <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
-                                                -{priceInfo(res?.price, res?.compare_at_price)}%
-                                            </span>
-                                        }
-                                    </div>
-                                    <div className="flex gap-5 sm:justify-between w-full items-center">
-                                        <div className="flex flex-col gap-3 w-full">
-                                            <div className="flex flex-col gap-1">
-                                                <h3 className="sm:text-lg font-semibold text-gray-900 text-sm">{res?.product_name}</h3>
+                            <div className={`relative overflow-hidden `}>
+                                <div className={`transition-transform duration-500 ease-in-out `}>
+                                    {itemsWithImages && itemsWithImages?.map((res) => (
+                                        <div
+                                            onClick={() => router.push(`/product/${res.slug}`)}
+                                            className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 p-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center `}>
+                                            <h3 className="text-lg font-semibold text-gray-900 w-full sm:hidden">{res?.product_name}</h3>
+                                            <div className={` group grid relative sm:gap-10 gap-5 items-center w-full ${editMode ? 'max-sm:grid-cols-[1fr_100px]' : 'max-sm:grid-cols-1'}`}>
+                                                <div className={`flex relative sm:gap-10 gap-5 items-center w-full `}>
+                                                    <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[600px]:min-w-[100px] max-[600px]:min-h-[100px] max-[600px]:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
+                                                        <img src={res.original_url} alt={res?.product_name} height={200} width={200} className=" aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                                                        <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                                                        {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
+                                                            <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
+                                                                -{priceInfo(res?.price, res?.compare_at_price)}%
+                                                            </span>
+                                                        }
+                                                    </div>
+                                                    <div className={`flex gap-5 sm:justify-between w-full min-w-[200px] items-center `}>
+                                                        <div className="flex flex-col gap-3 w-full">
+                                                            <div className="flex flex-col gap-1">
+                                                                <h3 className="text-lg font-semibold text-gray-900 max-sm:hidden">{res?.product_name}</h3>
 
-                                                {res?.options_text && (
-                                                    <p className="text-gray-600 text-sm leading-relaxed">
-                                                        {res?.options_text}
-                                                    </p>
-                                                )}
-                                            </div>
-                                            <div className="flex sm:flex-col justify-between max-[420px]:flex-col gap-3">
-                                                <div className="flex items-center gap-3">
-                                                    <span className="sm:text-xl text-md font-semibold text-green-700">${res?.price}</span>
+                                                                {res?.options_text && (
+                                                                    <p className="text-gray-600 text-sm leading-relaxed">
+                                                                        {res?.options_text}
+                                                                    </p>
+                                                                )}
+                                                            </div>
+                                                            <div className="flex sm:flex-col justify-between max-[420px]:flex-col gap-3">
+                                                                <div className="flex items-center gap-3">
+                                                                    <span className="sm:text-xl text-md font-semibold text-green-700">${res?.price}</span>
 
-                                                    {Number(res?.compare_at_price) > 0 && (
-                                                        <span className="text-gray-400 line-through sm:text-sm text-[10px]">
-                                                            ${res?.compare_at_price}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                {res?.id &&
-                                                    <div className="flex items-center gap-4 flex-wrap" >
-                                                        <div className="flex items-center sm:border sm:border-gray-300 sm:rounded-lg overflow-hidden sm:shadow-sm max-sm:text-sm">
-                                                            <button
-                                                                className="sm:px-4 px-2 py-2 sm:bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors"
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation()
-                                                                    handleQuantityChange(res?.id, res?.quantity - 1)
-                                                                }}
-                                                            >
-                                                                −
-                                                            </button>
-                                                            <span className={`sm:px-5 px-3 py-2 sm:bg-white bg-gray-50 max-sm:group-hover:bg-gray-100 transition-colors max-sm:rounded-md text-center font-semibold `}>{res?.quantity ?? 0}</span>
-                                                            <button
-                                                                className="sm:px-4 px-2 py-2 sm:bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors"
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation()
-                                                                    handleQuantityChange(res?.id, res?.quantity + 1)
-                                                                }}
-                                                            >
-                                                                +
-                                                            </button>
+                                                                    {Number(res?.compare_at_price) > 0 && (
+                                                                        <span className="text-gray-400 line-through sm:text-sm text-[10px]">
+                                                                            ${res?.compare_at_price}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                                {res?.id &&
+                                                                    <div className="flex items-center gap-4 flex-wrap" >
+                                                                        <div className="flex items-center sm:border sm:border-gray-300 sm:rounded-lg overflow-hidden sm:shadow-sm max-sm:text-sm">
+                                                                            <button
+                                                                                className="sm:px-4 px-2 py-2 sm:bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors"
+                                                                                onClick={(e) => {
+                                                                                    e.stopPropagation()
+                                                                                    handleQuantityChange(res?.id, res?.quantity - 1)
+                                                                                }}
+                                                                            >
+                                                                                −
+                                                                            </button>
+                                                                            <span className={`sm:px-5 px-3 py-2 sm:bg-white bg-gray-50 max-sm:group-hover:bg-gray-100 transition-colors max-sm:rounded-md text-center font-semibold `}>{res?.quantity ?? 0}</span>
+                                                                            <button
+                                                                                className="sm:px-4 px-2 py-2 sm:bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors"
+                                                                                onClick={(e) => {
+                                                                                    e.stopPropagation()
+                                                                                    handleQuantityChange(res?.id, res?.quantity + 1)
+                                                                                }}
+                                                                            >
+                                                                                +
+                                                                            </button>
+                                                                        </div>
+
+                                                                    </div>
+                                                                }
+                                                            </div>
+
                                                         </div>
+                                                        <div className="flex-col flex gap-3 max-sm:hidden">
+                                                            <div className="text-right ">
+                                                                <p className="text-sm text-gray-500">Total</p>
+                                                                <p className="text-2xl font-bold text-green-700">
+                                                                    ${(parseFloat(res?.price) * (res?.quantity || 0)).toFixed(2)}
+                                                                </p>
+                                                            </div>
+                                                            <div className="flex gap-3 justify-center">
+                                                                {res?.variantId &&
+                                                                    <button
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation()
+                                                                            handleSaveForLater(res?.variantId, res?.quantity)
+                                                                        }}
+                                                                        aria-label="Add to Wishlist"
+                                                                        className="group w-[45px] h-[45px] bg-white border-2 border-gray-300 rounded-xl hover:border-pink-400 transition-all duration-300 hover:scale-110 shadow-md relative overflow-hidden"
+                                                                    >
+                                                                        <FaRegHeart className="text-gray-600 text-xl group-hover:text-pink-500 absolute inset-0 m-auto transition-all duration-300 group-hover:scale-110" />
+                                                                        <FaHeart className="text-pink-500 text-xl absolute inset-0 m-auto scale-0 group-hover:scale-110 transition-all duration-300" />
+
+                                                                        {/* Sparkle Effect */}
+                                                                        <div className="absolute inset-0 overflow-hidden rounded-xl">
+                                                                            <div className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-1"></div>
+                                                                            <div className="absolute top-0 right-0 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-2"></div>
+                                                                            <div className="absolute bottom-0 left-0 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-3"></div>
+                                                                        </div>
+                                                                    </button>
+                                                                }
+                                                                {res?.id &&
+                                                                    <button aria-label="delete item"
+                                                                        className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation()
+                                                                            handleRemoveItem(res?.id)
+                                                                        }}
+                                                                    >
+                                                                        <FaTrashAlt className="mx-auto" />
+                                                                        <div className="absolute inset-0 overflow-hidden">
+                                                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                                        </div>
+                                                                        <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                                    </button>
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {editMode &&
+                                                    <div className={`flex gap-3 justify-center ml-auto sm:hidden `}>
+                                                        {res?.variantId &&
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    handleSaveForLater(res?.variantId, res?.quantity)
+                                                                }}
+                                                                aria-label="Add to Wishlist"
+                                                                className="group w-[45px] h-[45px] bg-white border-2 border-gray-300 rounded-xl hover:border-pink-400 transition-all duration-300 hover:scale-110 shadow-md relative overflow-hidden"
+                                                            >
+                                                                <FaRegHeart className="text-gray-600 text-xl group-hover:text-pink-500 absolute inset-0 m-auto transition-all duration-300 group-hover:scale-110" />
+                                                                <FaHeart className="text-pink-500 text-xl absolute inset-0 m-auto scale-0 group-hover:scale-110 transition-all duration-300" />
+
+                                                                {/* Sparkle Effect */}
+                                                                <div className="absolute inset-0 overflow-hidden rounded-xl">
+                                                                    <div className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-1"></div>
+                                                                    <div className="absolute top-0 right-0 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-2"></div>
+                                                                    <div className="absolute bottom-0 left-0 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-3"></div>
+                                                                </div>
+                                                            </button>
+                                                        }
+                                                        {res?.id &&
+                                                            <button aria-label="delete item"
+                                                                className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    handleRemoveItem(res?.id)
+                                                                }}
+                                                            >
+                                                                <FaTrashAlt className="mx-auto" />
+                                                                <div className="absolute inset-0 overflow-hidden">
+                                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                                </div>
+                                                                <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                            </button>
+                                                        }
 
                                                     </div>
                                                 }
                                             </div>
-
                                         </div>
-                                        <div className="flex-col flex gap-3 max-sm:hidden">
-                                            <div className="text-right ">
-                                                <p className="text-sm text-gray-500">Total</p>
-                                                <p className="text-2xl font-bold text-green-700">
-                                                    ${(parseFloat(res?.price) * (res?.quantity || 0)).toFixed(2)}
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-3 justify-center">
-                                                {res?.variantId &&
-                                                    <button
-                                                        onClick={(e) => {
-                                                            e.stopPropagation()
-                                                            handleSaveForLater(res?.variantId, res?.quantity)
-                                                        }}
-                                                        aria-label="Add to Wishlist"
-                                                        className="group w-[45px] h-[45px] bg-white border-2 border-gray-300 rounded-xl hover:border-pink-400 transition-all duration-300 hover:scale-110 shadow-md relative overflow-hidden"
-                                                    >
-                                                        <FaRegHeart className="text-gray-600 text-xl group-hover:text-pink-500 absolute inset-0 m-auto transition-all duration-300 group-hover:scale-110" />
-                                                        <FaHeart className="text-pink-500 text-xl absolute inset-0 m-auto scale-0 group-hover:scale-110 transition-all duration-300" />
+                                    ))}
 
-                                                        {/* Sparkle Effect */}
-                                                        <div className="absolute inset-0 overflow-hidden rounded-xl">
-                                                            <div className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-1"></div>
-                                                            <div className="absolute top-0 right-0 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-2"></div>
-                                                            <div className="absolute bottom-0 left-0 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-3"></div>
-                                                        </div>
-                                                    </button>
-                                                }
-                                                {res?.id &&
-                                                    <button aria-label="delete item"
-                                                        className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation()
-                                                            handleRemoveItem(res?.id)
-                                                        }}
-                                                    >
-                                                        <FaTrashAlt className="mx-auto" />
-                                                        <div className="absolute inset-0 overflow-hidden">
-                                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                                        </div>
-                                                        <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                                    </button>
-                                                }
-
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                            ))}
+                            </div>
+                            {editMode && (
+                                <div className="sm:hidden bg-white border-t border-gray-200 pt-5 z-10">
+                                    <button
+                                        onClick={handleRemoveAllItem}
+                                        className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
+                            hover:from-rose-600 hover:to-red-700 hover:shadow-xl
+                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                    >
+                                        <FaTrashAlt />
+                                        <span>Delete All Items</span>
+                                        <div className="absolute inset-0 overflow-hidden">
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                        </div>
+                                        <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                                    </button>
+                                </div>
+                            )}
                         </>
                     }
                 </div>
