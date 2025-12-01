@@ -341,12 +341,12 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
     return (
         <>
             {/* Header Navigation */}
-            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-4 text-lg">
+            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-4 lg:text-lg text-sm">
                 <button
                     onClick={() => router.back()}
                     className="flex items-center gap-2 group transition-all duration-300"
                 >
-                    <span className="inline-flex items-center justify-center w-9 h-9 bg-white rounded-full shadow hover:shadow-lg transition-all">
+                    <span className="inline-flex items-center justify-center md:w-9 md:h-9 h-6 w-6 bg-white rounded-full shadow hover:shadow-lg transition-all">
                         <FaArrowLeft className="text-green-600 group-hover:-translate-x-1 transition-transform duration-300" />
                     </span>
                     <span className="font-medium text-gray-700 group-hover:text-green-600 transition-colors duration-300">
@@ -361,12 +361,12 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
             <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-10 px-5 py-5">
 
                 {/* Left: Images */}
-                <div className="flex gap-4">
-                    <div className="flex flex-col gap-3">
+                <div className="flex max-lg:flex-col gap-4">
+                    <div className="flex flex-col gap-3 order-2 lg:order-1">
                         {displayImages.map((image, index) => (
                             <button
                                 key={image.id}
-                                className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-x-auto scroll-x border-2 transition-all duration-300 ${index === selectedImageIndex
+                                className={` flex-shrink-0 w-20 h-20 rounded-xl overflow-x-auto scroll-x border-2 transition-all duration-300 ${index === selectedImageIndex
                                     ? "border-green-500 ring-2 ring-green-200"
                                     : "border-gray-200 hover:border-green-300"
                                     }`}
@@ -388,7 +388,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                         ))}
                     </div>
                     <div
-                        className="aspect-square rounded-xl overflow-hidden relative group shadow-lg"
+                        className="order-1 lg:order-2 aspect-square rounded-xl overflow-hidden relative group shadow-lg"
                         rounded-xl="fade-up"
                     >
                         {mainImage && (

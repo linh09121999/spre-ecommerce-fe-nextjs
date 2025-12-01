@@ -112,7 +112,7 @@ const ProductDetail: React.FC = () => {
           <h3 className="text-2xl font-semibold tracking-wide text-gray-900 relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-16 after:h-[3px] after:bg-green-500">
             You might also like</h3>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
           <ListProductCard products={resDataProducts_Related ?? []} included={resDataIcludes_Related ?? []} />
         </div>
       </div>
