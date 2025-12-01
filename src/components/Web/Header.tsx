@@ -1044,7 +1044,7 @@ const HeaderWeb: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className='lg:hidden mt-5'>
+                <div className='lg:hidden mt-3'>
                     <Autocomplete
                         noOptionsText={loadingSearch ?
                             < Backdrop
