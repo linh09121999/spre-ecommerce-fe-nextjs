@@ -373,15 +373,16 @@ const ViewCart: React.FC = () => {
         }
     }
 
+    const [openEdit, setOpenEdit] = useState<boolean>(false)
 
     return (
         <>
-            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-4 text-lg">
+            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-4 lg:text-lg text-sm">
                 <button
                     onClick={() => router.back()}
                     className="flex items-center gap-2 group transition-all duration-300"
                 >
-                    <span className="inline-flex items-center justify-center w-9 h-9 bg-white rounded-full shadow hover:shadow-lg transition-all">
+                    <span className="inline-flex items-center justify-center md:w-9 md:h-9 h-6 w-6 bg-white rounded-full shadow hover:shadow-lg transition-all">
                         <FaArrowLeft className="text-green-600 group-hover:-translate-x-1 transition-transform duration-300" />
                     </span>
                     <span className="font-medium text-gray-700 group-hover:text-green-600 transition-colors duration-300">
@@ -389,23 +390,31 @@ const ViewCart: React.FC = () => {
                     </span>
                 </button>
             </div>
-            <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 p-5">
-                <div className="flex flex-col  self-start rounded-xl bg-white p-5 flex-1 shadow-lg order-2 lg:order-1">
+            <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] sm:gap-10 gap-5 lg:p-5 px-5 pb-5">
+                <div className="flex flex-col  self-start rounded-xl bg-white p-5 flex-1 shadow-lg ">
                     <div className="flex items-center justify-between pb-4 border-b border-gray-200">
                         <div>
-                            <h1 className="text-2xl font-bold">Your Cart</h1>
+                            <h1 className="sm:text-2xl font-bold text-xl">Your Cart</h1>
                             <p className="text-sm text-slate-500 mt-1">Review items, adjust quantities, and complete your purchase.</p>
                         </div>
 
                         {/* Delete All */}
                         {resCart && resCart?.data.relationships.line_items.data.length > 0 && (
-                            <button
-                                onClick={handleRemoveAllItem}
-                                className="flex hover:underline transition-all duration-300 items-center gap-2 text-red-500 hover:text-red-600 text-sm font-medium transition"
-                            >
-                                <FaTrashAlt className="text-red-500" />
-                                Clear All
-                            </button>
+                            <>
+                                <button
+                                    onClick={handleRemoveAllItem}
+                                    className="max-sm:hidden flex hover:underline transition-all duration-300 items-center gap-2 text-red-500 hover:text-red-600 text-sm font-medium transition"
+                                >
+                                    <FaTrashAlt className="text-red-500" />
+                                    <span className="">Clear All</span>
+                                </button>
+                                <button
+                                    onClick={() => setOpenEdit(!openEdit)}
+                                    className="sm:hidden flex hover:underline transition-all duration-300 items-center gap-2 text-red-500 hover:text-red-600 text-sm font-medium transition"
+                                >
+                                    <span className="">Edit</span>
+                                </button>
+                            </>
                         )}
                     </div>
                     {(resCart && resCart?.data.relationships.line_items.data.length === 0) ?
@@ -415,9 +424,9 @@ const ViewCart: React.FC = () => {
                             {itemsWithImages && itemsWithImages?.map((res) => (
                                 <div
                                     onClick={() => router.push(`/product/${res.slug}`)}
-                                    className="flex group relative gap-10 flex-col md:flex-row p-5 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg">
-                                    <div className="relative overflow-hidden rounded-xl ">
-                                        <img src={res.original_url} alt={res?.product_name} className="w-[200px] aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                                    className="flex group relative sm:gap-10 gap-5 flex-row p-5 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg max-[500px]:items-center">
+                                    <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[500px]:min-w-[100px] max-[500px]:min-h-[100px] max-[500px]:max-h-[100px]">
+                                        <img src={res.original_url} alt={res?.product_name} height={200} width={200} className=" aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                                         <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
                                         {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
                                             <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
@@ -425,10 +434,10 @@ const ViewCart: React.FC = () => {
                                             </span>
                                         }
                                     </div>
-                                    <div className="flex gap-5 justify-between w-full items-center">
-                                        <div className="flex flex-col gap-3">
+                                    <div className="flex gap-5 sm:justify-between w-full items-center">
+                                        <div className="flex flex-col gap-3 w-full">
                                             <div className="flex flex-col gap-1">
-                                                <h3 className="text-lg font-semibold text-gray-900">{res?.product_name}</h3>
+                                                <h3 className="sm:text-lg font-semibold text-gray-900 text-sm">{res?.product_name}</h3>
 
                                                 {res?.options_text && (
                                                     <p className="text-gray-600 text-sm leading-relaxed">
@@ -436,45 +445,47 @@ const ViewCart: React.FC = () => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="flex items-center gap-3">
-                                                <span className="text-xl font-semibold text-green-700">${res?.price}</span>
+                                            <div className="flex sm:flex-col justify-between max-[420px]:flex-col gap-3">
+                                                <div className="flex items-center gap-3">
+                                                    <span className="sm:text-xl text-md font-semibold text-green-700">${res?.price}</span>
 
-                                                {Number(res?.compare_at_price) > 0 && (
-                                                    <span className="text-gray-400 line-through text-sm">
-                                                        ${res?.compare_at_price}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            {res?.id &&
-                                                <div className="flex items-center gap-4 flex-wrap" >
-                                                    <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-sm">
-                                                        <button
-                                                            className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation()
-                                                                handleQuantityChange(res?.id, res?.quantity - 1)
-                                                            }}
-                                                        >
-                                                            −
-                                                        </button>
-                                                        <span className={`px-5 py-2 bg-white text-center font-semibold `}>{res?.quantity ?? 0}</span>
-                                                        <button
-                                                            className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation()
-                                                                handleQuantityChange(res?.id, res?.quantity + 1)
-                                                            }}
-                                                        >
-                                                            +
-                                                        </button>
-                                                    </div>
-
+                                                    {Number(res?.compare_at_price) > 0 && (
+                                                        <span className="text-gray-400 line-through sm:text-sm text-[10px]">
+                                                            ${res?.compare_at_price}
+                                                        </span>
+                                                    )}
                                                 </div>
-                                            }
+                                                {res?.id &&
+                                                    <div className="flex items-center gap-4 flex-wrap" >
+                                                        <div className="flex items-center sm:border sm:border-gray-300 sm:rounded-lg overflow-hidden sm:shadow-sm max-sm:text-sm">
+                                                            <button
+                                                                className="sm:px-4 px-2 py-2 sm:bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    handleQuantityChange(res?.id, res?.quantity - 1)
+                                                                }}
+                                                            >
+                                                                −
+                                                            </button>
+                                                            <span className={`sm:px-5 px-3 py-2 sm:bg-white bg-gray-50 max-sm:group-hover:bg-gray-100 transition-colors max-sm:rounded-md text-center font-semibold `}>{res?.quantity ?? 0}</span>
+                                                            <button
+                                                                className="sm:px-4 px-2 py-2 sm:bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    handleQuantityChange(res?.id, res?.quantity + 1)
+                                                                }}
+                                                            >
+                                                                +
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
+                                                }
+                                            </div>
 
                                         </div>
-                                        <div className="flex-col flex gap-3">
-                                            <div className="text-right">
+                                        <div className="flex-col flex gap-3 max-sm:hidden">
+                                            <div className="text-right ">
                                                 <p className="text-sm text-gray-500">Total</p>
                                                 <p className="text-2xl font-bold text-green-700">
                                                     ${(parseFloat(res?.price) * (res?.quantity || 0)).toFixed(2)}
@@ -763,7 +774,7 @@ const ViewCart: React.FC = () => {
                         </div>
                     </div>
                 </Modal>
-                <aside className="flex flex-col gap-5 self-start order-1 lg:order-2 ">
+                <aside className="flex flex-col gap-5 self-start ">
                     <div className="flex flex-col gap-5 rounded-xl bg-white p-5 flex-1 shadow-lg">
                         <div className=" items-center pb-4 border-b border-gray-200">
                             <h3 className="text-lg font-semibold">Order summary</h3>
@@ -810,16 +821,16 @@ const ViewCart: React.FC = () => {
                                 <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             </button>
                         </div>
-                        <div className="flex flex-wrap md:grid md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
-                            <div className="flex flex-col justify-center items-center gap-2 ">
+                        <div className="sm:grid sm:grid-cols-3 flex flex-wrap gap-4 pt-4 border-t border-gray-200">
+                            <div className="flex sm:flex-col justify-center items-center gap-2 ">
                                 <FaShippingFast className='text-green-500' />
                                 <span className='text-sm'>Free shipping</span>
                             </div>
-                            <div className="flex flex-col justify-center items-center gap-2">
+                            <div className="flex sm:flex-col justify-center items-center gap-2">
                                 <FaUndo className='text-green-500' />
                                 <span className='text-sm'>Easy returns</span>
                             </div>
-                            <div className="flex flex-col justify-center items-center gap-2">
+                            <div className="flex sm:flex-col justify-center items-center gap-2">
                                 <FaShieldAlt className='text-green-500' />
                                 <span className='text-sm'>Secure payment</span>
                             </div>
