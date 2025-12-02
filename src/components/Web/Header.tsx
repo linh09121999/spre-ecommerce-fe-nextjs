@@ -34,10 +34,12 @@ import { CreateACart } from '@/service/storefront/cart';
 import { RetrieveAnAccount } from '@/service/storefront/account';
 import { LuLayoutDashboard } from 'react-icons/lu';
 import { FiLogOut } from 'react-icons/fi';
-import { useAuth } from '../contexts/AuthContext';
+import Cookies from 'js-cookie'
+
 import { ListAllProducts } from '@/service/storefront/products';
 import { IncludedImage } from '@/interface/interface';
 import { RiMenuFoldLine, RiMenuUnfold3Line, RiMenuUnfoldLine } from 'react-icons/ri';
+import { useState_ResOAuth } from '@/useState/useStateOAuth';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     width: '35px',
@@ -428,7 +430,14 @@ const HeaderWeb: React.FC = () => {
             getApiAccount("default_billing_address")
         }
     }, [])
-    const { handleLogOut } = useAuth();
+    // const { handleLogOut } = useAuth();
+    const { clearOAuth } = useState_ResOAuth.getState()
+
+    const handleLogOut = ()=>{
+        clearOAuth()
+        Cookies.remove('refresh_token')
+        window.location.reload();
+    }
 
     const [anchorElAccount, setAnchorElAccount] = useState<null | HTMLElement>(null);
     const openAccount = Boolean(anchorElAccount);
