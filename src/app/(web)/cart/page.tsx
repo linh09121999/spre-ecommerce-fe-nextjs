@@ -428,8 +428,48 @@ const ViewCart: React.FC = () => {
                                             onClick={() => router.push(`/product/${res.slug}`)}
                                             className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 p-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center `}>
                                             <h3 className="text-lg font-semibold text-gray-900 w-full sm:hidden">{res?.product_name}</h3>
-                                            <div className={` group grid relative sm:gap-10 gap-5 items-center w-full ${editMode ? 'max-sm:grid-cols-[1fr_100px]' : 'max-sm:grid-cols-1'}`}>
-                                                <div className={`flex relative sm:gap-10 gap-5 items-center w-full `}>
+                                            <div className={`max-sm:flex-row-reverse transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full ${editMode ? 'max-sm:grid-cols-1' : 'max-sm:grid-cols-1'}`}>
+                                                {editMode &&
+                                                    <div className={`flex gap-3 justify-center ml-auto sm:hidden transition-all duration-300`}>
+                                                        {res?.variantId &&
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    handleSaveForLater(res?.variantId, res?.quantity)
+                                                                }}
+                                                                aria-label="Add to Wishlist"
+                                                                className="group w-[45px] h-[45px] bg-white border-2 border-gray-300 rounded-xl hover:border-pink-400 transition-all duration-300 hover:scale-110 shadow-md relative overflow-hidden"
+                                                            >
+                                                                <FaRegHeart className="text-gray-600 text-xl group-hover:text-pink-500 absolute inset-0 m-auto transition-all duration-300 group-hover:scale-110" />
+                                                                <FaHeart className="text-pink-500 text-xl absolute inset-0 m-auto scale-0 group-hover:scale-110 transition-all duration-300" />
+
+                                                                {/* Sparkle Effect */}
+                                                                <div className="absolute inset-0 overflow-hidden rounded-xl">
+                                                                    <div className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-1"></div>
+                                                                    <div className="absolute top-0 right-0 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-2"></div>
+                                                                    <div className="absolute bottom-0 left-0 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-3"></div>
+                                                                </div>
+                                                            </button>
+                                                        }
+                                                        {res?.id &&
+                                                            <button aria-label="delete item"
+                                                                className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    handleRemoveItem(res?.id)
+                                                                }}
+                                                            >
+                                                                <FaTrashAlt className="mx-auto" />
+                                                                <div className="absolute inset-0 overflow-hidden">
+                                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                                </div>
+                                                                <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                            </button>
+                                                        }
+
+                                                    </div>
+                                                }
+                                                <div className={`flex relative sm:gap-10 gap-5 items-center w-full transition-all duration-300responsive cart`}>
                                                     <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[600px]:min-w-[100px] max-[600px]:min-h-[100px] max-[600px]:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
                                                         <img src={res.original_url} alt={res?.product_name} height={200} width={200} className=" aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                                                         <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
@@ -537,46 +577,7 @@ const ViewCart: React.FC = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {editMode &&
-                                                    <div className={`flex gap-3 justify-center ml-auto sm:hidden `}>
-                                                        {res?.variantId &&
-                                                            <button
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation()
-                                                                    handleSaveForLater(res?.variantId, res?.quantity)
-                                                                }}
-                                                                aria-label="Add to Wishlist"
-                                                                className="group w-[45px] h-[45px] bg-white border-2 border-gray-300 rounded-xl hover:border-pink-400 transition-all duration-300 hover:scale-110 shadow-md relative overflow-hidden"
-                                                            >
-                                                                <FaRegHeart className="text-gray-600 text-xl group-hover:text-pink-500 absolute inset-0 m-auto transition-all duration-300 group-hover:scale-110" />
-                                                                <FaHeart className="text-pink-500 text-xl absolute inset-0 m-auto scale-0 group-hover:scale-110 transition-all duration-300" />
 
-                                                                {/* Sparkle Effect */}
-                                                                <div className="absolute inset-0 overflow-hidden rounded-xl">
-                                                                    <div className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-1"></div>
-                                                                    <div className="absolute top-0 right-0 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-2"></div>
-                                                                    <div className="absolute bottom-0 left-0 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-3"></div>
-                                                                </div>
-                                                            </button>
-                                                        }
-                                                        {res?.id &&
-                                                            <button aria-label="delete item"
-                                                                className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation()
-                                                                    handleRemoveItem(res?.id)
-                                                                }}
-                                                            >
-                                                                <FaTrashAlt className="mx-auto" />
-                                                                <div className="absolute inset-0 overflow-hidden">
-                                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                                                </div>
-                                                                <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                                            </button>
-                                                        }
-
-                                                    </div>
-                                                }
                                             </div>
                                         </div>
                                     ))}
