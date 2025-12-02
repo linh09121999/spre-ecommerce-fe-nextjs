@@ -1,50 +1,120 @@
-
 // contexts/AuthContext.tsx
 'use client';
-import { useState_ResOAuth } from '@/useState/useStateOAuth';
-import { useEffect, useState, createContext, useContext, ReactNode } from 'react'
+
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
 interface AuthContextType {
     token: string | null;
+    handleLogin: (token: string) => void;
+    handleLogOut: () => void;
     isAuthenticated: boolean;
-    refreshAccessToken: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const { resOAuth, refreshToken } = useState_ResOAuth()
-    const [token, setToken] = useState<string | null>(resOAuth?.access_token || null)
+interface AuthProviderProps {
+    children: ReactNode;
+}
 
-    // Auto-refresh timer
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+    const [token, setToken] = useState<string | null>(null);
+    const [logoutTimer, setLogoutTimer] = useState<NodeJS.Timeout | null>(null);
+    // Thời gian timeout (30 phút)
+    const AUTO_LOGOUT_TIME = 12 * 60 * 60 * 1000; // 2 tieng phút
+
     useEffect(() => {
-        if (!resOAuth) return
+        // Kiểm tra token từ localStorage khi component mount
+        const savedToken = localStorage.getItem('token');
+        if (savedToken) {
+            setToken(savedToken);
+            startLogoutTimer();
+        }
+    }, []);
 
-        const expiresIn = resOAuth.expires_in * 1000
-        const timeout = setTimeout(async () => {
-            await refreshToken()
-            setToken(useState_ResOAuth.getState().resOAuth?.access_token || null)
-        }, expiresIn - 10_000) // refresh 10s trước khi hết hạn
+    const startLogoutTimer = () => {
+        // Clear timer cũ nếu có
+        if (logoutTimer) {
+            clearTimeout(logoutTimer);
+        }
 
-        return () => clearTimeout(timeout)
-    }, [resOAuth])
+        // Set timer mới
+        const timer = setTimeout(() => {
+            handleAutoLogout();
+        }, AUTO_LOGOUT_TIME);
 
-    const refreshAccessToken = async () => {
-        await refreshToken()
-        setToken(useState_ResOAuth.getState().resOAuth?.access_token || null)
-    }
+        setLogoutTimer(timer);
+    };
+
+
+    const resetLogoutTimer = () => {
+        startLogoutTimer();
+    };
+
+    const handleAutoLogout = () => {
+        localStorage.removeItem('token');
+        setToken(null);
+        window.location.reload();
+
+        if (logoutTimer) {
+            clearTimeout(logoutTimer);
+        }
+    };
+
+    const handleLogin = (newToken: string) => {
+        localStorage.setItem('token', newToken);
+        setToken(newToken);
+        startLogoutTimer();
+    };
+
+    const handleLogOut = () => {
+        localStorage.removeItem('token');
+        setToken(null);
+        window.location.reload();
+
+        if (logoutTimer) {
+            clearTimeout(logoutTimer);
+        }
+    };
+
+    // Lắng nghe sự kiện user activity để reset timer
+    useEffect(() => {
+        const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+
+        const handleUserActivity = () => {
+            if (token) {
+                resetLogoutTimer();
+            }
+        };
+
+        events.forEach(event => {
+            document.addEventListener(event, handleUserActivity);
+        });
+
+        return () => {
+            events.forEach(event => {
+                document.removeEventListener(event, handleUserActivity);
+            });
+        };
+    }, [token]);
 
     const value: AuthContextType = {
         token,
+        handleLogin,
+        handleLogOut,
         isAuthenticated: !!token,
-        refreshAccessToken
-    }
+    };
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
+    return (
+        <AuthContext.Provider value={value}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
 
 export const useAuth = () => {
-    const context = useContext(AuthContext)
-    if (!context) throw new Error('useAuth must be used within AuthProvider')
-    return context
-}
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};

@@ -10,8 +10,7 @@ import { GeneratingOAuthToken } from "@/service/authentication/oAuth";
 import { AuthLogin } from "@/interface/interface";
 import { useRouter } from "next/navigation";
 import { MdOutlineErrorOutline } from "react-icons/md";
-import { useState_ResOAuth } from "@/useState/useStateOAuth";
-import Cookies from 'js-cookie'
+import { useAuth } from "@/components/contexts/AuthContext";
 
 const Login: React.FC = () => {
     const rounter = useRouter()
@@ -109,8 +108,7 @@ const Login: React.FC = () => {
 
     const [errorLogin, setErrorLogin] = useState<string>('')
 
-    // const { handleLogin } = useAuth();
-    const { setResOAuth } = useState_ResOAuth.getState()
+    const { handleLogin } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -133,8 +131,8 @@ const Login: React.FC = () => {
         try {
             setLoading(true);
             const res = await GeneratingOAuthToken(data)
-            setResOAuth(res.data)
-            Cookies.set('refresh_token', res.data.refresh_token, { expires: res.data.expires_in / (60 * 60 * 24), secure: true, sameSite: 'Strict' })
+            const token = res.data.access_token
+            handleLogin(token)
             setErrorLogin("")
             if (document.referrer.includes('/register')) {
                 rounter.replace('/');
