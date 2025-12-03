@@ -7,6 +7,7 @@ import Loading from "@/components/loadling";
 import HeaderWeb from "@/components/Web/Header";
 import FooterWeb from "@/components/Web/Footer";
 import { AuthProvider } from "@/components/contexts/AuthContext";
+import { Analytics } from "@vercel/analytics/next"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -42,6 +43,7 @@ const RootLayout = ({
           <p className="w-full text-center py-2 bg-gray-100 text-sm">Welcome to the Spree Commerce Demo!</p>
           <HeaderWeb />
           <main className="min-h-[60vh]">{children}</main>
+          <Analytics />
           <FooterWeb />
         </AuthProvider>
       </body>

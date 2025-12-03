@@ -5,6 +5,7 @@ import "../../assets/css/index.css"
 import BackToTop from "@/components/BackToTop";
 import Loading from "@/components/loadling";
 import { AuthProvider } from "@/components/contexts/AuthContext";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -146,6 +147,7 @@ const RootLayout = ({
                             </div>
                         </div>
                         {children}</main>
+                        <Analytics />
                 </AuthProvider>
             </body>
         </html>
