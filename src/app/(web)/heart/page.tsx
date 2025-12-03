@@ -2,7 +2,7 @@
 import { CreateAWishlist, DeleteAWishlist, ListAllWishlists, RetrieveAWishlist } from "@/service/storefront/wishlists";
 import { useStateGeneral } from "@/useState/useStateGeneralStoreFront";
 import { useState_ResWishlists } from "@/useState/useStatestorefront";
-import { Dialog, DialogContent, Menu, MenuItem, TextField } from "@mui/material";
+import { Dialog, DialogContent, Drawer, IconButton, List, ListItem, Menu, MenuItem, TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
 import type { SxProps, Theme } from "@mui/material/styles";
 
@@ -18,6 +18,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { BsBox2Heart } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
+import { RiMenuFoldLine } from "react-icons/ri";
 
 const HeartFrom: React.FC = () => {
     const router = useRouter()
@@ -83,6 +84,26 @@ const HeartFrom: React.FC = () => {
             color: 'var(--color-green-600) !important',
             fontWeight: 600
         },
+    }
+
+    const sxPaperPropsDrawer: SxProps<Theme> = {
+        sx: {
+            background: 'white',
+            backdropFilter: 'blur(10px)'
+        }
+    }
+
+    const sxListItemDrawer: SxProps<Theme> = {
+        padding: '8px 24px',
+        cursor: 'pointer',
+        '&:hover': {
+            color: 'var(--color-green-600) !important',
+            background: "linear-gradient(135deg, var(--color-green-100), var(--color-emerald-100))",
+        },
+        '& .MuiListItemIcon-root': {
+            color: 'inherit',
+            minWidth: '40px'
+        }
     }
 
     const {
@@ -307,13 +328,9 @@ const HeartFrom: React.FC = () => {
             : 0;
     }
 
-    const [anchorElEditMode, setAnchorElEditMode] = useState<null | HTMLElement>(null);
-    const openEditMode = Boolean(anchorElEditMode);
-    const handleClickEditMode = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorElEditMode(event.currentTarget);
-    };
-    const handleCloseEditMode = () => {
-        setAnchorElEditMode(null);
+    const [editMode, setEditMode] = useState<boolean>(false)
+    const toggleDrawerEditMode = (newOpen: boolean) => () => {
+        setEditMode(newOpen);
     };
 
     return (
@@ -563,40 +580,57 @@ const HeartFrom: React.FC = () => {
                                         </button>
                                     }
                                 </div>
-                                <button
-                                    onClick={handleClickEditMode}
-                                    className="sm:hidden flex hover:underline transition-all duration-300 items-center gap-2 text-red-500 hover:text-red-600 text-sm font-medium transition"
-                                >
-                                    <span className="">{openEditMode ? "Done" : "Edit"}</span>
-                                </button>
-                                <Menu
-                                    anchorEl={anchorElEditMode}
-                                    open={openEditMode}
-                                    onClose={handleCloseEditMode}
-                                    PaperProps={PaperProps}
-                                    MenuListProps={MenuListProps}
-                                >
-                                    <MenuItem
-                                        onClick={() => {
-                                            handleCloseEditMode()
-                                            handleDeleteWistlist(resWishlists.data.attributes.token)
-                                        }}
-                                        sx={sxMenuItem}>
-                                        Delete Wishlist
-                                    </MenuItem>
-                                    <MenuItem
-                                        onClick={() => {
-                                            handleCloseEditMode()
-                                            handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))
-                                        }}
+                                <div className="sm:hidden ">
+                                    <button
+                                        onClick={toggleDrawerEditMode(true)}
+                                        className="flex hover:underline transition-all duration-300 items-center gap-2 text-red-500 hover:text-red-600 text-sm font-medium transition"
+                                    >
+                                        <span className="">{editMode ? "Done" : "Edit"}</span>
+                                    </button>
+                                    <Drawer
+                                        anchor="bottom"
+                                        open={editMode}
+                                        onClose={toggleDrawerEditMode(false)}
+                                        PaperProps={sxPaperPropsDrawer}
+                                    >
+                                        <div className="ml-auto p-2">
+                                            <IconButton onClick={toggleDrawerEditMode(false)} >
+                                                <IoClose />
+                                            </IconButton>
+                                        </div>
+                                        <div className="p-5 w-full flex flex-col gap-5">
+                                            {resWishlists?.included.length > 0 &&
+                                                <button
+                                                    onClick={() => handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))}
+                                                    className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl border border-red-600 text-red-600 
+                             hover:shadow-xl
+                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                            
+                                                >
+                                                    Clear All Items
+                                                </button>
+                                            }
+                                            <button
+                                                onClick={() => {
+                                                    handleDeleteWistlist(resWishlists.data.attributes.token)
+                                                }}
+                                                className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
+                            hover:from-rose-600 hover:to-red-700 hover:shadow-xl
+                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                            >
+                                                Delete Wishlist
+                                                <div className="absolute inset-0 overflow-hidden">
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                </div>
+                                                <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-                                        sx={sxMenuItem}>
-                                        Clear All Items
-                                    </MenuItem>
-                                </Menu>
+                                            </button>
+                                        </div>
+                                    </Drawer>
+                                </div>
                             </div>
                             {processedWishedItems ?
-                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                                <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                                     {processedWishedItems.map((res) => (
                                         <button
                                             onClick={() => {

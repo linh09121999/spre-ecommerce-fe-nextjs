@@ -538,7 +538,7 @@ const SettingWeb: React.FC = () => {
 
     return (
         <>
-            <div className='max-w-[1535px] mx-auto grid lg:grid-cols-[300px_1fr] py-5 max-2xl:px-5 gap-10'>
+            <div className='max-w-[1535px] mx-auto grid lg:grid-cols-[300px_1fr] py-5 max-2xl:px-5 lg:gap-10 gap-'>
                 <aside className="grid h-fit max-lg:hidden  gap-5 "
                     data-aos="fade-right"
                     data-aos-duration="3000"
@@ -562,6 +562,28 @@ const SettingWeb: React.FC = () => {
                         ))}
                     </div>
                 </aside>
+                <div className="lg:hidden flex overflow-x-auto scroll-x gap-5 py-3"
+                    data-aos="fade-right"
+                    data-aos-duration="3000"
+                >
+                    {[
+                        { id: 0, title: "Orders & Returns" },
+                        { id: 1, title: "Addresses" },
+                        { id: 2, title: "Personal details" },
+                        { id: 3, title: "Gift Cards" },
+                        { id: 4, title: "Store Credits" },
+                    ].map(({ id, title }) => (
+                        <button
+                            aria-label="click wishlist"
+                            key={id}
+                            className={`${selectTab === id ? 'text-white border border-green-700 shadow-lg' : 'bg-gray-100 group-hover:bg-green-100} group-hover:border-green-200'} text-lg flex group items-center  group-hover:shadow-lg w-fit  gap-3 px-4 h-[45px] rounded-xl  transition-all duration-300`}
+                            onClick={() =>
+                                handleSelectTab(id)
+                            }>
+                            <p className={`${selectTab === id ? 'text-green-700 font-bold' : 'text-slate-700 group-hover:text-green-700'} max-sm:text-sm text-lg whitespace-nowrap transition-all duration-500`}>{title}</p>
+                        </button>
+                    ))}
+                </div>
                 <section className="flex flex-col gap-4 md:gap-5"
                     data-aos="fade-left"
                     data-aos-duration="3000"
@@ -602,13 +624,32 @@ const SettingWeb: React.FC = () => {
                     }
                     {selectTab === 1 &&
                         <>
-                            <div className="items-center  grid grid-cols-2">
-                                <div>
-                                    <h3 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text">
-                                        Addresses
-                                    </h3>
-                                    <div className="text-sm text-slate-500">Manage, search and edit addresses</div>
+                            <div className="items-center grid sm:grid-cols-2 gap-5">
+                                <div className='max-sm:items-center max-sm:flex max-sm:justify-between max:sm:gap-5'>
+                                    <div>
+                                        <h3 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text">
+                                            Addresses
+                                        </h3>
+                                        <div className="text-sm text-slate-500">Manage, search and edit addresses</div>
+                                    </div>
+                                    <button
+                                        aria-label='add address'
+                                        className="h-[45px] sm:hidden w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
+                            hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
+                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+
+                                        onClick={() => {
+                                            getApiListCountries()
+                                            setOpenCreateAccountAddress(true)
+                                        }}
+                                    ><IoMdAdd size={18} className='mx-auto' />
+                                        <div className="absolute inset-0 overflow-hidden">
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                        </div>
+                                        <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    </button>
                                 </div>
+
                                 <div className='flex gap-3'>
                                     <TextField
                                         type="search"
@@ -630,7 +671,7 @@ const SettingWeb: React.FC = () => {
                                     />
                                     <button
                                         aria-label='add address'
-                                        className="h-[45px] w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
+                                        className="h-[45px] max-sm:hidden w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
 
@@ -644,335 +685,336 @@ const SettingWeb: React.FC = () => {
                                         </div>
                                         <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                     </button>
-                                    <Dialog open={openCreateAccountAddress} onClose={() => setOpenCreateAccountAddress(false)}>
-                                        <DialogContent
-                                            sx={{
-                                                padding: 0,
-                                                borderRadius: "18px",
-                                                overflow: "hidden",
-                                                background: "transparent",
-                                            }}
-                                        >
-                                            <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                                                <div className="w-full max-w-3xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-2xl relative overflow-hidden">
-                                                    <button
-                                                        onClick={() => setOpenCreateAccountAddress(false)}
-                                                        className="absolute top-3 right-3 w-10 h-10 z-50 flex items-center justify-center
+
+                                </div>
+                            </div>
+                            <Dialog open={openCreateAccountAddress} onClose={() => setOpenCreateAccountAddress(false)}>
+                                <DialogContent
+                                    sx={{
+                                        padding: 0,
+                                        borderRadius: "18px",
+                                        overflow: "hidden",
+                                        background: "transparent",
+                                    }}
+                                >
+                                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                                        <div className="w-full max-w-3xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-2xl relative overflow-hidden">
+                                            <button
+                                                onClick={() => setOpenCreateAccountAddress(false)}
+                                                className="absolute top-3 right-3 w-10 h-10 z-50 flex items-center justify-center
     rounded-full bg-white/70 backdrop-blur-md shadow-lg
     hover:bg-white hover:shadow-xl hover:-translate-y-0.5
     transition-all duration-300 border border-white/60"
-                                                    >
-                                                        <span className="text-gray-600 text-xl font-bold">×</span>
-                                                    </button>
-                                                    <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-200/30 rounded-full blur-xl"></div>
-                                                    <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
-                                                    <div className="relative z-10">
-                                                        <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
-                                                            Create An Address
-                                                        </h1>
-                                                        {errorCreateAccountAddress && (
-                                                            <div className="p-4 mb-6 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
-                                                                <MdOutlineErrorOutline className="mx-auto" size={21} />
-                                                                <span>{errorCreateAccountAddress}</span>
-                                                            </div>
-                                                        )}
-                                                        <form onSubmit={handleCreateAccountAddress} className="flex flex-col gap-5">
-                                                            <div className="flex flex-col gap-1">
-                                                                <label htmlFor="label" className="block text-md font-medium text-gray-700">
-                                                                    Label
-                                                                </label>
-                                                                <TextField
-                                                                    type="text"
-                                                                    autoComplete="label"
-                                                                    placeholder="Label"
-                                                                    name="label"
-                                                                    variant="outlined"
-                                                                    sx={sxTextField}
-                                                                    value={createAccountAddress.label}
-                                                                    onChange={(e) =>
-                                                                        setCreateAccountAddress(prev => ({
-                                                                            ...prev,
-                                                                            label: e.target.value
-                                                                        }))
-                                                                    }
-                                                                />
-                                                            </div>
-                                                            <div className="flex flex-col gap-1">
-                                                                <label htmlFor="country" className="block text-md font-medium text-gray-700">
-                                                                    Country <span className="text-red-500">*</span>
-                                                                </label>
-                                                                {/* auto complate */}
-                                                                <FormControl className="w-full" sx={sxFormControl} size="small">
-                                                                    <Autocomplete
-                                                                        // disableClearable
-                                                                        noOptionsText="There is no coutries"
-                                                                        options={resCountries_List?.data || []}
-                                                                        componentsProps={componentsProps}
-                                                                        getOptionLabel={(option) => option.attributes.name}
-                                                                        filterOptions={(options, { inputValue }) =>
-                                                                            options.filter((option) =>
-                                                                                removeVietnameseTones(option.attributes.name)
-                                                                                    .toLowerCase()
-                                                                                    .includes(removeVietnameseTones(inputValue).toLowerCase())
-                                                                            )
-                                                                        }
-                                                                        onChange={handleChangeSearchCountry}
-                                                                        renderInput={(params) => (
-                                                                            <TextField  {...params}
-                                                                                placeholder="Search for countries..."
-                                                                                sx={sxTextField}
-                                                                                error={Boolean(errorEmptyAccountAddress.country_iso)}
-                                                                                helperText={errorEmptyAccountAddress.country_iso}
-                                                                            />
-                                                                        )}
-                                                                    />
-                                                                </FormControl>
-                                                            </div>
-                                                            <div className='grid grid-cols-2 gap-3'>
-                                                                <div className="flex flex-col gap-1">
-                                                                    <label htmlFor="firstName" className="block text-md font-medium text-gray-700">
-                                                                        First Name <span className="text-red-500">*</span>
-                                                                    </label>
-                                                                    <TextField
-                                                                        type="text"
-                                                                        required
-                                                                        autoComplete="firstName"
-                                                                        placeholder="First Name"
-                                                                        name="firstName"
-                                                                        variant="outlined"
+                                            >
+                                                <span className="text-gray-600 text-xl font-bold">×</span>
+                                            </button>
+                                            <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-200/30 rounded-full blur-xl"></div>
+                                            <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
+                                            <div className="relative z-10">
+                                                <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
+                                                    Create An Address
+                                                </h1>
+                                                {errorCreateAccountAddress && (
+                                                    <div className="p-4 mb-6 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
+                                                        <MdOutlineErrorOutline className="mx-auto" size={21} />
+                                                        <span>{errorCreateAccountAddress}</span>
+                                                    </div>
+                                                )}
+                                                <form onSubmit={handleCreateAccountAddress} className="flex flex-col gap-5">
+                                                    <div className="flex flex-col gap-1">
+                                                        <label htmlFor="label" className="block text-md font-medium text-gray-700">
+                                                            Label
+                                                        </label>
+                                                        <TextField
+                                                            type="text"
+                                                            autoComplete="label"
+                                                            placeholder="Label"
+                                                            name="label"
+                                                            variant="outlined"
+                                                            sx={sxTextField}
+                                                            value={createAccountAddress.label}
+                                                            onChange={(e) =>
+                                                                setCreateAccountAddress(prev => ({
+                                                                    ...prev,
+                                                                    label: e.target.value
+                                                                }))
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="flex flex-col gap-1">
+                                                        <label htmlFor="country" className="block text-md font-medium text-gray-700">
+                                                            Country <span className="text-red-500">*</span>
+                                                        </label>
+                                                        {/* auto complate */}
+                                                        <FormControl className="w-full" sx={sxFormControl} size="small">
+                                                            <Autocomplete
+                                                                // disableClearable
+                                                                noOptionsText="There is no coutries"
+                                                                options={resCountries_List?.data || []}
+                                                                componentsProps={componentsProps}
+                                                                getOptionLabel={(option) => option.attributes.name}
+                                                                filterOptions={(options, { inputValue }) =>
+                                                                    options.filter((option) =>
+                                                                        removeVietnameseTones(option.attributes.name)
+                                                                            .toLowerCase()
+                                                                            .includes(removeVietnameseTones(inputValue).toLowerCase())
+                                                                    )
+                                                                }
+                                                                onChange={handleChangeSearchCountry}
+                                                                renderInput={(params) => (
+                                                                    <TextField  {...params}
+                                                                        placeholder="Search for countries..."
                                                                         sx={sxTextField}
-                                                                        value={createAccountAddress.firstname}
-                                                                        onChange={(e) =>
-                                                                            setCreateAccountAddress(prev => ({
-                                                                                ...prev,
-                                                                                firstname: e.target.value
-                                                                            }))
-                                                                        }
-                                                                        error={Boolean(errorEmptyAccountAddress.firstname)}
-                                                                        helperText={errorEmptyAccountAddress.firstname}
+                                                                        error={Boolean(errorEmptyAccountAddress.country_iso)}
+                                                                        helperText={errorEmptyAccountAddress.country_iso}
                                                                     />
-                                                                </div>
-                                                                <div className="flex flex-col gap-1">
-                                                                    <label htmlFor="lastName" className="block text-md font-medium text-gray-700">
-                                                                        Last name <span className="text-red-500">*</span>
-                                                                    </label>
-                                                                    <TextField
-                                                                        type="text"
-                                                                        required
-                                                                        autoComplete="lastName"
-                                                                        placeholder="Last name"
-                                                                        name="lastName"
-                                                                        variant="outlined"
-                                                                        sx={sxTextField}
-                                                                        value={createAccountAddress.lastname}
-                                                                        onChange={(e) =>
-                                                                            setCreateAccountAddress(prev => ({
-                                                                                ...prev,
-                                                                                lastname: e.target.value
-                                                                            }))
-                                                                        }
-                                                                        error={Boolean(errorEmptyAccountAddress.lastname)}
-                                                                        helperText={errorEmptyAccountAddress.lastname}
-                                                                    />
-                                                                </div>
+                                                                )}
+                                                            />
+                                                        </FormControl>
+                                                    </div>
+                                                    <div className='grid grid-cols-2 gap-3'>
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="firstName" className="block text-md font-medium text-gray-700">
+                                                                First Name <span className="text-red-500">*</span>
+                                                            </label>
+                                                            <TextField
+                                                                type="text"
+                                                                required
+                                                                autoComplete="firstName"
+                                                                placeholder="First Name"
+                                                                name="firstName"
+                                                                variant="outlined"
+                                                                sx={sxTextField}
+                                                                value={createAccountAddress.firstname}
+                                                                onChange={(e) =>
+                                                                    setCreateAccountAddress(prev => ({
+                                                                        ...prev,
+                                                                        firstname: e.target.value
+                                                                    }))
+                                                                }
+                                                                error={Boolean(errorEmptyAccountAddress.firstname)}
+                                                                helperText={errorEmptyAccountAddress.firstname}
+                                                            />
+                                                        </div>
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="lastName" className="block text-md font-medium text-gray-700">
+                                                                Last name <span className="text-red-500">*</span>
+                                                            </label>
+                                                            <TextField
+                                                                type="text"
+                                                                required
+                                                                autoComplete="lastName"
+                                                                placeholder="Last name"
+                                                                name="lastName"
+                                                                variant="outlined"
+                                                                sx={sxTextField}
+                                                                value={createAccountAddress.lastname}
+                                                                onChange={(e) =>
+                                                                    setCreateAccountAddress(prev => ({
+                                                                        ...prev,
+                                                                        lastname: e.target.value
+                                                                    }))
+                                                                }
+                                                                error={Boolean(errorEmptyAccountAddress.lastname)}
+                                                                helperText={errorEmptyAccountAddress.lastname}
+                                                            />
+                                                        </div>
 
-                                                            </div>
-                                                            <div className="flex flex-col gap-1">
-                                                                <label htmlFor="company" className="block text-md font-medium text-gray-700">
-                                                                    Company
-                                                                </label>
-                                                                <TextField
-                                                                    type="text"
-                                                                    autoComplete="company"
-                                                                    placeholder="Company"
-                                                                    name="company"
-                                                                    variant="outlined"
-                                                                    sx={sxTextField}
-                                                                    value={createAccountAddress.company}
-                                                                    onChange={(e) =>
-                                                                        setCreateAccountAddress(prev => ({
-                                                                            ...prev,
-                                                                            company: e.target.value
-                                                                        }))
+                                                    </div>
+                                                    <div className="flex flex-col gap-1">
+                                                        <label htmlFor="company" className="block text-md font-medium text-gray-700">
+                                                            Company
+                                                        </label>
+                                                        <TextField
+                                                            type="text"
+                                                            autoComplete="company"
+                                                            placeholder="Company"
+                                                            name="company"
+                                                            variant="outlined"
+                                                            sx={sxTextField}
+                                                            value={createAccountAddress.company}
+                                                            onChange={(e) =>
+                                                                setCreateAccountAddress(prev => ({
+                                                                    ...prev,
+                                                                    company: e.target.value
+                                                                }))
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className='grid grid-cols-2 gap-3'>
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="address1" className="block text-md font-medium text-gray-700">
+                                                                Street and house number <span className="text-red-500">*</span>
+                                                            </label>
+                                                            <TextField
+                                                                type="text"
+                                                                required
+                                                                autoComplete="address1"
+                                                                placeholder="Street and house number"
+                                                                name="address1"
+                                                                variant="outlined"
+                                                                sx={sxTextField}
+                                                                value={createAccountAddress.address1}
+                                                                onChange={(e) =>
+                                                                    setCreateAccountAddress(prev => ({
+                                                                        ...prev,
+                                                                        address1: e.target.value
+                                                                    }))
+                                                                }
+                                                                error={Boolean(errorEmptyAccountAddress.address1)}
+                                                                helperText={errorEmptyAccountAddress.address1}
+                                                            />
+                                                        </div>
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="address2" className="block text-md font-medium text-gray-700">
+                                                                Additional addresses
+                                                            </label>
+                                                            <TextField
+                                                                type="text"
+                                                                autoComplete="address2"
+                                                                placeholder="Additional addresses"
+                                                                name="address2"
+                                                                variant="outlined"
+                                                                sx={sxTextField}
+                                                                value={createAccountAddress.address2}
+                                                                onChange={(e) =>
+                                                                    setCreateAccountAddress(prev => ({
+                                                                        ...prev,
+                                                                        address2: e.target.value
+                                                                    }))
+                                                                }
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className='grid grid-cols-3 gap-3'>
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="city" className="block text-md font-medium text-gray-700">
+                                                                City <span className="text-red-500">*</span>
+                                                            </label>
+                                                            <TextField
+                                                                type="text"
+                                                                required
+                                                                autoComplete="city"
+                                                                placeholder="City"
+                                                                name="city"
+                                                                variant="outlined"
+                                                                sx={sxTextField}
+                                                                value={createAccountAddress.city}
+                                                                onChange={(e) =>
+                                                                    setCreateAccountAddress(prev => ({
+                                                                        ...prev,
+                                                                        city: e.target.value
+                                                                    }))
+                                                                }
+                                                                error={Boolean(errorEmptyAccountAddress.city)}
+                                                                helperText={errorEmptyAccountAddress.city}
+                                                            />
+                                                        </div>
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="state_name" className="block text-md font-medium text-gray-700">
+                                                                State name
+                                                            </label>
+                                                            <FormControl className="w-full" sx={sxFormControl} size="small">
+                                                                <Autocomplete
+                                                                    // disableClearable
+                                                                    noOptionsText="There is no coutries"
+                                                                    options={resCountries_Retrieve?.included || []}
+                                                                    componentsProps={componentsProps}
+                                                                    getOptionLabel={(option) => option.attributes.name}
+                                                                    filterOptions={(options, { inputValue }) =>
+                                                                        options.filter((option) =>
+                                                                            removeVietnameseTones(option.attributes.name)
+                                                                                .toLowerCase()
+                                                                                .includes(removeVietnameseTones(inputValue).toLowerCase())
+                                                                        )
                                                                     }
-                                                                />
-                                                            </div>
-                                                            <div className='grid grid-cols-2 gap-3'>
-                                                                <div className="flex flex-col gap-1">
-                                                                    <label htmlFor="address1" className="block text-md font-medium text-gray-700">
-                                                                        Street and house number <span className="text-red-500">*</span>
-                                                                    </label>
-                                                                    <TextField
-                                                                        type="text"
-                                                                        required
-                                                                        autoComplete="address1"
-                                                                        placeholder="Street and house number"
-                                                                        name="address1"
-                                                                        variant="outlined"
-                                                                        sx={sxTextField}
-                                                                        value={createAccountAddress.address1}
-                                                                        onChange={(e) =>
-                                                                            setCreateAccountAddress(prev => ({
-                                                                                ...prev,
-                                                                                address1: e.target.value
-                                                                            }))
-                                                                        }
-                                                                        error={Boolean(errorEmptyAccountAddress.address1)}
-                                                                        helperText={errorEmptyAccountAddress.address1}
-                                                                    />
-                                                                </div>
-                                                                <div className="flex flex-col gap-1">
-                                                                    <label htmlFor="address2" className="block text-md font-medium text-gray-700">
-                                                                        Additional addresses
-                                                                    </label>
-                                                                    <TextField
-                                                                        type="text"
-                                                                        autoComplete="address2"
-                                                                        placeholder="Additional addresses"
-                                                                        name="address2"
-                                                                        variant="outlined"
-                                                                        sx={sxTextField}
-                                                                        value={createAccountAddress.address2}
-                                                                        onChange={(e) =>
-                                                                            setCreateAccountAddress(prev => ({
-                                                                                ...prev,
-                                                                                address2: e.target.value
-                                                                            }))
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className='grid grid-cols-3 gap-3'>
-                                                                <div className="flex flex-col gap-1">
-                                                                    <label htmlFor="city" className="block text-md font-medium text-gray-700">
-                                                                        City <span className="text-red-500">*</span>
-                                                                    </label>
-                                                                    <TextField
-                                                                        type="text"
-                                                                        required
-                                                                        autoComplete="city"
-                                                                        placeholder="City"
-                                                                        name="city"
-                                                                        variant="outlined"
-                                                                        sx={sxTextField}
-                                                                        value={createAccountAddress.city}
-                                                                        onChange={(e) =>
-                                                                            setCreateAccountAddress(prev => ({
-                                                                                ...prev,
-                                                                                city: e.target.value
-                                                                            }))
-                                                                        }
-                                                                        error={Boolean(errorEmptyAccountAddress.city)}
-                                                                        helperText={errorEmptyAccountAddress.city}
-                                                                    />
-                                                                </div>
-                                                                <div className="flex flex-col gap-1">
-                                                                    <label htmlFor="state_name" className="block text-md font-medium text-gray-700">
-                                                                        State name
-                                                                    </label>
-                                                                    <FormControl className="w-full" sx={sxFormControl} size="small">
-                                                                        <Autocomplete
-                                                                            // disableClearable
-                                                                            noOptionsText="There is no coutries"
-                                                                            options={resCountries_Retrieve?.included || []}
-                                                                            componentsProps={componentsProps}
-                                                                            getOptionLabel={(option) => option.attributes.name}
-                                                                            filterOptions={(options, { inputValue }) =>
-                                                                                options.filter((option) =>
-                                                                                    removeVietnameseTones(option.attributes.name)
-                                                                                        .toLowerCase()
-                                                                                        .includes(removeVietnameseTones(inputValue).toLowerCase())
-                                                                                )
-                                                                            }
-                                                                            onChange={handleChangeSearchState}
-                                                                            renderInput={(params) => (
-                                                                                <TextField  {...params}
-                                                                                    placeholder="Search for state..."
-                                                                                    sx={sxTextField}
-                                                                                />
-                                                                            )}
+                                                                    onChange={handleChangeSearchState}
+                                                                    renderInput={(params) => (
+                                                                        <TextField  {...params}
+                                                                            placeholder="Search for state..."
+                                                                            sx={sxTextField}
                                                                         />
-                                                                    </FormControl>
-                                                                </div>
-                                                                <div className="flex flex-col gap-1">
-                                                                    <label htmlFor="zipcode" className="block text-md font-medium text-gray-700">
-                                                                        Postal Code <span className="text-red-500">*</span>
-                                                                    </label>
-                                                                    <TextField
-                                                                        type="text"
-                                                                        required
-                                                                        autoComplete="zipcode"
-                                                                        placeholder="Postal Code"
-                                                                        name="zipcode"
-                                                                        variant="outlined"
-                                                                        sx={sxTextField}
-                                                                        value={createAccountAddress.zipcode}
-                                                                        onChange={(e) =>
-                                                                            setCreateAccountAddress(prev => ({
-                                                                                ...prev,
-                                                                                zipcode: e.target.value
-                                                                            }))
-                                                                        }
-                                                                        error={Boolean(errorEmptyAccountAddress.zipcode)}
-                                                                        helperText={errorEmptyAccountAddress.zipcode}
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="flex flex-col gap-1">
-                                                                <label htmlFor="phone" className="block text-md font-medium text-gray-700">
-                                                                    Phone
-                                                                </label>
-                                                                <TextField
-                                                                    type="text"
-                                                                    autoComplete="phone"
-                                                                    placeholder="Phone"
-                                                                    name="phone"
-                                                                    variant="outlined"
-                                                                    sx={sxTextField}
-                                                                    value={createAccountAddress.phone}
-                                                                    onChange={(e) =>
-                                                                        setCreateAccountAddress(prev => ({
-                                                                            ...prev,
-                                                                            phone: e.target.value
-                                                                        }))
-                                                                    }
+                                                                    )}
                                                                 />
-                                                            </div>
-                                                            <div className="grid grid-cols-2 gap-3">
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={() => setOpenCreateAccountAddress(false)}
-                                                                    className="
+                                                            </FormControl>
+                                                        </div>
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="zipcode" className="block text-md font-medium text-gray-700">
+                                                                Postal Code <span className="text-red-500">*</span>
+                                                            </label>
+                                                            <TextField
+                                                                type="text"
+                                                                required
+                                                                autoComplete="zipcode"
+                                                                placeholder="Postal Code"
+                                                                name="zipcode"
+                                                                variant="outlined"
+                                                                sx={sxTextField}
+                                                                value={createAccountAddress.zipcode}
+                                                                onChange={(e) =>
+                                                                    setCreateAccountAddress(prev => ({
+                                                                        ...prev,
+                                                                        zipcode: e.target.value
+                                                                    }))
+                                                                }
+                                                                error={Boolean(errorEmptyAccountAddress.zipcode)}
+                                                                helperText={errorEmptyAccountAddress.zipcode}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-col gap-1">
+                                                        <label htmlFor="phone" className="block text-md font-medium text-gray-700">
+                                                            Phone
+                                                        </label>
+                                                        <TextField
+                                                            type="text"
+                                                            autoComplete="phone"
+                                                            placeholder="Phone"
+                                                            name="phone"
+                                                            variant="outlined"
+                                                            sx={sxTextField}
+                                                            value={createAccountAddress.phone}
+                                                            onChange={(e) =>
+                                                                setCreateAccountAddress(prev => ({
+                                                                    ...prev,
+                                                                    phone: e.target.value
+                                                                }))
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="grid grid-cols-2 gap-3">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setOpenCreateAccountAddress(false)}
+                                                            className="
                                     flex-1 py-3 rounded-xl 
                                     text-lg font-semibold text-gray-700
                                     bg-gray-100 hover:bg-gray-200
                                     shadow-md hover:shadow-lg
                                     transition-all duration-300
                                 "
-                                                                >
-                                                                    Cancel
-                                                                </button>
-                                                                <button
-                                                                    type="submit"
-                                                                    className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                                        >
+                                                            Cancel
+                                                        </button>
+                                                        <button
+                                                            type="submit"
+                                                            className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-                                                                >
-                                                                    <span className="relative z-10">Create An Address</span>
-                                                                    <div className="absolute inset-0 overflow-hidden">
-                                                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                                                    </div>
-                                                                    <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                                                </button>
+                                                        >
+                                                            <span className="relative z-10">Create An Address</span>
+                                                            <div className="absolute inset-0 overflow-hidden">
+                                                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                                             </div>
-                                                        </form>
+                                                            <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                        </button>
                                                     </div>
-                                                </div>
+                                                </form>
                                             </div>
-                                        </DialogContent>
-                                    </Dialog>
-                                </div>
-                            </div>
+                                        </div>
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
                             <div className="grid">
                                 {(filterAccountAddress) &&
                                     <ListAccountAddressPage data={filterAccountAddress} fnListAddress={() => getApiListAllAddress(1, 12)} />

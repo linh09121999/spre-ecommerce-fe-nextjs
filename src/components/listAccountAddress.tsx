@@ -252,14 +252,14 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                         <div
                             key={res.id}
                             className="
-      w-full p-5 rounded-xl bg-white border border-gray-200 
-      shadow-sm hover:shadow-lg 
-      transition-all duration-500 ease-out
-      hover:-translate-y-2 hover:border-green-300
-      relative overflow-hidden
-      group cursor-pointer
-      backdrop-blur-sm
-    "
+                                w-full p-5 rounded-xl bg-white border border-gray-200 
+                                shadow-sm hover:shadow-lg 
+                                transition-all duration-500 ease-out
+                                hover:-translate-y-2 hover:border-green-300
+                                relative overflow-hidden
+                                group cursor-pointer
+                                backdrop-blur-sm
+                                "
                         >
                             {/* Gradient Background Effect */}
                             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
@@ -268,7 +268,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                             </div>
 
                             {/* Content Container */}
-                            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 relative z-10">
+                            <div className="flex justify-between items-center gap-4 relative z-10">
 
                                 {/* Main Information */}
                                 <div className="flex flex-col gap-3">
@@ -277,7 +277,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                     {res.attributes.label && (
                                         <div className=" items-center gap-2 max-w-[200px]">
                                             <span className="
-               text-md font-semibold px-3 py-[4px] rounded-full bg-green-100 text-green-700 shadow-md backdrop-blur-md">
+                                                text-md font-semibold px-3 py-[4px] rounded-full bg-green-100 text-green-700 shadow-md backdrop-blur-md">
                                                 {/* <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> */}
                                                 {res.attributes.label}
                                             </span>
@@ -286,11 +286,11 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
 
                                     {/* Name */}
                                     <h3 className="
-          text-2xl font-bold text-gray-900 
-          group-hover:text-green-800 
-          transition-colors duration-300
-          truncate
-        ">
+                                        text-2xl font-bold text-gray-900 
+                                        group-hover:text-green-800 
+                                        transition-colors duration-300
+                                        truncate
+                                        ">
                                         {res.attributes.firstname} {res.attributes.lastname}
                                     </h3>
 
@@ -334,7 +334,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="flex gap-2 self-end lg:self-auto">
+                                <div className="flex gap-2 self-auto">
                                     <button
                                         aria-label="Edit contact"
                                         className="
