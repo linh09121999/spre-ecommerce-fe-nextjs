@@ -226,7 +226,7 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
 
                     </div>
 
-                    <div className="flex flex-col text-center md:text-left gap-3">
+                    <div className="flex flex-col text-center md:text-left gap-3 ">
                         <div className="flex flex-col gap-1">
                             <h1 className="text-3xl font-semibold text-gray-800">
                                 {data.attributes.first_name} {data.attributes.last_name}
@@ -238,16 +238,16 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
                             aria-label="Edit personal"
                             onClick={() => handleEdit()}
                             className=" justify-center text-lg
-          px-4 py-2 rounded-lg bg-white text-green-600
-          border border-green-200
-          hover:bg-green-50 hover:text-green-700 
-          hover:border-green-300
-          transition-all duration-300
-          hover:scale-105
-          shadow-sm hover:shadow-md
-          focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50
-          flex items-center gap-2 mx-auto md:mx-0
-        "
+                            px-4 py-2 rounded-lg bg-white text-green-600
+                            border border-green-200
+                            hover:bg-green-50 hover:text-green-700 
+                            hover:border-green-300
+                            transition-all duration-300
+                            hover:scale-105
+                            shadow-sm hover:shadow-md
+                            focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50
+                            flex items-center gap-2 mx-auto md:mx-0
+                            "
                         >
                             <TbUserEdit size={21} />
                             <span>Edit Profile</span>
@@ -259,54 +259,43 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
                 <div className="flex flex-col gap-5">
                     <h3 className="text-md tracking-wide text-black/70">Contact Information</h3>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="flex items-center gap-4 p-4 rounded-lg bg-gray-50 hover:bg-green-50 transition-colors duration-300">
-                            <div className="
-          p-3 bg-green-100 rounded-lg 
-          group-hover:bg-green-200 
-          transition-colors duration-300
-          flex-shrink-0
-        ">
-                                <FaRegUser className="text-green-600 text-lg" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 gap-2">
+                        {/* Item */}
+                        <div className="group flex items-center gap-4 p-5 rounded-xl bg-gray-50 hover:bg-green-50 border border-gray-100 hover:border-green-200 transition-all duration-300">
+                            <div className="p-3 bg-green-100 rounded-xl group-hover:bg-green-200 transition-colors duration-300 flex-shrink-0">
+                                <FaRegUser className="text-green-600 text-xl" />
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Full Name</p>
-                                <p className="font-medium text-gray-800">
+                                <p className="font-semibold text-gray-800">
                                     {data.attributes.first_name} {data.attributes.last_name}
                                 </p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4 p-4 rounded-lg bg-gray-50 hover:bg-green-50 transition-colors duration-300">
-                            <div className="
-          p-3 bg-green-100 rounded-lg 
-          group-hover:bg-green-200 
-          transition-colors duration-300
-          flex-shrink-0
-        ">
-                                <MdOutlineEmail className="text-green-600 text-lg" />
+                        {/* Email */}
+                        <div className="group flex items-center gap-4 p-5 rounded-xl bg-gray-50 hover:bg-green-50 border border-gray-100 hover:border-green-200 transition-all duration-300">
+                            <div className="p-3 bg-green-100 rounded-xl group-hover:bg-green-200 transition-colors duration-300 flex-shrink-0">
+                                <MdOutlineEmail className="text-green-600 text-xl" />
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Email Address</p>
-                                <p className="font-medium text-gray-800">{data.attributes.email}</p>
+                                <p className="font-semibold text-gray-800">{data.attributes.email}</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4 p-4 rounded-lg bg-gray-50 hover:bg-green-50 transition-colors duration-300">
-                            <div className="
-          p-3 bg-green-100 rounded-lg 
-          group-hover:bg-green-200 
-          transition-colors duration-300
-          flex-shrink-0
-        ">
-                                <MdOutlinePhoneIphone className="text-green-600 text-lg" />
+                        {/* Phone */}
+                        <div className="group flex items-center gap-4 p-5 rounded-xl bg-gray-50 hover:bg-green-50 border border-gray-100 hover:border-green-200 transition-all duration-300">
+                            <div className="p-3 bg-green-100 rounded-xl group-hover:bg-green-200 transition-colors duration-300 flex-shrink-0">
+                                <MdOutlinePhoneIphone className="text-green-600 text-xl" />
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Phone Number</p>
-                                <p className="font-medium text-gray-800">{data.attributes.phone}</p>
+                                <p className="font-semibold text-gray-800">{data.attributes.phone}</p>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 {openEdit &&
                     <div className="flex flex-col gap-5">
@@ -320,7 +309,7 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
                                 <span>{errorUpdateAccount}</span>
                             </div>
                         )}
-                        <form onSubmit={handleUpdateAccount} className="flex flex-col gap-5 min-w-[800px] mr-auto">
+                        <form onSubmit={handleUpdateAccount} className="flex flex-col gap-5 w-full xl:w-[800px] mr-auto transition-aal duration-300">
                             <div className="flex flex-col gap-1">
                                 <label htmlFor="email" className="block text-md font-medium text-gray-700">
                                     Email <span className="text-red-500">*</span>
