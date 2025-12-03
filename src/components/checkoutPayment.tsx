@@ -442,310 +442,314 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
 
     return (
         <>
-            <div className="flex flex-col gap-10 order-2 lg:order-1">
-                {errorComplate &&
-                    <div className="p-4 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
-                        <MdOutlineErrorOutline className="mx-auto" size={21} />
-                        {errorComplate}</div>
-                }
-                {token ?
-                    <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-xl font-semibold">
-                                Account
-                            </h3>
-                            <button className="text-sm text-green-500 hover:text-green-700 transition-all duration-300"
-                                onClick={() => setActiveStep(2)}
-                            >Edit</button>
-                        </div>
-                        <div className="flex-col flex gap-3">
-                            <div className="flex gap-3 items-center">
-                                <div className="
+            <div className="flex flex-col order-2 lg:order-1">
+                <div className="flex flex-col gap-10 ">
+                    {errorComplate &&
+                        <div className="p-4 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
+                            <MdOutlineErrorOutline className="mx-auto" size={21} />
+                            {errorComplate}</div>
+                    }
+                    {token ?
+                        <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-xl font-semibold">
+                                    Account
+                                </h3>
+                                <button className="text-sm text-green-500 hover:text-green-700 transition-all duration-300"
+                                    onClick={() => setActiveStep(2)}
+                                >Edit</button>
+                            </div>
+                            <div className="flex-col flex gap-3">
+                                <div className="flex gap-3 items-center">
+                                    <div className="
                                                                                                     p-2 bg-green-100 rounded-lg 
                                                                                                     group-hover:bg-green-200 
                                                                                                     transition-colors duration-300
                                                                                                   ">
-                                    <FaRegUser className="text-green-600 text-sm" />
+                                        <FaRegUser className="text-green-600 text-sm" />
+                                    </div>
+                                    <span className="font-medium text-gray-900">{resAccount?.data.attributes.first_name} {resAccount?.data.attributes.last_name}</span>
                                 </div>
-                                <span className="font-medium text-gray-900">{resAccount?.data.attributes.first_name} {resAccount?.data.attributes.last_name}</span>
-                            </div>
-                            <div className="flex gap-3 items-center">
-                                <div className="
+                                <div className="flex gap-3 items-center">
+                                    <div className="
                                                                                   p-2 bg-green-100 rounded-lg 
                                                                                                   group-hover:bg-green-200 
                                                                                                   transition-colors duration-300
                                                                                 ">
-                                    <MdOutlineEmail className="text-green-600 text-sm" />
+                                        <MdOutlineEmail className="text-green-600 text-sm" />
+                                    </div>
+                                    <span className="flex flex-wrap gap-1 text-gray-600 text-sm leading-relaxed">{resAccount?.data.attributes.email}</span>
                                 </div>
-                                <span className="flex flex-wrap gap-1 text-gray-600 text-sm leading-relaxed">{resAccount?.data.attributes.email}</span>
-                            </div>
-                            <div className="flex gap-3 items-center">
-                                <div className="
+                                <div className="flex gap-3 items-center">
+                                    <div className="
                                                                                   p-2 bg-green-100 rounded-lg 
                                                                                                   group-hover:bg-green-200 
                                                                                                   transition-colors duration-300
                                                                                 ">
-                                    <LuMapPinHouse className="text-green-600 text-sm" />
-                                </div>
-                                {filterAddressCheckout.length > 0 &&
-                                    <>
-                                        {filterAddressCheckout?.map((res) =>
-                                            <div key={res.id} className="flex flex-wrap gap-1 text-gray-600 text-sm leading-relaxed">
-                                                <span>{res.attributes.firstname}</span>
-                                                <span>{res.attributes.lastname}</span>
-                                                <span>{res.attributes.label},</span>
-                                                <span>{res.attributes.address1},</span>
-                                                <span>{res.attributes.city},</span>
-                                                <span>{res.attributes.state_name}</span>
-                                                <span>{res.attributes.state_code},</span>
-                                                <span>{res.attributes.country_name}</span>
-                                            </div>
-                                        )}
-                                    </>
-                                }
+                                        <LuMapPinHouse className="text-green-600 text-sm" />
+                                    </div>
+                                    {filterAddressCheckout.length > 0 &&
+                                        <>
+                                            {filterAddressCheckout?.map((res) =>
+                                                <div key={res.id} className="flex flex-wrap gap-1 text-gray-600 text-sm leading-relaxed">
+                                                    <span>{res.attributes.firstname}</span>
+                                                    <span>{res.attributes.lastname}</span>
+                                                    <span>{res.attributes.label},</span>
+                                                    <span>{res.attributes.address1},</span>
+                                                    <span>{res.attributes.city},</span>
+                                                    <span>{res.attributes.state_name}</span>
+                                                    <span>{res.attributes.state_code},</span>
+                                                    <span>{res.attributes.country_name}</span>
+                                                </div>
+                                            )}
+                                        </>
+                                    }
 
-                            </div>
-                            <div className="flex gap-3 items-center">
-                                <div className="
+                                </div>
+                                <div className="flex gap-3 items-center">
+                                    <div className="
                                                                                       p-2 bg-green-100 rounded-lg 
                                                                                                       group-hover:bg-green-200 
                                                                                                       transition-colors duration-300
                                                                                     ">
-                                    <FaShippingFast className="text-green-600 text-sm" />
+                                        <FaShippingFast className="text-green-600 text-sm" />
+                                    </div>
+                                    <span className="text-gray-600 text-sm leading-relaxed">{valueNameShippingFee} - <strong>{valuePriceShippingFee}</strong></span>
                                 </div>
-                                <span className="text-gray-600 text-sm leading-relaxed">{valueNameShippingFee} - <strong>{valuePriceShippingFee}</strong></span>
                             </div>
                         </div>
-                    </div>
-                    :
+                        :
 
-                    <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-xl font-semibold">
-                                Information about  <strong className="text-green-600">shipping address</strong>
-                            </h3>
-                            <button className="text-sm text-green-500 hover:text-green-700 transition-all duration-300"
-                                onClick={() => setActiveStep(2)}
-                            >Edit</button>
-                        </div>
-                        <div className="flex-col flex gap-3">
-                            <div className="flex gap-3 items-center">
-                                <div className="
+                        <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-xl font-semibold">
+                                    Information about  <strong className="text-green-600">shipping address</strong>
+                                </h3>
+                                <button className="text-sm text-green-500 hover:text-green-700 transition-all duration-300"
+                                    onClick={() => setActiveStep(2)}
+                                >Edit</button>
+                            </div>
+                            <div className="flex-col flex gap-3">
+                                <div className="flex gap-3 items-center">
+                                    <div className="
                                                                                                         p-2 bg-green-100 rounded-lg 
                                                                                                         group-hover:bg-green-200 
                                                                                                         transition-colors duration-300
                                                                                                       ">
-                                    <MdOutlineEmail className="text-green-600 text-sm" />
+                                        <MdOutlineEmail className="text-green-600 text-sm" />
+                                    </div>
+                                    <span className="font-medium text-gray-900">{resCheckout?.data.attributes.email}</span>
                                 </div>
-                                <span className="font-medium text-gray-900">{resCheckout?.data.attributes.email}</span>
-                            </div>
-                            <div className="flex gap-3 items-center">
-                                <div className="
+                                <div className="flex gap-3 items-center">
+                                    <div className="
                                                                                       p-2 bg-green-100 rounded-lg 
                                                                                                       group-hover:bg-green-200 
                                                                                                       transition-colors duration-300
                                                                                     ">
-                                    <LuMapPinHouse className="text-green-600 text-sm" />
-                                </div>
-                                {filterAddressCheckout.length > 0 &&
-                                    <>
-                                        {filterAddressCheckout?.map((res) =>
-                                            <div key={res.id} className="flex flex-wrap gap-1 text-gray-600 text-sm leading-relaxed">
-                                                <span>{res.attributes.firstname}</span>
-                                                <span>{res.attributes.lastname}</span>
-                                                <span>{res.attributes.label},</span>
-                                                <span>{res.attributes.address1},</span>
-                                                <span>{res.attributes.city},</span>
-                                                <span>{res.attributes.state_name}</span>
-                                                <span>{res.attributes.state_code},</span>
-                                                <span>{res.attributes.country_name}</span>
-                                            </div>
-                                        )}
-                                    </>
-                                }
+                                        <LuMapPinHouse className="text-green-600 text-sm" />
+                                    </div>
+                                    {filterAddressCheckout.length > 0 &&
+                                        <>
+                                            {filterAddressCheckout?.map((res) =>
+                                                <div key={res.id} className="flex flex-wrap gap-1 text-gray-600 text-sm leading-relaxed">
+                                                    <span>{res.attributes.firstname}</span>
+                                                    <span>{res.attributes.lastname}</span>
+                                                    <span>{res.attributes.label},</span>
+                                                    <span>{res.attributes.address1},</span>
+                                                    <span>{res.attributes.city},</span>
+                                                    <span>{res.attributes.state_name}</span>
+                                                    <span>{res.attributes.state_code},</span>
+                                                    <span>{res.attributes.country_name}</span>
+                                                </div>
+                                            )}
+                                        </>
+                                    }
 
-                            </div>
-                            <div className="flex gap-3 items-center">
-                                <div className="
+                                </div>
+                                <div className="flex gap-3 items-center">
+                                    <div className="
                                                                                       p-2 bg-green-100 rounded-lg 
                                                                                                       group-hover:bg-green-200 
                                                                                                       transition-colors duration-300
                                                                                     ">
-                                    <FaShippingFast className="text-green-600 text-sm" />
+                                        <FaShippingFast className="text-green-600 text-sm" />
+                                    </div>
+                                    <span className="text-gray-600 text-sm leading-relaxed">{valueNameShippingFee} - <strong>{valuePriceShippingFee}</strong></span>
                                 </div>
-                                <span className="text-gray-600 text-sm leading-relaxed">{valueNameShippingFee} - <strong>{valuePriceShippingFee}</strong></span>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
 
-                {token ?
-                    <>
-                        <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
-                            <div className="flex justify-between items-center">
-                                <div className="flex flex-col gap-3 ">
-                                    <h3 className="text-xl font-semibold">
-                                        Payment
-                                    </h3>
-                                    <p className="text-sm text-gray-500">All transactions are secure and encrypted</p>
-                                </div>
-                                <button
-                                    aria-label='add address'
-                                    className="h-[45px] w-[45px] rounded-xl bg-gradient-to-br from-green-500  to-emerald-600 text-white 
+                    {token ?
+                        <>
+                            <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
+                                <div className="flex justify-between items-center">
+                                    <div className="flex flex-col gap-3 ">
+                                        <h3 className="text-xl font-semibold">
+                                            Payment
+                                        </h3>
+                                        <p className="text-sm text-gray-500">All transactions are secure and encrypted</p>
+                                    </div>
+                                    <button
+                                        aria-label='add address'
+                                        className="h-[45px] w-[45px] rounded-xl bg-gradient-to-br from-green-500  to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-                                    onClick={() => {
-                                        getApiListPaymentMethods()
-                                        setOpenCreateCredit(true)
-                                    }}
-                                >
-                                    <IoMdAdd size={18} className="mx-auto" />
-                                    <div className="absolute inset-0 overflow-hidden">
-                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                    </div>
-                                    <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                        onClick={() => {
+                                            getApiListPaymentMethods()
+                                            setOpenCreateCredit(true)
+                                        }}
+                                    >
+                                        <IoMdAdd size={18} className="mx-auto" />
+                                        <div className="absolute inset-0 overflow-hidden">
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                        </div>
+                                        <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-                                </button>
-                            </div>
-                            <Dialog open={openCreateCredit} onClose={() => setOpenCreateCredit(false)} maxWidth="md" fullWidth>
-                                <DialogContent
-                                    sx={{
-                                        padding: 0,
-                                        borderRadius: "18px",
-                                        overflow: "hidden",
-                                        background: "transparent",
-                                    }}
-                                >
-                                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                                        <div className="w-full max-w-2xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-2xl relative overflow-hidden">
-                                            <button
-                                                onClick={() => {
-                                                    setOpenCreateCredit(false);
-                                                    setIdPaymentMethod("");
-                                                    setPublishableKey("");
-                                                    setStripePromise(null);
-                                                    setErrorCreateCredit("");
-                                                }}
-                                                className="absolute top-3 right-3 w-10 h-10 z-50 flex items-center justify-center rounded-full bg-white/70 backdrop-blur-md shadow-lg hover:bg-white hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 border border-white/60"
-                                            >
-                                                <span className="text-gray-600 text-xl font-bold">×</span>
-                                            </button>
+                                    </button>
+                                </div>
+                                <Dialog open={openCreateCredit} onClose={() => setOpenCreateCredit(false)} maxWidth="md" fullWidth>
+                                    <DialogContent
+                                        sx={{
+                                            padding: 0,
+                                            borderRadius: "18px",
+                                            overflow: "hidden",
+                                            background: "transparent",
+                                        }}
+                                    >
+                                        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                                            <div className="w-full max-w-2xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-2xl relative overflow-hidden">
+                                                <button
+                                                    onClick={() => {
+                                                        setOpenCreateCredit(false);
+                                                        setIdPaymentMethod("");
+                                                        setPublishableKey("");
+                                                        setStripePromise(null);
+                                                        setErrorCreateCredit("");
+                                                    }}
+                                                    className="absolute top-3 right-3 w-10 h-10 z-50 flex items-center justify-center rounded-full bg-white/70 backdrop-blur-md shadow-lg hover:bg-white hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 border border-white/60"
+                                                >
+                                                    <span className="text-gray-600 text-xl font-bold">×</span>
+                                                </button>
 
-                                            <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-200/30 rounded-full blur-xl"></div>
-                                            <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
+                                                <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-200/30 rounded-full blur-xl"></div>
+                                                <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
 
-                                            <div className="relative z-10">
-                                                <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-6">
-                                                    Add Credit Card
-                                                </h1>
+                                                <div className="relative z-10">
+                                                    <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-6">
+                                                        Add Credit Card
+                                                    </h1>
 
-                                                <div className="flex flex-col gap-1">
-                                                    <label className="block text-md font-medium text-gray-700 mb-2">
-                                                        Payment Method <span className="text-red-500">*</span>
-                                                    </label>
-                                                    <Select
-                                                        MenuProps={MenuProps}
-                                                        sx={sxSelect}
-                                                        value={idPaymentMethod}
-                                                        onChange={handleChangeCreditCard}
-                                                        displayEmpty
-                                                    >
-                                                        <MenuItem value="" disabled>
-                                                            <em>Select a payment method</em>
-                                                        </MenuItem>
-                                                        {resCheckoutPayments_List?.data.map((data) => (
-                                                            <MenuItem key={data.id} value={data.id}>
-                                                                {data.attributes.name}
+                                                    <div className="flex flex-col gap-1">
+                                                        <label className="block text-md font-medium text-gray-700 mb-2">
+                                                            Payment Method <span className="text-red-500">*</span>
+                                                        </label>
+                                                        <Select
+                                                            MenuProps={MenuProps}
+                                                            sx={sxSelect}
+                                                            value={idPaymentMethod}
+                                                            onChange={handleChangeCreditCard}
+                                                            displayEmpty
+                                                        >
+                                                            <MenuItem value="" disabled>
+                                                                <em>Select a payment method</em>
                                                             </MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-
-                                                {publishableKey && stripePromise ? (
-                                                    <Elements stripe={stripePromise}>
-                                                        <StripePaymentForm
-                                                            onSubmit={handleCreateCredit}
-                                                            loading={loading}
-                                                            error={errorCreateCredit}
-                                                            publishableKey={publishableKey}
-                                                        />
-                                                    </Elements>
-                                                ) : (
-                                                    <div className="text-center py-8 text-gray-500">
-                                                        Please select a payment method to continue
+                                                            {resCheckoutPayments_List?.data.map((data) => (
+                                                                <MenuItem key={data.id} value={data.id}>
+                                                                    {data.attributes.name}
+                                                                </MenuItem>
+                                                            ))}
+                                                        </Select>
                                                     </div>
-                                                )}
+
+                                                    {publishableKey && stripePromise ? (
+                                                        <Elements stripe={stripePromise}>
+                                                            <StripePaymentForm
+                                                                onSubmit={handleCreateCredit}
+                                                                loading={loading}
+                                                                error={errorCreateCredit}
+                                                                publishableKey={publishableKey}
+                                                            />
+                                                        </Elements>
+                                                    ) : (
+                                                        <div className="text-center py-8 text-gray-500">
+                                                            Please select a payment method to continue
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </DialogContent>
-                            </Dialog>
-                            <RadioGroup
-                                aria-labelledby="demo-controlled-radio-buttons-group"
-                                name="controlled-radio-buttons-group"
-                                value={valueIdCreditCard}
-                                onChange={handleSelectCreditCard}
-                            >
-                                {resAccountCreditCard_All &&
-                                    <div className="flex flex-col gap-5">
-                                        {resAccountCreditCard_All?.data.map((res) => {
-                                            const rawType = res.attributes.cc_type?.toLowerCase();
+                                    </DialogContent>
+                                </Dialog>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={valueIdCreditCard}
+                                    onChange={handleSelectCreditCard}
+                                >
+                                    {resAccountCreditCard_All &&
+                                        <div className="flex flex-col gap-5">
+                                            {resAccountCreditCard_All?.data.map((res) => {
+                                                const rawType = res.attributes.cc_type?.toLowerCase();
 
-                                            const type = Object.keys(cardStyles).includes(rawType)
-                                                ? rawType as CardType
-                                                : 'visa'; // fallback to visa
+                                                const type = Object.keys(cardStyles).includes(rawType)
+                                                    ? rawType as CardType
+                                                    : 'visa'; // fallback to visa
 
-                                            const style = cardStyles[type]
-                                            return (
-                                                <div
-                                                    key={res.id}
-                                                    className={`${valueIdCreditCard === res.id ? 'border-green-500 border shadow-sm' : ' '} w-full rounded-xl bg-white  
+                                                const style = cardStyles[type]
+                                                return (
+                                                    <div
+                                                        key={res.id}
+                                                        className={`${valueIdCreditCard === res.id ? 'border-green-500 border shadow-sm' : ' '} w-full rounded-xl bg-white  
                                                          hover:shadow-lg 
                                                         transition-all duration-500 ease-out
                                                         hover:-translate-y-2 hover:border-green-300
                                                         relative overflow-hidden
                                                         group cursor-pointer
                                                         backdrop-blur-sm`}
-                                                >
-                                                    <FormControlLabel
-                                                        value={res.id}
-                                                        control={<Radio sx={{
-                                                            zIndex: '10',
-                                                            '&.Mui-checked': {
-                                                                color: 'var(--color-green-600)',
-                                                            },
-                                                        }} />}
-                                                        sx={sxRadio}
-                                                        label={
-                                                            <div>
-                                                                <div className={`${valueIdCreditCard === res.id ? 'opacity-100' : 'opacity-0'} absolute inset-0  group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}>
-                                                                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
-                                                                    <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
-                                                                </div>
-                                                                <div className="flex gap-3 items-center">
-                                                                    <span className="transition-all duration-300 group-hover:scale-110">{style.logo}</span>
+                                                    >
+                                                        <FormControlLabel
+                                                            value={res.id}
+                                                            control={<Radio sx={{
+                                                                zIndex: '10',
+                                                                '&.Mui-checked': {
+                                                                    color: 'var(--color-green-600)',
+                                                                },
+                                                            }} />}
+                                                            sx={sxRadio}
+                                                            label={
+                                                                <div>
+                                                                    <div className={`${valueIdCreditCard === res.id ? 'opacity-100' : 'opacity-0'} absolute inset-0  group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}>
+                                                                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
+                                                                        <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
+                                                                    </div>
+                                                                    <div className="max-sm:grid max-sm:text-sm">
+                                                                        <div className="flex gap-3 items-center ">
+                                                                            <span className="transition-all duration-300 group-hover:scale-110">{style.logo}</span>
 
-                                                                    <span>•••• •••• •••• {res.attributes.last_digits}</span>
-                                                                    <span>{res.attributes.month}/{res.attributes.year}</span>
-                                                                </div>
-                                                                <div className={`${valueIdCreditCard === res.id ? 'opacity-5' : 'opacity-0'}
+                                                                            <span>•••• •••• •••• {res.attributes.last_digits}</span>
+                                                                            <span className="max-sm:hidden">{res.attributes.month}/{res.attributes.year}</span>
+                                                                        </div>
+                                                                        <span>Date: {res.attributes.month}/{res.attributes.year}</span>
+                                                                    </div>
+                                                                    <div className={`${valueIdCreditCard === res.id ? 'opacity-5' : 'opacity-0'}
                                                             absolute inset-0 rounded-xl 
                                                             bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 
                                                              group-hover:opacity-5 
                                                             transition-opacity duration-500
                                                             -z-5`}></div>
-                                                            </div>
-                                                        }>
-                                                    </FormControlLabel>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                }
+                                                                </div>
+                                                            }>
+                                                        </FormControlLabel>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    }
 
-                            </RadioGroup>
-                        </div>
-                        {/* {showSetKey &&
+                                </RadioGroup>
+                            </div>
+                            {/* {showSetKey &&
                             <div className="flex flex-col gap-1">
                                 <label htmlFor="key" className="block text-md font-medium text-gray-700">
                                     Payment intent ID
@@ -764,103 +768,103 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                 />
                             </div>
                         } */}
-                        <div className="flex justify-end gap-5">
-                            <button className="px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
-                                // disabled={activeStep === 1}
-                                onClick={() => {
-                                    fnBackStep()
-                                    setValueShippingFee("Free")
-                                }}
-                            >
-                                Back
-                            </button>
-                            <button
-                                onClick={() => {
-                                    // if (showSetKey) {
+                            <div className="flex justify-end gap-5">
+                                <button className="uppercase md:px-16 px-4 md:text-md text-sm h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
+                                    // disabled={activeStep === 1}
+                                    onClick={() => {
+                                        fnBackStep()
+                                        setValueShippingFee("Free")
+                                    }}
+                                >
+                                    Back
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        // if (showSetKey) {
                                         handlePayNow()
-                                    // } else {
-                                    //     setShowSetKey(true)
-                                    // }
-                                }}
-                                className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                        // } else {
+                                        //     setShowSetKey(true)
+                                        // }
+                                    }}
+                                    className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 uppercase md:px-16 px-4 md:text-md text-sm to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group">
-                                {activeStep === lengthStep - 1 ? 'Pay now' : 'Save and Continue'}
-                                <div className="absolute inset-0 overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                </div>
-                                <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            </button>
-                        </div>
-                    </>
-                    :
-                    <>
-                        <div className="flex flex-col gap-5 ">
-                            <div className="flex flex-col gap-3 ">
-                                <h3 className="text-xl font-semibold">
-                                    Payment
-                                </h3>
-                                <p className="text-sm text-gray-500">All transactions are secure and encrypted</p>
-                            </div>
-                            {!createSuccess ?
-                                <>
-                                    <div className="flex flex-col gap-1 ">
-                                        <label className="block text-md font-medium text-gray-700 mb-2">
-                                            Payment Method <span className="text-red-500">*</span>
-                                        </label>
-                                        <Select
-                                            MenuProps={MenuProps}
-                                            sx={sxSelect}
-                                            value={idPaymentMethod}
-                                            onChange={handleChangeCreditCard}
-                                            displayEmpty
-                                        >
-                                            <MenuItem value="" disabled>
-                                                <em>Select a payment method</em>
-                                            </MenuItem>
-                                            {resCheckoutPayments_List?.data.map((data) => (
-                                                <MenuItem key={data.id} value={data.id}>
-                                                    {data.attributes.name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
+                                    {activeStep === lengthStep - 1 ? 'Pay now' : 'Save and Continue'}
+                                    <div className="absolute inset-0 overflow-hidden">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                     </div>
+                                    <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                </button>
+                            </div>
+                        </>
+                        :
+                        <>
+                            <div className="flex flex-col gap-5 ">
+                                <div className="flex flex-col gap-3 ">
+                                    <h3 className="text-xl font-semibold">
+                                        Payment
+                                    </h3>
+                                    <p className="text-sm text-gray-500">All transactions are secure and encrypted</p>
+                                </div>
+                                {!createSuccess ?
+                                    <>
+                                        <div className="flex flex-col gap-1 ">
+                                            <label className="block text-md font-medium text-gray-700 mb-2">
+                                                Payment Method <span className="text-red-500">*</span>
+                                            </label>
+                                            <Select
+                                                MenuProps={MenuProps}
+                                                sx={sxSelect}
+                                                value={idPaymentMethod}
+                                                onChange={handleChangeCreditCard}
+                                                displayEmpty
+                                            >
+                                                <MenuItem value="" disabled>
+                                                    <em>Select a payment method</em>
+                                                </MenuItem>
+                                                {resCheckoutPayments_List?.data.map((data) => (
+                                                    <MenuItem key={data.id} value={data.id}>
+                                                        {data.attributes.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </div>
 
-                                    {(publishableKey && stripePromise) ? (
-                                        <Elements stripe={stripePromise}>
-                                            <StripePaymentForm
-                                                onSubmit={handleCreateCredit}
-                                                loading={loading}
-                                                error={errorCreateCredit}
-                                                publishableKey={publishableKey}
-                                            />
-                                        </Elements>
-                                    ) : (
-                                        <div className="text-center py-8 text-gray-500">
-                                            Please select a payment method to continue
-                                        </div>
-                                    )}
-                                </>
-                                :
-                                <>
-                                    <div>
-                                        <div className={`opacity-100 absolute inset-0  group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}>
-                                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
-                                            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
-                                        </div>
-                                        <div className="flex gap-3 items-center">
-                                            <span className="transition-all duration-300 group-hover:scale-110">{cardStyles[dataTypeCC].logo}</span>
+                                        {(publishableKey && stripePromise) ? (
+                                            <Elements stripe={stripePromise}>
+                                                <StripePaymentForm
+                                                    onSubmit={handleCreateCredit}
+                                                    loading={loading}
+                                                    error={errorCreateCredit}
+                                                    publishableKey={publishableKey}
+                                                />
+                                            </Elements>
+                                        ) : (
+                                            <div className="text-center py-8 text-gray-500">
+                                                Please select a payment method to continue
+                                            </div>
+                                        )}
+                                    </>
+                                    :
+                                    <>
+                                        <div>
+                                            <div className={`opacity-100 absolute inset-0  group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}>
+                                                <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
+                                                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
+                                            </div>
+                                            <div className="flex gap-3 items-center max-sm:text-sm">
+                                                <span className="transition-all duration-300 group-hover:scale-110">{cardStyles[dataTypeCC].logo}</span>
 
-                                            <span>•••• •••• •••• {dataCreatePayment.last_digits}</span>
-                                            <span>{dataCreatePayment.month}/{dataCreatePayment.year}</span>
-                                        </div>
-                                        <div className={`opacity-5 absolute inset-0 rounded-xl 
+                                                <span >•••• •••• •••• {dataCreatePayment.last_digits}</span>
+                                                <span >{dataCreatePayment.month}/{dataCreatePayment.year}</span>
+                                            </div>
+                                            <div className={`opacity-5 absolute inset-0 rounded-xl 
                                                             bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 
                                                              group-hover:opacity-5 
                                                             transition-opacity duration-500
                                                             -z-5`}></div>
-                                    </div>
-                                    {/* {showSetKey &&
+                                        </div>
+                                        {/* {showSetKey &&
                                         <div className="flex flex-col gap-1">
                                             <label htmlFor="key" className="block text-md font-medium text-gray-700">
                                                 Payment intent ID
@@ -879,42 +883,44 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                             />
                                         </div>
                                     } */}
-                                    <div className="flex justify-end gap-5">
-                                        <button className="px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
-                                            // disabled={activeStep === 1}
-                                            onClick={() => {
-                                                fnBackStep()
-                                                setValueShippingFee("Free")
-                                            }}
-                                        >
-                                            Back
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                // if (showSetKey) {
+                                        <div className="flex justify-end gap-5">
+                                            <button className="uppercase md:px-16 px-4 md:text-md text-sm h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
+                                                // disabled={activeStep === 1}
+                                                onClick={() => {
+                                                    fnBackStep()
+                                                    setValueShippingFee("Free")
+                                                }}
+                                            >
+                                                Back
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    // if (showSetKey) {
                                                     handlePayNow()
-                                                // } else {
-                                                //     setShowSetKey(true)
-                                                // }
-                                            }}
-                                            className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                                    // } else {
+                                                    //     setShowSetKey(true)
+                                                    // }
+                                                }}
+                                                className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 uppercase md:px-16 px-4 md:text-md text-sm to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group">
-                                            {activeStep === lengthStep - 1 ? 'Pay now' : 'Save and Continue'}
-                                            <div className="absolute inset-0 overflow-hidden">
-                                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                            </div>
-                                            <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                        </button>
-                                    </div>
-                                </>
-                            }
-                        </div>
-                    </>
-                }
-
+                                                {activeStep === lengthStep - 1 ? 'Pay now' : 'Save and Continue'}
+                                                <div className="absolute inset-0 overflow-hidden">
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                </div>
+                                                <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                            </button>
+                                        </div>
+                                    </>
+                                }
+                            </div>
+                        </>
+                    }
+                </div>
                 <ToastContainer position="top-right" autoClose={3000} />
+
             </div>
+
         </>
     )
 }

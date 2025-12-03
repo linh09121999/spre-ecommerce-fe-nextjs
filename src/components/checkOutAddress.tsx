@@ -536,6 +536,10 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
     }
 
     const handleNextToDeliveryToken = async () => {
+        if (valueIdShippingAddress === '0') {
+            setErrorUpdateCheckOut("Please select the address")
+            return
+        }
         const data: { order: Checkout } = { order };
         const include = "line_items,shipping_address"
         try {
@@ -592,10 +596,29 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                         </div>
                     </div>
                     <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
-                        <div className="grid grid-cols-2 items-center">
-                            <h3 className="text-xl font-semibold">
-                                Shipping Address
-                            </h3>
+                        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 items-center">
+                            <div className="max-md:flex max-md:justify-between items-center">
+                                <h3 className="text-xl font-semibold">
+                                    Shipping Address
+                                </h3>
+                                <button
+                                    aria-label='add address'
+                                    className="h-[45px] md:hidden w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
+                            hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
+                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+
+                                    onClick={() => {
+                                        getApiListCountries()
+                                        setOpenCreateAccountAddress(true)
+                                    }}
+                                ><IoMdAdd size={18} className="mx-auto" />
+                                    <div className="absolute inset-0 overflow-hidden">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                    </div>
+                                    <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                                </button>
+                            </div>
                             <div className='flex gap-3'>
                                 <TextField
                                     type="search"
@@ -617,7 +640,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                 />
                                 <button
                                     aria-label='add address'
-                                    className="h-[45px] w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
+                                    className="h-[45px] max-md:hidden w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
 
@@ -985,6 +1008,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                 value={res.id}
                                                 control={<Radio sx={{
                                                     zIndex: '10',
+                                                    p: 0,
                                                     '&.Mui-checked': {
                                                         color: 'var(--color-green-600)',
                                                     },
@@ -999,7 +1023,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                         <div className="flex flex-col gap-3">
                                                             {/* Name */}
                                                             <h3 className="
-                                                      text-xl font-bold text-gray-900 
+                                                      text-xl max-md:text-lg font-bold text-gray-900 
                                                       group-hover:text-green-800 
                                                       transition-colors duration-300
                                                       truncate
@@ -1016,7 +1040,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                                         <div className="transition-colors duration-300">
                                                                             <MdOutlinePhoneIphone className="text-green-600 text-sm" />
                                                                         </div>
-                                                                        <span className="font-medium text-gray-900">{res.attributes.phone}</span>
+                                                                        <span className="font-medium text-gray-900 max-md:text-sm">{res.attributes.phone}</span>
                                                                     </div>
                                                                 )}
 
@@ -1067,7 +1091,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                         </RadioGroup>
                     </div>
                     <div className="flex justify-end gap-5">
-                        <button className="px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
+                        <button className="md:px-16 px-4 md:text-md text-sm uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
                             // disabled={activeStep === 1}
                             onClick={() => {
                                 fnBackStep()
@@ -1078,7 +1102,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                         </button>
                         <button
                             onClick={handleNextToDeliveryToken}
-                            className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                            className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 uppercase md:px-16 px-4 md:text-md text-sm to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group">
                             {activeStep === lengthStep - 1 ? 'Finish' : 'Save and Continue'}
@@ -1450,7 +1474,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                 </div>
                             </div>
                             <div className="flex justify-end gap-5">
-                                <button className="px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
+                                <button className="md:px-16 px-4 md:text-md text-sm uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
                                     // disabled={activeStep === 1}
                                     onClick={() => {
                                         fnBackStep()
@@ -1459,7 +1483,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                 >
                                     Back
                                 </button>
-                                <button type="submit" className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                <button type="submit" className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 uppercase md:px-16 px-4 md:text-md text-sm to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                 >
