@@ -2,7 +2,7 @@
 import { CreateAWishlist, DeleteAWishlist, ListAllWishlists, RetrieveAWishlist } from "@/service/storefront/wishlists";
 import { useStateGeneral } from "@/useState/useStateGeneralStoreFront";
 import { useState_ResWishlists } from "@/useState/useStatestorefront";
-import { TextField } from "@mui/material";
+import { Dialog, DialogContent, Menu, MenuItem, TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
 import type { SxProps, Theme } from "@mui/material/styles";
 
@@ -17,6 +17,7 @@ import { Product, WishListItem } from "@/interface/responseData/interfaceStorefr
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { BsBox2Heart } from "react-icons/bs";
+import { IoClose } from "react-icons/io5";
 
 const HeartFrom: React.FC = () => {
     const router = useRouter()
@@ -50,6 +51,37 @@ const HeartFrom: React.FC = () => {
             color: 'black',
             fontSize: 'var(--text-lg)',
             border: 'none',
+        },
+    }
+
+    const PaperProps: SxProps<Theme> = {
+        sx: {
+            borderRadius: 'var(--radius-xl)',
+            boxShadow: 'var(--shadow-xl)',
+            maxWidth: 'calc(100%)',
+            background: 'rgb(255,255,255,0.5)',
+            backdropFilter: 'blur(10px)',
+            zIndex: 100,
+        },
+    }
+
+    const MenuListProps: SxProps<Theme> = {
+        sx: {
+            paddingY: 0.5,
+        },
+    }
+
+    const sxMenuItem: SxProps<Theme> = {
+        justifyContent: 'start',
+        paddingY: '10px',
+        paddingLeft: '20px',
+        color: 'rgb(0,0,0,0.7)',
+        zIndex: 100,
+        '&:hover': {
+            background: 'rgb(255,255,255,0.2)',
+            backdropFilter: 'blur(10px)',
+            color: 'var(--color-green-600) !important',
+            fontWeight: 600
         },
     }
 
@@ -275,10 +307,19 @@ const HeartFrom: React.FC = () => {
             : 0;
     }
 
+    const [anchorElEditMode, setAnchorElEditMode] = useState<null | HTMLElement>(null);
+    const openEditMode = Boolean(anchorElEditMode);
+    const handleClickEditMode = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorElEditMode(event.currentTarget);
+    };
+    const handleCloseEditMode = () => {
+        setAnchorElEditMode(null);
+    };
+
     return (
         <>
             <div className="max-w-[1535px] mx-auto max-2xl:px-5 py-5 flex flex-col">
-                <div className="grid lg:grid-cols-[300px_1fr] gap-10">
+                <div className="grid lg:grid-cols-[300px_1fr] lg:gap-10 gap-5">
                     <aside className="grid h-fit max-lg:hidden  gap-5 "
                         data-aos="fade-right"
                         data-aos-duration="3000"
@@ -361,6 +402,137 @@ const HeartFrom: React.FC = () => {
                             </form>
                         </div>
                     </aside>
+                    <div className="lg:hidden flex overflow-x-auto scroll-x gap-5 py-3"
+                        data-aos="fade-right"
+                        data-aos-duration="3000"
+                    >
+                        {resWishlists_List?.data.map((res) => (
+                            <>
+                                <div className="relative group">
+                                    <button
+                                        aria-label="click wishlist"
+                                        className={`${selectedWishlist === res.attributes.token ? 'text-white border border-green-700 shadow-lg' : 'bg-gray-100 group-hover:bg-green-100 group-hover:border-green-200'} text-lg flex group items-center  group-hover:shadow-lg w-fit  gap-3 px-4 h-[45px] rounded-xl  transition-all duration-300`}
+                                        onClick={() =>
+                                            handleOpenWishList(res.attributes.token)
+                                        }>
+                                        <p className={`${selectedWishlist === res.attributes.token ? 'text-green-700 font-bold' : 'text-slate-700 group-hover:text-green-700'} max-sm:text-sm text-lg whitespace-nowrap transition-all duration-500`}>{res.attributes.name}</p>
+                                    </button>
+                                    <button
+                                        aria-label={`delete wishlist ${res.id}`}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDeleteWistlist(res.attributes.token)
+                                        }}
+                                        className="
+                                                                    absolute -top-2 -right-2 w-8 h-8
+                                                                    rounded-full bg-white shadow-lg flex items-center justify-center
+                                                                    text-gray-600 text-sm font-bold
+                                                                    hover:bg-red-500 hover:text-white hover:shadow-xl
+                                                                    active:scale-95 active:bg-red-600
+                                                                    transition-all duration-300
+                                                                    border border-gray-200
+                                                                    hover:scale-110
+                                                                    opacity-0 group-hover:opacity-100
+                                                                    z-10
+                                                                    transform-gpu
+                                                                "
+                                    >
+                                        <IoClose />
+                                    </button>
+                                </div>
+                            </>
+
+                        ))}
+                        <button
+                            onClick={() => setOpenCreateWishlist(true)}
+                            className="flex px-4 h-[45px] gap-3 max-sm:text-sm text-lg whitespace-nowrap items-center rounded-xl border-[3px] border-dashed transition-all duration-300 border-gray-200 hover:shadow-lg">
+                            Add WishList
+                        </button>
+                        <Dialog open={openCreateWishlist} onClose={() => setOpenCreateWishlist(false)}>
+                            <DialogContent
+                                sx={{
+                                    padding: 0,
+                                    borderRadius: "18px",
+                                    overflow: "hidden",
+                                    background: "transparent",
+                                }}
+                            >
+                                <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                                    <div className="w-full max-w-3xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-2xl relative overflow-hidden">
+                                        <button
+                                            onClick={() => setOpenCreateWishlist(false)}
+                                            className="absolute top-3 right-3 w-10 h-10 z-50 flex items-center justify-center
+    rounded-full bg-white/70 backdrop-blur-md shadow-lg
+    hover:bg-white hover:shadow-xl hover:-translate-y-0.5
+    transition-all duration-300 border border-white/60"
+                                        >
+                                            <span className="text-gray-600 text-xl font-bold">×</span>
+                                        </button>
+                                        <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-200/30 rounded-full blur-xl"></div>
+                                        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
+                                        <div className="relative z-10">
+                                            <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
+                                                Create An Wishlist
+                                            </h1>
+                                            {errorCreateWishlist &&
+                                                <div className="p-4 mb-6 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
+                                                    <MdOutlineErrorOutline className="mx-auto" size={21} />
+                                                    <span>{errorCreateWishlist}</span>
+                                                </div>
+                                            }
+                                            <form onSubmit={handleCreateWishlist} className="flex flex-col gap-5">
+                                                <div className="flex flex-col gap-1">
+                                                    <label htmlFor="name" className="block text-md font-medium text-gray-700">
+                                                        Name
+                                                    </label>
+                                                    <TextField
+                                                        type="text"
+                                                        required
+                                                        autoComplete='name'
+                                                        placeholder="e.g. Birthday Wishes, Christmas List"
+                                                        name="name"
+                                                        value={newNameWishlist}
+                                                        variant="outlined"
+                                                        sx={sxTextField}
+                                                        onChange={(e) => setNewNameWishlist(e.target.value)}
+                                                        error={Boolean(errorNewNameWishlist)}
+                                                        helperText={errorNewNameWishlist}
+                                                    />
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-3">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setOpenCreateWishlist(false)}
+                                                        className="
+                                    flex-1 py-3 rounded-xl 
+                                    text-lg font-semibold text-gray-700
+                                    bg-gray-100 hover:bg-gray-200
+                                    shadow-md hover:shadow-lg
+                                    transition-all duration-300
+                                "
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                            hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
+                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                                    >
+                                                        <span className="relative z-10">Create An Address</span>
+                                                        <div className="absolute inset-0 overflow-hidden">
+                                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                        </div>
+                                                        <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
                     {(selectedWishlist && resWishlists?.data && resWishlists?.included) ?
                         <section className="flex flex-col gap-5"
                             data-aos="fade-left"
@@ -374,8 +546,12 @@ const HeartFrom: React.FC = () => {
                                         {resWishlists?.data.relationships.wished_items.data.length || 0} items in this list
                                     </p>
                                 </div>
-                                <div className="flex gap-5">
-                                    <button className="text-red-500 hover:underline text-sm font-medium">
+                                <div className="flex gap-5 max-sm:hidden">
+                                    <button
+                                        onClick={() => {
+                                            handleDeleteWistlist(resWishlists.data.attributes.token)
+                                        }}
+                                        className="text-red-500 hover:underline text-sm font-medium">
                                         Delete Wishlist
                                     </button>
                                     {resWishlists?.included.length > 0 &&
@@ -387,9 +563,40 @@ const HeartFrom: React.FC = () => {
                                         </button>
                                     }
                                 </div>
+                                <button
+                                    onClick={handleClickEditMode}
+                                    className="sm:hidden flex hover:underline transition-all duration-300 items-center gap-2 text-red-500 hover:text-red-600 text-sm font-medium transition"
+                                >
+                                    <span className="">{openEditMode ? "Done" : "Edit"}</span>
+                                </button>
+                                <Menu
+                                    anchorEl={anchorElEditMode}
+                                    open={openEditMode}
+                                    onClose={handleCloseEditMode}
+                                    PaperProps={PaperProps}
+                                    MenuListProps={MenuListProps}
+                                >
+                                    <MenuItem
+                                        onClick={() => {
+                                            handleCloseEditMode()
+                                            handleDeleteWistlist(resWishlists.data.attributes.token)
+                                        }}
+                                        sx={sxMenuItem}>
+                                        Delete Wishlist
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={() => {
+                                            handleCloseEditMode()
+                                            handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))
+                                        }}
+
+                                        sx={sxMenuItem}>
+                                        Clear All Items
+                                    </MenuItem>
+                                </Menu>
                             </div>
                             {processedWishedItems ?
-                                <div className="grid grid-cols-4 gap-5">
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                                     {processedWishedItems.map((res) => (
                                         <button
                                             onClick={() => {
@@ -402,9 +609,13 @@ const HeartFrom: React.FC = () => {
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
                                                 <div className="absolute top-3 left-3 ">
-                                                    <span className="text-md flex items-center gap-2 font-semibold px-3 py-[4px] rounded-full bg-gradient-to-r from-emerald-500 to-green-700 text-white shadow-md backdrop-blur-md">
-                                                        <BsBox2Heart />{res.quantity || 1}
-                                                    </span>
+
+                                                    {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
+                                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow">
+                                                            -{priceInfo(res?.price, res?.compare_at_price)}%
+                                                        </span>
+                                                    }
+
                                                 </div>
                                                 <button
                                                     aria-label="click heart"
@@ -423,6 +634,9 @@ const HeartFrom: React.FC = () => {
                                                     {res.product_name}
                                                 </h3>
                                                 <span className="text-sm text-start text-gray-500">{res.options_text}</span>
+                                                <span className="text-sm flex items-center gap-2 font-semibold">
+                                                    Quantity: {res.quantity || 1}
+                                                </span>
                                                 <div className="flex items-center gap-4" >
                                                     <div className="flex items-end gap-2">
                                                         <span className="text-2xl font-bold text-green-700">
@@ -435,11 +649,6 @@ const HeartFrom: React.FC = () => {
                                                         )}
                                                     </div>
 
-                                                    {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
-                                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow">
-                                                            -{priceInfo(res?.price, res?.compare_at_price)}%
-                                                        </span>
-                                                    }
                                                 </div>
                                             </div>
                                         </button>

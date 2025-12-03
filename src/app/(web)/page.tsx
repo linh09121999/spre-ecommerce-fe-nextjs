@@ -96,7 +96,7 @@ const Home: React.FC = () => {
             data-aos-duration="3000"
           >
             <div className="bg-white/60 flex flex-col gap-5 backdrop-blur-md lg:p-8 lg:rounded-xl lg:shadow-md">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">Explore Your Style
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight">Explore Your Style
                 <br className="hidden sm:inline" /> With <span className="text-green-600">Spree Commerce</span></h1>
               <p className=" text-slate-600 max-w-xl">Build fully customizable eCommerce experiences with Spree’s powerful open-source platform</p>
               <button
@@ -127,7 +127,7 @@ const Home: React.FC = () => {
             </div>
             <section>
               <h3 className="text-lg font-semibold mb-4">Shop by category</h3>
-              <div className=" flex overflow-x-auto scroll-x gap-5">
+              <div className=" flex overflow-x-auto scroll-x gap-5 pb-3">
                 {[
                   { title: "Men", icon: <FiUser size={18} /> },
                   { title: "Women", icon: <FiUsers size={18} /> },
@@ -140,7 +140,7 @@ const Home: React.FC = () => {
                   <button
                     key={title}
                     onClick={() => router.push(`/${toPath(title)}`)}
-                    className="flex group items-center w-fit gap-3 py-1 px-3 rounded-xl hover:bg-green-50 transition-all duration-500"
+                    className="flex group items-center w-fit gap-3 whitespace-nowrap px-4 h-[45px] rounded-xl hover:bg-green-50 hover:shadow-lg transition-all duration-500"
                   >
                     <div className=" css-icon text-green-500">{icon}</div>
                     <div className="text-sm text-slate-700 group-hover:text-green-500 transition-all duration-500">{title}</div>
