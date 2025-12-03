@@ -563,16 +563,30 @@ const HeaderWeb: React.FC = () => {
         []
     );
 
-
-    const handleChangeSearch = (_: any, newValue: { slug: string, name: string } | null) => {
+    const handleChangeSearch = (_: any, newValue: any | null) => {
         if (!newValue) return;
-        setSelectSearchSlug(newValue.slug)
+
+        const productSlug = newValue.attributes?.slug;
+        if (!productSlug) return;
+
+        setSelectSearchSlug(productSlug);
+
         // Clear kết quả tìm kiếm sau khi chọn
-        setResDataProduct_Search([])
-        setResDataIcludes_Search([])
+        setResDataProduct_Search([]);
+        setResDataIcludes_Search([]);
         lastQueryRef.current = "";
-        router.push(`/product/${newValue.slug}`)
+
+        router.push(`/product/${productSlug}`);
     };
+    // const handleChangeSearch = (_: any, newValue: { slug: string, name: string } | null) => {
+    //     if (!newValue) return;
+    //     setSelectSearchSlug(newValue.slug)
+    //     // Clear kết quả tìm kiếm sau khi chọn
+    //     setResDataProduct_Search([])
+    //     setResDataIcludes_Search([])
+    //     lastQueryRef.current = "";
+    //     router.push(`/product/${newValue.slug}`)
+    // };
 
     const handleInputChange = (_: any, value: string, reason: string) => {
         // MUI gọi event "reset" khi chọn option → bỏ qua tránh gọi lại API
@@ -893,7 +907,7 @@ const HeaderWeb: React.FC = () => {
                                                         ? resDataProducts_Search.find((c) => c.attributes.slug === selectSearchSlug) ?? undefined
                                                         : null
                                                 }
-                                                // onChange={handleChangeSearch}
+                                                onChange={handleChangeSearch}
                                                 onInputChange={handleInputChange}
                                                 renderInput={(params) => (
                                                     <TextField  {...params}
@@ -1137,7 +1151,7 @@ const HeaderWeb: React.FC = () => {
                                 ? resDataProducts_Search.find((c) => c.attributes.slug === selectSearchSlug) ?? undefined
                                 : null
                         }
-                        // onChange={handleChangeSearch}
+                        onChange={handleChangeSearch}
                         onInputChange={handleInputChange}
                         renderInput={(params) => (
                             <TextField  {...params}
