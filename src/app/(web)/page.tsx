@@ -264,7 +264,7 @@ const Home: React.FC = () => {
                       className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent 
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent 
                           opacity-80 group-hover:opacity-90 transition-all"></div>
 
                     <div className="absolute bottom-0 left-0 right-0 p-5">
@@ -281,7 +281,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* RIGHT — SMALL POSTS (NO CONTENT) */}
-            <div className="grid grid-cols-2 gap-5"
+            <div className="grid sm:grid-cols-2 gap-5"
               data-aos-duration="3000"
               data-aos="fade-left">
               {resPosts_List?.data
@@ -291,19 +291,27 @@ const Home: React.FC = () => {
                   <div
                     key={res.id}
                     onClick={() => router.push(`/post/${res.id}`)}
-                    className="cursor-pointer flex flex-col gap-3"
+                    className="relative cursor-pointer flex flex-col gap-3"
                   >
                     <div className="relative overflow-hidden rounded-xl group">
                       <img
                         src={res.attributes.image_url!}
                         alt={res.attributes.title}
-                        className="w-full h-50 object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="w-full h-50 max-sm:h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent 
-                            opacity-70 group-hover:opacity-90 transition-opacity"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent 
+                          opacity-80 group-hover:opacity-90 transition-all"></div>
                     </div>
-
-                    <div>
+                    <div className="absolute bottom-0 left-0 right-0 p-5 md:hidden">
+                      <h3 className="text-xl font-semibold text-white group-hover:text-green-300 transition-colors">
+                        {res.attributes.title}
+                      </h3>
+                      <p className="text-white/70 text-sm mt-1">
+                        {res.attributes.author_name} •{" "}
+                        {new Date(res.attributes.published_at).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div className="max-md:hidden">
                       <h3 className="text-[16px] font-semibold leading-snug line-clamp-2">
                         {res.attributes.title}
                       </h3>
