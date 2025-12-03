@@ -110,7 +110,7 @@ export const useStateGeneral = create<State>((set) => ({
     setIsCurrency: (isCheck) => set({ isCurrency: isCheck }),
     hoveredNav: null,
     setHoveredNav: (hover) => set({ hoveredNav: hover }),
-    prePage: 12,
+    prePage: 10,
     loadingReadMore: false,
     setLoadingReadMore: (isCheck) => set({ loadingReadMore: isCheck }),
     currentPage: 0,

@@ -2224,7 +2224,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                             <div className="grid grid-cols-2 gap-5 items-center lg:hidden">
                                 <button
                                     onClick={toggleDrawerFilter(true)}
-                                    className="flex items-center w-full px-5 gap-3 h-[40px] transition-all duration-300 ease border border-slate-300 shadow-md hover:shadow-xl rounded-xl">
+                                    className="flex items-center w-full px-5 gap-3 h-[40px] transition-all duration-300 ease border border-slate-100 shadow-md hover:shadow-xl rounded-xl">
                                     <span className="w-full text-black/70 text-lg">Filter</span>
                                     <FaChevronDown size={14} />
                                 </button>
