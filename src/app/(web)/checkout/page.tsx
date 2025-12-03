@@ -23,7 +23,7 @@ const CheckoutFrom: React.FC = () => {
     const router = useRouter()
     const sxStep: SxProps<Theme> = {
         py: '20px',
-        // px: '40px',
+        px: '20px',
         mx: 'auto',
         maxWidth: '1200px',
         '& .MuiStepLabel-root': {
@@ -300,7 +300,7 @@ const CheckoutFrom: React.FC = () => {
                     })}
                 </Stepper>
 
-                <div className="p-5 max-w-[1535px] mx-auto">
+                <div className="p-5 max-w-[1535px] mx-auto flex flex-col gap-10">
                     <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10">
                         {activeStep === 1 &&
                             <CheckOutAddress
@@ -378,7 +378,7 @@ const CheckoutFrom: React.FC = () => {
                             <div className="flex flex-col gap-5">
                                 {itemsWithImages && itemsWithImages?.map((res) => (
                                     <div key={res?.id}>
-                                        <div className="flex gap-5 flex-col items-center md:flex-row md:justify-between pb-4 border-b border-gray-300 transition-colors rounded-lg">
+                                        <div className="sm:flex gap-5 items-center sm:flex-row sm:justify-between pb-4 border-b border-gray-300 transition-colors rounded-lg">
                                             <div className="flex gap-10 items-center">
                                                 <Badge badgeContent={res?.quantity} sx={sxBadge}>
                                                     <div className="relative overflow-hidden rounded-2xl ">
@@ -392,10 +392,14 @@ const CheckoutFrom: React.FC = () => {
                                                     {res?.options_text && <p className="text-gray-600 text-sm">
                                                         {res?.options_text}
                                                     </p>}
-                                                    <div>{res?.display_price}</div>
+                                                    <div className="max-sm:hidden">{res?.display_price}</div>
+                                                    <div className="sm:hidden flex gap-3 items-center">
+                                                        <p className="text-sm text-gray-500">Total:</p>
+                                                        <div className="text-xl font-bold text-green-700">${parseFloat(res?.price) * res.quantity}</div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div>
+                                            <div className="max-sm:hidden">
                                                 <p className="text-end text-sm text-gray-500">Total</p>
                                                 <div className="text-xl font-bold text-green-700">${parseFloat(res?.price) * res.quantity}</div>
                                             </div>
@@ -418,15 +422,15 @@ const CheckoutFrom: React.FC = () => {
                                     />
                                     <button
                                         onClick={handleApplyCouponCode}
-                                        className="h-[40px] rounded-xl bg-gradient-to-br from-green-500 px-5 to-emerald-600 text-white 
+                                        className="h-[40px] rounded-xl bg-gradient-to-br from-green-500 px-3 w-fit to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
-                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-                                    >Apply
+                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative group"
+                                    >
+                                        Apply
                                         <div className="absolute inset-0 overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                         </div>
                                         <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-
                                     </button>
                                 </div>
                                 {errorPromoCode && (
@@ -461,7 +465,7 @@ const CheckoutFrom: React.FC = () => {
                                 </div>
                             }
 
-                            <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-3 max-lg:hidden">
                                 <h2 className="text-2xl">Checkout Guide</h2>
                                 <div className="text-md">This is the
                                     <strong>Spree Commerce DEMO checkout
@@ -492,6 +496,38 @@ const CheckoutFrom: React.FC = () => {
                                 </div>
                             </div>
                         </aside>
+                    </div>
+                    <div className="lg:hidden flex flex-col w-full gap-10 self-start flex-1 p-5 bg-gray-100 rounded-xl h-full">
+                        <div className="flex flex-col gap-3 ">
+                            <h2 className="text-2xl">Checkout Guide</h2>
+                            <div className="text-md">This is the
+                                <strong>Spree Commerce DEMO checkout
+                                </strong>.&nbsp;
+                                <br></br>
+                                If you'd like to place a test order to see the full checkout flow, you can use the following card credentials to place the order:
+                            </div>
+                            <ul className="text-md flex flex-col gap-3">
+                                <li>
+                                    <strong>Card No.:</strong>
+                                    4242 4242 4242 4242
+                                </li>
+                                <li>
+                                    <strong>Expiry Date:</strong>
+                                    any future date
+                                </li>
+                                <li>
+                                    <strong>CVV:</strong>
+                                    any 3-digit number
+                                </li>
+                            </ul>
+                            <div className="text-md flex flex-col gap-3">
+                                If you'd like to test quick checkout, you can use the payment method saved in your Apple Pay or Google Pay wallet. You will not be charged when placing the order.
+                                <br></br>
+                                <em>
+                                    Note: You can easily add checkout messages like this yourself through the Spree admin dashboard - no developer help required.
+                                </em>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Box >
