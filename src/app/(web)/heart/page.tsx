@@ -582,23 +582,145 @@ const HeartFrom: React.FC = () => {
                                 </div>
                                 <div className="sm:hidden ">
                                     <button
-                                        onClick={toggleDrawerEditMode(true)}
+                                        onClick={() => setEditMode(!editMode)}
                                         className="flex hover:underline transition-all duration-300 items-center gap-2 text-red-500 hover:text-red-600 text-sm font-medium transition"
                                     >
                                         <span className="">{editMode ? "Done" : "Edit"}</span>
                                     </button>
-                                    <Drawer
-                                        anchor="bottom"
-                                        open={editMode}
-                                        onClose={toggleDrawerEditMode(false)}
-                                        PaperProps={sxPaperPropsDrawer}
-                                    >
-                                        <div className="ml-auto p-2">
-                                            <IconButton onClick={toggleDrawerEditMode(false)} >
-                                                <IoClose />
-                                            </IconButton>
+                                </div>
+                            </div>
+                            {processedWishedItems ?
+                                <>
+                                    <div className="max-sm:hidden grid max-[420px]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                                        {processedWishedItems.map((res) => (
+                                            <button
+                                                onClick={() => {
+                                                    router.push(`/product/${res?.slug}`)
+                                                }}
+                                                className="group relative hover:bg-gradient-to-br hover:from-white hover:via-gray-50 hover:to-gray-100 hover:rounded-xl hover:shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden border border-transparent hover:border-gray-100" key={res.id}>
+                                                <div className="relative overflow-hidden hover:rounded-t-xl">
+                                                    <img src={res.original_url} alt={`img ${res.id}`}
+                                                        className="w-full aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                                                    <div className="absolute top-3 left-3 ">
+
+                                                        {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
+                                                            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow">
+                                                                -{priceInfo(res?.price, res?.compare_at_price)}%
+                                                            </span>
+                                                        }
+
+                                                    </div>
+                                                    <button
+                                                        aria-label="click heart"
+                                                        className="absolute bottom-3 right-3 bg-white/90 hover:bg-red-600 text-gray-800 hover:text-white rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleRemoveAItemWishlist(resWishlists.data.attributes.token, res.id)
+                                                        }}
+                                                    >
+                                                        <FaTrashAlt className="text-lg" />
+                                                    </button>
+
+                                                </div>
+                                                <div className="flex flex-col gap-3 p-5">
+                                                    <h3 className="font-semibold text-start text-gray-900 text-base tracking-wide line-clamp-2 group-hover:text-green-700 transition-colors duration-300">
+                                                        {res.product_name}
+                                                    </h3>
+                                                    <span className="text-sm text-start text-gray-500">{res.options_text}</span>
+                                                    <span className="text-sm flex items-center gap-2 font-semibold">
+                                                        Quantity: {res.quantity || 1}
+                                                    </span>
+                                                    <div className="flex items-center gap-4" >
+                                                        <div className="flex items-end gap-2">
+                                                            <span className="text-2xl font-bold text-green-700">
+                                                                ${res?.price}
+                                                            </span>
+                                                            {Number(res?.compare_at_price) > 0 && (
+                                                                <span className="text-md text-gray-400 line-through">
+                                                                    ${res?.compare_at_price}
+                                                                </span>
+                                                            )}
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    <div className={`relative overflow-hidden sm:hidden`}>
+                                        <div className={`transition-transform duration-500 ease-in-out `}>
+                                            {processedWishedItems.map((res) => (
+                                                <div key={res.id}
+                                                    onClick={() => {
+                                                        router.push(`/product/${res?.slug}`)
+                                                    }}
+                                                    className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 p-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center `}>
+                                                    <h3 className="text-lg font-semibold text-gray-900 w-full sm:hidden">{res?.product_name}</h3>
+
+                                                    <div className={`flex-row-reverse transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full `}>
+                                                        {editMode &&
+                                                            <button aria-label="delete item"
+                                                                className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    handleRemoveAItemWishlist(resWishlists.data.attributes.token, res.id)
+                                                                }}
+                                                            >
+                                                                <FaTrashAlt className="mx-auto" />
+                                                                <div className="absolute inset-0 overflow-hidden">
+                                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                                </div>
+                                                                <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                            </button>
+                                                        }
+                                                        <div className={`flex relative  sm:gap-10 gap-5 items-center w-full transition-all duration-300`}>
+                                                            <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[600px]:min-w-[100px] max-[600px]:min-h-[100px] max-[600px]:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
+                                                                <img src={res.original_url} alt={`img ${res.id}`} height={200} width={200} className=" aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                                                                <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                                                                {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
+                                                                    <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
+                                                                        -{priceInfo(res?.price, res?.compare_at_price)}%
+                                                                    </span>
+                                                                }
+                                                            </div>
+                                                            <div className={`flex gap-5 sm:justify-between min-w-[200px] items-center `}>
+                                                                <div className="flex flex-col gap-3 w-full">
+                                                                    {res?.options_text && (
+                                                                        <p className="text-gray-600 text-sm leading-relaxed">
+                                                                            {res?.options_text}
+                                                                        </p>
+                                                                    )}
+                                                                    <span className="text-sm flex items-center gap-2 font-semibold">
+                                                                        Quantity: {res.quantity || 1}
+                                                                    </span>
+                                                                    <div className="flex items-center gap-4" >
+                                                                        <div className="flex items-end gap-2">
+                                                                            <span className="text-2xl font-bold text-green-700">
+                                                                                ${res?.price}
+                                                                            </span>
+                                                                            {Number(res?.compare_at_price) > 0 && (
+                                                                                <span className="text-md text-gray-400 line-through">
+                                                                                    ${res?.compare_at_price}
+                                                                                </span>
+                                                                            )}
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            ))}
+
                                         </div>
-                                        <div className="p-5 w-full flex flex-col gap-5">
+                                    </div>
+                                    {editMode &&
+                                        <div className="sm:hidden bg-white border-t border-gray-200 pt-5 z-10 flex flex-col gap-5">
                                             {resWishlists?.included.length > 0 &&
                                                 <button
                                                     onClick={() => handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))}
@@ -626,68 +748,8 @@ const HeartFrom: React.FC = () => {
 
                                             </button>
                                         </div>
-                                    </Drawer>
-                                </div>
-                            </div>
-                            {processedWishedItems ?
-                                <div className="grid max-[420px]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-                                    {processedWishedItems.map((res) => (
-                                        <button
-                                            onClick={() => {
-                                                router.push(`/product/${res?.slug}`)
-                                            }}
-                                            className="group relative hover:bg-gradient-to-br hover:from-white hover:via-gray-50 hover:to-gray-100 hover:rounded-xl hover:shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden border border-transparent hover:border-gray-100" key={res.id}>
-                                            <div className="relative overflow-hidden hover:rounded-t-xl">
-                                                <img src={res.original_url} alt={`img ${res.id}`}
-                                                    className="w-full aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
-                                                <div className="absolute top-3 left-3 ">
-
-                                                    {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
-                                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow">
-                                                            -{priceInfo(res?.price, res?.compare_at_price)}%
-                                                        </span>
-                                                    }
-
-                                                </div>
-                                                <button
-                                                    aria-label="click heart"
-                                                    className="absolute bottom-3 right-3 bg-white/90 hover:bg-red-600 text-gray-800 hover:text-white rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleRemoveAItemWishlist(resWishlists.data.attributes.token, res.id)
-                                                    }}
-                                                >
-                                                    <FaTrashAlt className="text-lg" />
-                                                </button>
-
-                                            </div>
-                                            <div className="flex flex-col gap-3 p-5">
-                                                <h3 className="font-semibold text-start text-gray-900 text-base tracking-wide line-clamp-2 group-hover:text-green-700 transition-colors duration-300">
-                                                    {res.product_name}
-                                                </h3>
-                                                <span className="text-sm text-start text-gray-500">{res.options_text}</span>
-                                                <span className="text-sm flex items-center gap-2 font-semibold">
-                                                    Quantity: {res.quantity || 1}
-                                                </span>
-                                                <div className="flex items-center gap-4" >
-                                                    <div className="flex items-end gap-2">
-                                                        <span className="text-2xl font-bold text-green-700">
-                                                            ${res?.price}
-                                                        </span>
-                                                        {Number(res?.compare_at_price) > 0 && (
-                                                            <span className="text-md text-gray-400 line-through">
-                                                                ${res?.compare_at_price}
-                                                            </span>
-                                                        )}
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </button>
-                                    ))}
-                                </div>
+                                    }
+                                </>
                                 :
                                 <div className="flex flex-col gap-5 justify-center items-center">
                                     <img className="w-56" src="../../no-items-in-wishlist.webp" alt="no items in wishlist" />

@@ -392,7 +392,7 @@ const ViewCart: React.FC = () => {
             </div>
             <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] sm:gap-10 gap-5 lg:p-5 px-5 pb-5">
                 <div className="flex flex-col  self-start rounded-xl bg-white p-5 flex-1 shadow-lg ">
-                    <div className="flex items-center justify-between pb-4 border-b border-gray-200">
+                    <div className="flex items-center justify-between gap-5 pb-4 border-b border-gray-200">
                         <div>
                             <h1 className="sm:text-2xl font-bold text-xl">Your Cart</h1>
                             <p className="text-sm text-slate-500 mt-1">Review items, adjust quantities, and complete your purchase.</p>
@@ -428,7 +428,7 @@ const ViewCart: React.FC = () => {
                                             onClick={() => router.push(`/product/${res.slug}`)}
                                             className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 p-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center `}>
                                             <h3 className="text-lg font-semibold text-gray-900 w-full sm:hidden">{res?.product_name}</h3>
-                                            <div className={`max-sm:flex-row-reverse transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full ${editMode ? 'max-sm:grid-cols-1' : 'max-sm:grid-cols-1'}`}>
+                                            <div className={`max-sm:flex-row-reverse transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full`}>
                                                 {editMode &&
                                                     <div className={`flex gap-3 justify-center ml-auto sm:hidden transition-all duration-300`}>
                                                         {res?.variantId &&
@@ -469,7 +469,7 @@ const ViewCart: React.FC = () => {
 
                                                     </div>
                                                 }
-                                                <div className={`flex relative sm:gap-10 gap-5 items-center w-full transition-all duration-300responsive cart`}>
+                                                <div className={`flex relative sm:gap-10 gap-5 items-center w-full transition-all duration-300`}>
                                                     <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[600px]:min-w-[100px] max-[600px]:min-h-[100px] max-[600px]:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
                                                         <img src={res.original_url} alt={res?.product_name} height={200} width={200} className=" aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                                                         <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
@@ -479,7 +479,7 @@ const ViewCart: React.FC = () => {
                                                             </span>
                                                         }
                                                     </div>
-                                                    <div className={`flex gap-5 sm:justify-between w-full min-w-[200px] items-center `}>
+                                                    <div className={`flex gap-5 sm:justify-between min-w-[200px] items-center `}>
                                                         <div className="flex flex-col gap-3 w-full">
                                                             <div className="flex flex-col gap-1">
                                                                 <h3 className="text-lg font-semibold text-gray-900 max-sm:hidden">{res?.product_name}</h3>
