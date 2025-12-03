@@ -329,10 +329,7 @@ const HeartFrom: React.FC = () => {
     }
 
     const [editMode, setEditMode] = useState<boolean>(false)
-    const toggleDrawerEditMode = (newOpen: boolean) => () => {
-        setEditMode(newOpen);
-    };
-
+    
     return (
         <>
             <div className="max-w-[1535px] mx-auto max-2xl:px-5 py-5 flex flex-col">

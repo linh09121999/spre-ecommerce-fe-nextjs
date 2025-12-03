@@ -35,7 +35,7 @@ const SettingWeb: React.FC = () => {
     const sxTextField: SxProps<Theme> = {
         width: '100%',
         '& .MuiOutlinedInput-root': {
-            borderRadius: "10px",
+            borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
             height: '45px',
             // boxShadow: 'var(--shadow-lg)',
@@ -536,6 +536,8 @@ const SettingWeb: React.FC = () => {
         saveAs(file, `resCategory_${new Date().toISOString().slice(0, 10)}.xlsx`);
     }
 
+    const [editModeAddress, setEditModeAddress] = useState<boolean>(false)
+
     return (
         <>
             <div className='max-w-[1535px] mx-auto grid lg:grid-cols-[300px_1fr] py-5 max-2xl:px-5 lg:gap-10 gap-'>
@@ -632,22 +634,14 @@ const SettingWeb: React.FC = () => {
                                         </h3>
                                         <div className="text-sm text-slate-500">Manage, search and edit addresses</div>
                                     </div>
-                                    <button
-                                        aria-label='add address'
-                                        className="h-[45px] sm:hidden w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
-                            hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
-                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-
-                                        onClick={() => {
-                                            getApiListCountries()
-                                            setOpenCreateAccountAddress(true)
-                                        }}
-                                    ><IoMdAdd size={18} className='mx-auto' />
-                                        <div className="absolute inset-0 overflow-hidden">
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                        </div>
-                                        <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    </button>
+                                    <div className="sm:hidden ">
+                                        <button
+                                            onClick={() => setEditModeAddress(!editModeAddress)}
+                                            className="flex hover:underline transition-all duration-300 items-center gap-2 text-red-500 hover:text-red-600 text-sm font-medium transition"
+                                        >
+                                            <span className="">{editModeAddress ? "Done" : "Edit"}</span>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div className='flex gap-3'>
@@ -687,6 +681,16 @@ const SettingWeb: React.FC = () => {
                                     </button>
 
                                 </div>
+                                <button
+                                    aria-label='add address'
+                                    className="sm:hidden h-[45px] gap-3 max-sm:text-sm text-lg whitespace-nowrap items-center rounded-xl border-[3px] border-dashed transition-all duration-300 border-gray-200 hover:shadow-lg"
+                                    onClick={() => {
+                                        getApiListCountries()
+                                        setOpenCreateAccountAddress(true)
+                                    }}
+                                >
+                                    Add Address
+                                </button>
                             </div>
                             <Dialog open={openCreateAccountAddress} onClose={() => setOpenCreateAccountAddress(false)}>
                                 <DialogContent
@@ -1015,9 +1019,9 @@ const SettingWeb: React.FC = () => {
                                     </div>
                                 </DialogContent>
                             </Dialog>
-                            <div className="grid">
+                            <div className="grid grid-cols-1">
                                 {(filterAccountAddress) &&
-                                    <ListAccountAddressPage data={filterAccountAddress} fnListAddress={() => getApiListAllAddress(1, 12)} />
+                                    <ListAccountAddressPage data={filterAccountAddress} fnListAddress={() => getApiListAllAddress(1, 12)} editMode={editModeAddress} />
                                 }
                             </div>
                         </>
