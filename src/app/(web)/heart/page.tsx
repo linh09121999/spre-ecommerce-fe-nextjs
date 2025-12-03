@@ -605,7 +605,7 @@ const HeartFrom: React.FC = () => {
                                                     className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl border border-red-600 text-red-600 
                              hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-                                            
+
                                                 >
                                                     Clear All Items
                                                 </button>
