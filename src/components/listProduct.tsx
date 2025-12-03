@@ -1139,7 +1139,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
 
     return (
         <>
-            <div className={`max-w-[1535px] mx-auto flex flex-col px-5 py-10 ${taxonsRetrieve?.data.attributes.header_url ? 'gap-10' : 'gap-5'}`}>
+            <div className={`max-w-[1535px] mx-auto flex flex-col px-5 py-5 ${taxonsRetrieve?.data.attributes.header_url ? 'gap-10' : 'gap-5'}`}>
                 <section
                     data-aos="fade-up"
                     data-aos-duration="3000"

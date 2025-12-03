@@ -90,12 +90,25 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className=" max-w-[1535px] mx-auto flex flex-col gap-15 py-10 max-2xl:px-5 overflow-hidden">
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center h-full">
-          <div className="order-2 lg:order-1 flex flex-col gap-10" data-aos="fade-up"
-            data-aos-duration="3000"
+      <div className="lg:hidden overflow-hidden shadow-lg"
+        data-aos-duration="1200"
+        data-aos="zoom-in">
+        <img
+          src="https://cdn.vendo.dev/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQ3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--2ea59e9a7f3e0127203fa19260ee4f0c827a725d/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwic2F2ZXIiOnsic3RyaXAiOnRydWUsInF1YWxpdHkiOjc1LCJsb3NzbGVzcyI6ZmFsc2UsImFscGhhX3EiOjg1LCJyZWR1Y3Rpb25fZWZmb3J0Ijo2LCJzbWFydF9zdWJzYW1wbGUiOnRydWV9LCJyZXNpemVfdG9fbGltaXQiOls2NDAsbnVsbF19LCJwdXIiOiJ2YXJpYXRpb24ifX0=--d96e3e5279c093271eeb921db9065be22fee62e4/Image%20banner.jpg"
+          alt="banner"
+          className=" inset-0 w-full h-64 sm:h-80 lg:h-[500px] object-cover object-cover transition-transform duration-[2s] ease-out hover:scale-125"
+        />
+        <div className="absolute left-6 bottom-6 bg-gradient-to-tr from-black/30 backdrop-blur-md to-transparent p-4 rounded-xl text-white">
+          <div className="text-sm">New collection</div>
+          <div className="font-bold text-lg">Autumn '25 Drop</div>
+        </div>
+      </div>
+      <div className=" max-w-[1535px] mx-auto flex flex-col md:gap-10 gap-5 md:py-10 py-5 max-2xl:px-5 overflow-hidden">
+        <section className="grid grid-cols-1 lg:grid-cols-2 md:gap-10 gap-5 items-center h-full">
+          <div className="order-2 lg:order-1 flex flex-col md:gap-10 gap-5 lg:px-5" data-aos="fade-up"
+            data-aos-duration="1200"
           >
-            <div className="bg-white/60 flex flex-col gap-5 backdrop-blur-md lg:p-8 lg:rounded-xl lg:shadow-md">
+            <div className="flex flex-col md:gap-5 gap-3">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight">Explore Your Style
                 <br className="hidden sm:inline" /> With <span className="text-green-600">Spree Commerce</span></h1>
               <p className=" text-slate-600 max-w-xl">Build fully customizable eCommerce experiences with Spree’s powerful open-source platform</p>
@@ -111,23 +124,25 @@ const Home: React.FC = () => {
                 </div>
                 <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </button>
-              <div className="flex flex-wrap gap-3 text-xs text-slate-500">
-                <span className="px-3 py-1 rounded-full bg-green-50 flex justify-center items-center gap-2">
-                  <FaShippingFast className='text-green-500' />
-                  <span className='text-sm'>Free shipping</span>
-                </span>
-                <span className="px-3 py-1 rounded-full bg-green-50 flex justify-center items-center gap-2">
-                  <FaUndo className='text-green-500' />
-                  <span className='text-sm'>Easy returns</span></span>
-                <span className="px-3 py-1 rounded-full bg-green-50 flex justify-center items-center gap-2">
-                  <FaShieldAlt className='text-green-500 ' />
-                  <span className='text-sm'>Secure payment</span>
-                </span>
+              <div className="flex flex-wrap gap-3 text-xs text-slate-700">
+                {[
+                  { icon: <FaShippingFast />, text: "Free shipping" },
+                  { icon: <FaUndo />, text: "Easy returns" },
+                  { icon: <FaShieldAlt />, text: "Secure payment" },
+                ].map((item, i) => (
+                  <span
+                    key={i}
+                    className="px-4 py-2 rounded-full bg-emerald-50 shadow flex items-center gap-2 text-sm hover:bg-emerald-100 transition"
+                  >
+                    <span className="text-emerald-600">{item.icon}</span>
+                    {item.text}
+                  </span>
+                ))}
               </div>
             </div>
             <section>
               <h3 className="text-lg font-semibold mb-4">Shop by category</h3>
-              <div className=" flex overflow-x-auto scroll-x gap-5 pb-3">
+              <div className="flex overflow-x-auto gap-4 pb-4 px-1 scroll-x">
                 {[
                   { title: "Men", icon: <FiUser size={18} /> },
                   { title: "Women", icon: <FiUsers size={18} /> },
@@ -140,17 +155,22 @@ const Home: React.FC = () => {
                   <button
                     key={title}
                     onClick={() => router.push(`/${toPath(title)}`)}
-                    className="flex group items-center w-fit gap-3 whitespace-nowrap px-4 h-[45px] rounded-xl hover:bg-green-50 hover:shadow-lg transition-all duration-500"
+                    className="flex group items-center bg-white shadow-md gap-3 whitespace-nowrap px-5 h-[48px] rounded-xl 
+            hover:bg-emerald-50 hover:shadow-lg transition-all duration-300 border border-slate-100"
                   >
-                    <div className=" css-icon text-green-500">{icon}</div>
-                    <div className="text-sm text-slate-700 group-hover:text-green-500 transition-all duration-500">{title}</div>
+                    <div className="text-emerald-600 group-hover:scale-125 transition-transform">
+                      {icon}
+                    </div>
+                    <div className="text-sm text-slate-700 group-hover:text-emerald-600 transition-all">
+                      {title}
+                    </div>
                   </button>
                 ))}
               </div>
             </section>
           </div>
-          <div className="order-1 lg:order-2 rounded-xl overflow-hidden shadow-lg"
-            data-aos-duration="3000"
+          <div className="order-1 lg:order-2 max-lg:hidden rounded-xl overflow-hidden shadow-lg"
+            data-aos-duration="1200"
             data-aos="zoom-in">
             <img
               src="https://cdn.vendo.dev/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQ3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--2ea59e9a7f3e0127203fa19260ee4f0c827a725d/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwic2F2ZXIiOnsic3RyaXAiOnRydWUsInF1YWxpdHkiOjc1LCJsb3NzbGVzcyI6ZmFsc2UsImFscGhhX3EiOjg1LCJyZWR1Y3Rpb25fZWZmb3J0Ijo2LCJzbWFydF9zdWJzYW1wbGUiOnRydWV9LCJyZXNpemVfdG9fbGltaXQiOls2NDAsbnVsbF19LCJwdXIiOiJ2YXJpYXRpb24ifX0=--d96e3e5279c093271eeb921db9065be22fee62e4/Image%20banner.jpg"
@@ -173,7 +193,7 @@ const Home: React.FC = () => {
             .map((res) => (
               <button
                 key={res.id}
-                data-aos-duration="3000"
+                data-aos-duration="1200"
                 data-aos="fade-up"
                 className="relative group overflow-hidden rounded-xl shadow-xl"
                 onClick={() => router.push(`/${res.attributes.name.toLowerCase()}`)}
@@ -193,10 +213,10 @@ const Home: React.FC = () => {
             ))}
         </section>
         <section className="relative flex flex-col gap-5" data-aos="fade-up"
-          data-aos-duration="3000"
+          data-aos-duration="1200"
         >
           <div className="flex justify-between items-center">
-            <h3 className="text-2xl uppercase font-semibold tracking-wide">Sale</h3>
+            <h3 className="text-xl font-semibold tracking-wide">Sale</h3>
             <button
               onClick={() => router.push(`/sale`)}
               className="text-green-600 hover:underline items-center flex gap-1 css-next">
@@ -206,15 +226,15 @@ const Home: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 px-5">
             <ListProductCard products={resDataProducts_SaleList ?? []} included={resDataIcludes_SaleList ?? []} />
           </div>
         </section>
         <section className="relative flex flex-col gap-5" data-aos="fade-up"
-          data-aos-duration="3000"
+          data-aos-duration="1200"
         >
           <div className="flex justify-between items-center">
-            <h3 className="text-2xl uppercase font-semibold tracking-wide">New Arrivals</h3>
+            <h3 className="text-xl font-semibold tracking-wide">New Arrivals</h3>
             <button
               onClick={() => router.push(`/new-arrivals`)}
               className="text-green-600 hover:underline items-center flex gap-1 css-next">
@@ -224,14 +244,14 @@ const Home: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 px-4">
             <ListProductCard products={resDataProducts_NewList ?? []} included={resDataIcludes_NewList ?? []} />
           </div>
         </section>
         <section className='flex-grow gap-5 flex flex-col ' >
           <div
             className="flex justify-between css-next items-center w-full transition-all duration-300 ease">
-            <h3 className="text-xl uppercase font-semibold  bg-clip-text tracking-wide">Latest Posts</h3>
+            <h3 className="text-xl font-semibold tracking-wide">Latest Posts</h3>
             <button
               onClick={() => {
                 router.push(`/posts`)
@@ -246,7 +266,7 @@ const Home: React.FC = () => {
 
             {/* LEFT — FEATURED POSTS (HAS CONTENT) */}
             <div className="grid gap-5"
-              data-aos-duration="3000"
+              data-aos-duration="1200"
               data-aos="fade-right"
             >
               {resPosts_List?.data
@@ -282,7 +302,7 @@ const Home: React.FC = () => {
 
             {/* RIGHT — SMALL POSTS (NO CONTENT) */}
             <div className="grid sm:grid-cols-2 gap-5"
-              data-aos-duration="3000"
+              data-aos-duration="1200"
               data-aos="fade-left">
               {resPosts_List?.data
                 .filter((p) => !p.attributes.content)

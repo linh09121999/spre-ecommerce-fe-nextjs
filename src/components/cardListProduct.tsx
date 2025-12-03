@@ -207,16 +207,16 @@ const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => 
                         onClick={() => {
                             router.push(`/product/${product.attributes.slug}`)
                         }}
-                        className="group relative hover:bg-gradient-to-br hover:from-white hover:via-gray-50 hover:to-gray-100 hover:rounded-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden border border-transparent hover:border-gray-100"
+                        className="group relative transition-all duration-300  flex flex-col overflow-hidden hover:-translate-y-2"
                     >
                         {/* --- Product Image --- */}
-                        <div className="relative overflow-hidden group-hover:rounded-t-xl">
+                        <div className="relative overflow-hidden group-hover:rounded-xl transition-all duration-500 ">
                             {displayImage ? (
                                 <img
                                     src={displayImage}
                                     alt={product.attributes.name}
                                     onError={handleImageError}
-                                    className="w-full aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                                    className="w-full aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110 "
                                 />
                             ) : (
                                 <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
@@ -247,7 +247,7 @@ const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => 
                             </div>
                         </div>
                         {/* --- Product Info --- */}
-                        <div className="flex flex-col gap-3 p-5 flex-grow">
+                        <div className="flex flex-col gap-3 pt-5 flex-grow">
                             {/* Product Name */}
                             <h3 className="font-semibold text-gray-900 text-base tracking-wide line-clamp-2 group-hover:text-green-700 transition-colors duration-300">
                                 {product.attributes.name}
@@ -305,8 +305,6 @@ const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => 
                             </div>
                         </div>
 
-                        {/* Hover Glow Effect */}
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-green-200/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl pointer-events-none"></div>
                     </div>
                 );
             })}
