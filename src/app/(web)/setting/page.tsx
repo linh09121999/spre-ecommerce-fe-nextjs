@@ -776,7 +776,7 @@ const SettingWeb: React.FC = () => {
                                                             />
                                                         </FormControl>
                                                     </div>
-                                                    <div className='grid grid-cols-2 gap-3'>
+                                                    <div className='grid sm:grid-cols-2 gap-3'>
                                                         <div className="flex flex-col gap-1">
                                                             <label htmlFor="firstName" className="block text-md font-medium text-gray-700">
                                                                 First Name <span className="text-red-500">*</span>
@@ -845,7 +845,7 @@ const SettingWeb: React.FC = () => {
                                                             }
                                                         />
                                                     </div>
-                                                    <div className='grid grid-cols-2 gap-3'>
+                                                    <div className='grid sm:grid-cols-2 gap-3'>
                                                         <div className="flex flex-col gap-1">
                                                             <label htmlFor="address1" className="block text-md font-medium text-gray-700">
                                                                 Street and house number <span className="text-red-500">*</span>
@@ -890,7 +890,7 @@ const SettingWeb: React.FC = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className='grid grid-cols-3 gap-3'>
+                                                    <div className='grid sm:grid-cols-3 gap-3'>
                                                         <div className="flex flex-col gap-1">
                                                             <label htmlFor="city" className="block text-md font-medium text-gray-700">
                                                                 City <span className="text-red-500">*</span>
