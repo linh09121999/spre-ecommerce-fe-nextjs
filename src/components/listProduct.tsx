@@ -64,6 +64,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
         '& .MuiOutlinedInput-root': {
             borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
+            boxShadow: 'var(--shadow-md)',
             height: '45px',
             // boxShadow: 'var(--shadow-lg)',
             padding: '3px 8px',
@@ -193,7 +194,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
 
     const sxBox1Drawer = {
         width: '100vw',
-        height: '100vh',
+        height: '95vh',
         display: 'grid',
     }
 
@@ -1139,86 +1140,87 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
 
     return (
         <>
+            <section
+                data-aos="fade-up"
+                data-aos-duration="1200"
+                className={`${taxonsRetrieve?.data.attributes.header_url ? 'shadow-xl ' : ''} relative w-full  overflow-hidden  group`}>
+                {/* Ảnh nền */}
+                {!taxonsRetrieve ?
+                    <>
+                        <img
+                            src="https://cdn.vendo.dev/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQ3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--2ea59e9a7f3e0127203fa19260ee4f0c827a725d/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwic2F2ZXIiOnsic3RyaXAiOnRydWUsInF1YWxpdHkiOjc1LCJsb3NzbGVzcyI6ZmFsc2UsImFscGhhX3EiOjg1LCJyZWR1Y3Rpb25fZWZmb3J0Ijo2LCJzbWFydF9zdWJzYW1wbGUiOnRydWV9LCJyZXNpemVfdG9fbGltaXQiOls2NDAsbnVsbF19LCJwdXIiOiJ2YXJpYXRpb24ifX0=--d96e3e5279c093271eeb921db9065be22fee62e4/Image%20banner.jpg"
+                            alt="banner"
+                            className="w-full aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        {/* Lớp phủ gradient tối giúp chữ nổi */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+
+                        <div className="absolute md:left-10 left-0 bottom-0 p-5 md:p-10 text-white z-10 w-3/4 grid gap-3">
+                            <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
+                                Shop all
+                            </h3>
+                        </div>
+                    </>
+                    :
+                    <>
+                        {taxonsRetrieve?.data.attributes.header_url ?
+                            <>
+                                <img
+                                    src={taxonsRetrieve?.data.attributes.header_url}
+                                    alt={taxonsRetrieve?.data.attributes.name}
+                                    className="w-full aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                {/* Lớp phủ gradient tối giúp chữ nổi */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+
+                                {/* Nội dung chữ overlay */}
+                                <div className="absolute md:left-10 left-0 bottom-0  p-10 text-white z-10 w-3/4 grid gap-3">
+                                    <span className="text-sm uppercase tracking-widest text-gray-300">{Category(taxonsRetrieve?.data.attributes.pretty_name)?.replace(/\s*->\s*/g, " / ")}</span>
+                                    <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
+                                        {taxonsRetrieve?.data.attributes.name}
+                                    </h3>
+                                    {taxonsRetrieve?.data.attributes.description &&
+                                        <p className="text-sm sm:text-base text-white/80 max-w-xl">
+                                            {taxonsRetrieve?.data.attributes.description}
+                                        </p>
+                                    }
+                                </div>
+
+                                {/* Hiệu ứng điểm nhấn (vòng sáng mờ khi hover) */}
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,white_0%,transparent_60%)] mix-blend-overlay"></div>
+
+                            </>
+                            :
+                            <>
+                                {/* Nội dung chữ overlay */}
+                                <div className=" border-b-[2px] border-b-gray-200 grid gap-3 pb-5 w-full">
+                                    <span className="text-sm uppercase tracking-widest text-gray-500">{Category(taxonsRetrieve?.data.attributes.pretty_name)?.replace(/\s*->\s*/g, " / ")}</span>
+                                    <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
+                                        {taxonsRetrieve?.data.attributes.name}
+                                    </h3>
+                                    {taxonsRetrieve?.data.attributes.description &&
+                                        <p className="text-sm sm:text-base text-white/80 max-w-xl">
+                                            {taxonsRetrieve?.data.attributes.description}
+                                        </p>
+                                    }
+                                </div>
+                            </>
+                        }
+                    </>
+                }
+            </section>
             <div className={`max-w-[1535px] mx-auto flex flex-col px-5 py-5 ${taxonsRetrieve?.data.attributes.header_url ? 'gap-10' : 'gap-5'}`}>
-                <section
-                    data-aos="fade-up"
-                    data-aos-duration="3000"
-                    className={`${taxonsRetrieve?.data.attributes.header_url ? 'shadow-xl ' : ''} rounded-xl relative w-full  overflow-hidden  group`}>
-                    {/* Ảnh nền */}
-                    {!taxonsRetrieve ?
-                        <>
-                            <img
-                                src="https://cdn.vendo.dev/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQ3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--2ea59e9a7f3e0127203fa19260ee4f0c827a725d/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwic2F2ZXIiOnsic3RyaXAiOnRydWUsInF1YWxpdHkiOjc1LCJsb3NzbGVzcyI6ZmFsc2UsImFscGhhX3EiOjg1LCJyZWR1Y3Rpb25fZWZmb3J0Ijo2LCJzbWFydF9zdWJzYW1wbGUiOnRydWV9LCJyZXNpemVfdG9fbGltaXQiOls2NDAsbnVsbF19LCJwdXIiOiJ2YXJpYXRpb24ifX0=--d96e3e5279c093271eeb921db9065be22fee62e4/Image%20banner.jpg"
-                                alt="banner"
-                                className="w-full aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                            {/* Lớp phủ gradient tối giúp chữ nổi */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
 
-                            <div className="absolute left-0 bottom-0  p-10 text-white z-10 w-3/4 grid gap-3">
-                                <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
-                                    Shop all
-                                </h3>
-                            </div>
-                        </>
-                        :
-                        <>
-                            {taxonsRetrieve?.data.attributes.header_url ?
-                                <>
-                                    <img
-                                        src={taxonsRetrieve?.data.attributes.header_url}
-                                        alt={taxonsRetrieve?.data.attributes.name}
-                                        className="w-full aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
-                                    {/* Lớp phủ gradient tối giúp chữ nổi */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
-
-                                    {/* Nội dung chữ overlay */}
-                                    <div className="absolute left-0 bottom-0  p-10 text-white z-10 w-3/4 grid gap-3">
-                                        <span className="text-sm uppercase tracking-widest text-gray-300">{Category(taxonsRetrieve?.data.attributes.pretty_name)?.replace(/\s*->\s*/g, " / ")}</span>
-                                        <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
-                                            {taxonsRetrieve?.data.attributes.name}
-                                        </h3>
-                                        {taxonsRetrieve?.data.attributes.description &&
-                                            <p className="text-sm sm:text-base text-white/80 max-w-xl">
-                                                {taxonsRetrieve?.data.attributes.description}
-                                            </p>
-                                        }
-                                    </div>
-
-                                    {/* Hiệu ứng điểm nhấn (vòng sáng mờ khi hover) */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,white_0%,transparent_60%)] mix-blend-overlay"></div>
-
-                                </>
-                                :
-                                <>
-                                    {/* Nội dung chữ overlay */}
-                                    <div className=" border-b-[2px] border-b-gray-200 grid gap-3 pb-5 w-full">
-                                        <span className="text-sm uppercase tracking-widest text-gray-500">{Category(taxonsRetrieve?.data.attributes.pretty_name)?.replace(/\s*->\s*/g, " / ")}</span>
-                                        <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
-                                            {taxonsRetrieve?.data.attributes.name}
-                                        </h3>
-                                        {taxonsRetrieve?.data.attributes.description &&
-                                            <p className="text-sm sm:text-base text-white/80 max-w-xl">
-                                                {taxonsRetrieve?.data.attributes.description}
-                                            </p>
-                                        }
-                                    </div>
-                                </>
-                            }
-                        </>
-                    }
-                </section>
                 {products.length === 0 ?
                     <div className="flex flex-col gap-1">
                         <img src="../../No_Product_Found.png" alt="no product" className="w-[300px] opacity-50 mx-auto" />
                     </div>
                     :
-                    <div className="grid lg:grid-cols-[300px_1fr] gap-10">
+                    <div className="grid lg:grid-cols-[300px_1fr] md:gap-10 gap-5">
                         {/* lg:sticky lg:top-[105px] */}
-                        <aside className="grid h-fit max-lg:hidden  gap-10 "
+                        <aside className="grid h-fit max-lg:hidden  gap-10 bg-gray-100 p-5 rounded-xl"
                             data-aos="fade-right"
-                            data-aos-duration="3000"
+                            data-aos-duration="1200"
                         >
                             <div className="flex items-center justify-between h-[40px]">
                                 <h2 className="text-xl font-semibold">Filters</h2>
@@ -2155,7 +2157,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                         </aside >
                         <section className="flex flex-col gap-5"
                             data-aos="fade-left"
-                            data-aos-duration="3000">
+                            data-aos-duration="1200">
                             <div className="flex items-center justify-between max-lg:hidden">
                                 <h3 className="text-lg flex gap-2 tracking-wide text-black/70 ">
                                     Showing
@@ -2222,7 +2224,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                             <div className="grid grid-cols-2 gap-5 items-center lg:hidden">
                                 <button
                                     onClick={toggleDrawerFilter(true)}
-                                    className="flex items-center w-full px-5 gap-3 h-[40px] transition-all duration-300 ease border border-gray-300 hover:shadow-xl rounded-xl">
+                                    className="flex items-center w-full px-5 gap-3 h-[40px] transition-all duration-300 ease border border-slate-300 shadow-md hover:shadow-xl rounded-xl">
                                     <span className="w-full text-black/70 text-lg">Filter</span>
                                     <FaChevronDown size={14} />
                                 </button>
@@ -3190,7 +3192,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                                 </Drawer>
                                 <button
                                     onClick={toggleDrawerSort(true)}
-                                    className="flex items-center w-full px-5 gap-3 h-[40px] transition-all duration-300 ease border border-gray-300 hover:shadow-xl rounded-xl">
+                                    className="flex items-center w-full px-5 gap-3 h-[40px] transition-all duration-300 ease border border-slate-100 shadow-md hover:shadow-xl rounded-xl">
                                     <span className="w-full text-black/70 text-lg">Sort</span>
                                     <FaChevronDown size={14} />
                                 </button>

@@ -300,7 +300,7 @@ const HeaderWeb: React.FC = () => {
 
     const sxBox1Drawer = {
         width: '100vw',
-        height: '100vh',
+        height: '95vh',
         display: 'grid',
     }
 
@@ -564,7 +564,12 @@ const HeaderWeb: React.FC = () => {
     );
 
     const handleChangeSearch = (_: any, newValue: any | null) => {
-        if (!newValue) return;
+        if (!newValue) {
+            setResDataProduct_Search([]);
+            setResDataIcludes_Search([]);
+            lastQueryRef.current = "";
+            return;
+        };
 
         const productSlug = newValue.attributes?.slug;
         if (!productSlug) return;
@@ -578,25 +583,21 @@ const HeaderWeb: React.FC = () => {
 
         router.push(`/product/${productSlug}`);
     };
-    // const handleChangeSearch = (_: any, newValue: { slug: string, name: string } | null) => {
-    //     if (!newValue) return;
-    //     setSelectSearchSlug(newValue.slug)
-    //     // Clear kết quả tìm kiếm sau khi chọn
-    //     setResDataProduct_Search([])
-    //     setResDataIcludes_Search([])
-    //     lastQueryRef.current = "";
-    //     router.push(`/product/${newValue.slug}`)
-    // };
 
     const handleInputChange = (_: any, value: string, reason: string) => {
         // MUI gọi event "reset" khi chọn option → bỏ qua tránh gọi lại API
-        if (reason === "reset") return;
-
+       if (reason === "clear" || reason === "reset") {
+            setResDataProduct_Search([]);
+            setResDataIcludes_Search([]);
+            lastQueryRef.current = "";
+            return;
+        }
         // Nếu input rỗng, clear kết quả ngay lập tức
         if (value.trim().length === 0) {
-            setResDataProduct_Search([])
-            setResDataIcludes_Search([])
+            setResDataProduct_Search([]);
+            setResDataIcludes_Search([]);
             lastQueryRef.current = "";
+            return;
         } else {
             debouncedFetch(value);
         }
@@ -654,7 +655,7 @@ const HeaderWeb: React.FC = () => {
                             PaperProps={sxPaperPropsDrawer}
                         >
                             <Box sx={sxBox1Drawer}>
-                                <div>
+                                <div className='max-h-70vh flex flex-col overflow-y-auto scroll-y'>
                                     <div className='flex justify-between items-center px-[16px] py-[12px] cursor-pointer'>
                                         <a onClick={() => {
                                             setOpenDrawer(false)
@@ -798,7 +799,7 @@ const HeaderWeb: React.FC = () => {
                         classNameAHover=' after:scale-x-100 after:bg-gray-200'
                         classNameADeactive='text-gray-500'
                     />
-                    <div className='flex justify-between gap-4 items-center'>
+                    <div className='flex justify-between md:gap-4 gap-1 items-center'>
                         {/* search */}
                         <div className='max-lg:hidden'>
                             <button className='p-2 css-icon ' aria-label='search'
@@ -1018,7 +1019,7 @@ const HeaderWeb: React.FC = () => {
                                             <p>{resAccount?.data.attributes.email}</p>
                                         </div>
                                     </div>
-                                    <MenuItem sx={sxMenuItem}
+                                    {/* <MenuItem sx={sxMenuItem}
                                         onClick={() => {
                                             // router.push('/dashboard')
                                             window.location.href = 'https://demo.spreecommerce.org/admin_user';
@@ -1030,7 +1031,7 @@ const HeaderWeb: React.FC = () => {
                                             <span className={` text-lg transition-all duration-300 ease-in-out`}>Dashboard</span>
                                         </div>
 
-                                    </MenuItem>
+                                    </MenuItem> */}
                                     <MenuItem sx={sxMenuItem}
                                         onClick={() => {
                                             router.push('/setting')
