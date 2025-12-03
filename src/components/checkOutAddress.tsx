@@ -1122,8 +1122,8 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                     }
                     <form onClick={handleNextToDelivery}>
                         <div className="flex flex-col w-full gap-10 self-start flex-1 ">
-                            <div className="flex flex-col w-full gap-5">
-                                <div className="flex items-center justify-between">
+                            <div className="flex flex-col w-full gap-3">
+                                <div className="sm:flex items-center sm:justify-between grid gap-5">
                                     <h3 className="text-xl font-semibold">
                                         Contact information
                                     </h3>
@@ -1229,7 +1229,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                     </FormControl>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <div className="flex flex-col gap-1">
                                         <label htmlFor="firstName" className="block text-md font-medium text-gray-700">
                                             First Name <span className="text-red-500">*</span>
@@ -1309,7 +1309,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                         helperText={errors.address1}
                                     />
                                 </div>
-                                <div className="grid grid-cols-3 gap-5">
+                                <div className="grid sm:grid-cols-3 gap-5">
                                     <div className="flex flex-col gap-1">
                                         <label htmlFor="city" className="block text-md font-medium text-gray-700">
                                             City <span className="text-red-500">*</span>

@@ -250,6 +250,7 @@ const CheckoutDelivery: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBac
                                                 value={res.id}
                                                 control={<Radio sx={{
                                                     zIndex: '10',
+                                                    p: '0',
                                                     '&.Mui-checked': {
                                                         color: 'var(--color-green-600)',
                                                     },
