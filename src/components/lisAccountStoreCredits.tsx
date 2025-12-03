@@ -124,90 +124,91 @@ const ListAccountStoreCredits: React.FC<ResAccountCreditCard_ListAll_Prop> = ({ 
     return (
         <>
             {data.length > 0 ?
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="flex flex-wrap gap-5">
                     {data.map((res) => {
                         const rawType = res.attributes.cc_type?.toLowerCase();
                         const type = Object.keys(cardStyles).includes(rawType)
                             ? rawType as CardType
                             : 'visa'; // fallback to visa
 
-                        const style = cardStyles[type] 
+                        const style = cardStyles[type]
 
                         return (
                             <section key={res.id}
-                                className="relative group w-full flex items-center justify-center text-white perspective-1000">
-                                <div
-                                    style={{ transformStyle: 'preserve-3d' }}
-                                    className="transition-transform duration-600 hover:rotate-y-180 relative h-[225px] w-[375px] z-10">
-                                    <div style={{
-                                        background: style.bg,
-                                        transformStyle: 'preserve-3d',
-                                        backfaceVisibility: 'hidden'
-                                    }} className=" front-face absolute h-full w-full group text-white p-5 rounded-xl overflow-hidden cursor-pointer shadow-xl flex flex-col gap-5 transition-all duration-500 ease-out hover:scale-102 hover:shadow-2xl">
-                                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-white opacity-10 rounded-full transition-all duration-700 group-hover:scale-150 group-hover:opacity-20"></div>
-                                        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white opacity-5 rounded-full transition-all duration-700 group-hover:scale-150 group-hover:opacity-15"></div>
+                                className="">
+                                <div className="relative group w-full flex items-center justify-center text-white perspective-1000">
+                                    <div
+                                        style={{ transformStyle: 'preserve-3d' }}
+                                        className="transition-transform duration-600 hover:rotate-y-180 relative md:h-[225px] h-[200px] md:w-[375px] w-[330px] z-10">
+                                        <div style={{
+                                            background: style.bg,
+                                            transformStyle: 'preserve-3d',
+                                            backfaceVisibility: 'hidden'
+                                        }} className=" front-face absolute h-full w-full group text-white md:p-5 p-3 rounded-xl overflow-hidden cursor-pointer shadow-xl flex flex-col md:gap-5 gap-3 transition-all duration-500 ease-out hover:scale-102 hover:shadow-2xl">
+                                            <div className="absolute -top-10 -right-10 w-32 h-32 bg-white opacity-10 rounded-full transition-all duration-700 group-hover:scale-150 group-hover:opacity-20"></div>
+                                            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white opacity-5 rounded-full transition-all duration-700 group-hover:scale-150 group-hover:opacity-15"></div>
 
-                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
 
-                                        <div className="text-white relative z-10">
-                                            <div className="flex justify-between items-center">
-                                                <span className="transition-all duration-300 group-hover:scale-110">{style.logo}</span>
-                                                <img src="../../chip.png" alt="chip" className="w-[50px] h-[36px]" />
+                                            <div className="text-white relative z-10">
+                                                <div className="flex justify-between items-center">
+                                                    <span className="transition-all duration-300 group-hover:scale-110">{style.logo}</span>
+                                                    <img src="../../chip.png" alt="chip" className="w-[50px] h-[36px]" />
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="flex flex-col gap-1">
-                                            <h6 className="text-[10px] opacity-70">Card Number</h6>
-                                            <div className="text-2xl tracking-widest font-mono transition-all duration-300">
-                                                •••• •••• •••• {res.attributes.last_digits}
+                                            <div className="flex flex-col gap-1">
+                                                <h6 className="text-[10px] opacity-70">Card Number</h6>
+                                                <div className="text-xl tracking-widest font-mono transition-all duration-300">
+                                                    •••• •••• •••• {res.attributes.last_digits}
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="flex justify-between gap-5 items-end">
-                                            <p className="text-md font-semibold uppercase transition-all duration-300 group-hover:font-bold">{res.attributes.name}</p>
-                                            <div className="flex flex-col justify-between transition-all duration-300 group-hover:gap-4 gap-5">
-                                                <div className="transition-transform duration-300 flex flex-col gap-1 items-center justify-start">
-                                                    <p className="text-[10px] opacity-70 mr-auto">
-                                                        Valid Thru
-                                                    </p>
-                                                    <p className="text-md font-semibold transition-all duration-300 group-hover:font-bold">{res.attributes.month}/{res.attributes.year}</p>
+                                            <div className="flex justify-between gap-5 items-end mt-auto">
+                                                <p className="text-md font-semibold uppercase transition-all duration-300 group-hover:font-bold">{res.attributes.name}</p>
+                                                <div className="flex flex-col justify-between transition-all duration-300 group-hover:gap-4 gap-5">
+                                                    <div className="transition-transform duration-300 flex flex-col gap-1 items-center justify-start">
+                                                        <p className="text-[10px] opacity-70 mr-auto">
+                                                            Valid Thru
+                                                        </p>
+                                                        <p className="text-md font-semibold transition-all duration-300 group-hover:font-bold">{res.attributes.month}/{res.attributes.year}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div style={{
-                                        background: style.bg,
-                                        transformStyle: 'preserve-3d',
-                                        backfaceVisibility: 'hidden'
-                                    }} className="rotate-y-180 absolute h-full w-full group text-white p-5 rounded-xl overflow-hidden cursor-pointer shadow-xl flex flex-col gap-5 transition-all duration-500 ease-out hover:scale-102 hover:shadow-2xl">
-                                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-white opacity-10 rounded-full transition-all duration-700 group-hover:scale-150 group-hover:opacity-20"></div>
-                                        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white opacity-5 rounded-full transition-all duration-700 group-hover:scale-150 group-hover:opacity-15"></div>
+                                        <div style={{
+                                            background: style.bg,
+                                            transformStyle: 'preserve-3d',
+                                            backfaceVisibility: 'hidden'
+                                        }} className="rotate-y-180 absolute h-full w-full group text-white md:p-5 p-3 rounded-xl overflow-hidden cursor-pointer shadow-xl flex flex-col md:gap-5 gap-3 transition-all duration-500 ease-out hover:scale-102 hover:shadow-2xl">
+                                            <div className="absolute -top-10 -right-10 w-32 h-32 bg-white opacity-10 rounded-full transition-all duration-700 group-hover:scale-150 group-hover:opacity-20"></div>
+                                            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white opacity-5 rounded-full transition-all duration-700 group-hover:scale-150 group-hover:opacity-15"></div>
 
-                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
 
-                                        <h6 className="text-[10px]">
-                                            For customer service call +977 4343 3433 or email at {res.attributes.cc_type}@gmail.com
-                                        </h6>
-                                        <span className="magnetic-strip absolute top-10 left-0 h-[45px] w-full bg-black"></span>
-                                        <div className="bg-[repeating-linear-gradient(#fff,#fff_3px,#efefef_0px,#efefef_9px)] flex justify-end items-center mt-12 h-14 w-[90%] rounded">
-                                            <i className="text-xs p-1 rounded bg-white text-black -mr-[30px] -z-10">{res.attributes.last_digits}</i>
+                                            <h6 className="sm:text-[10px] text-[8px]">
+                                                For customer service call +977 4343 3433 or email at {res.attributes.cc_type}@gmail.com
+                                            </h6>
+                                            <span className="magnetic-strip absolute sm:top-10 top-8 left-0 sm:h-[45px] h-[35px] w-full bg-black"></span>
+                                            <div className="bg-[repeating-linear-gradient(#fff,#fff_3px,#efefef_0px,#efefef_9px)] flex justify-end items-center sm:mt-12 mt-10 sm:h-14 h-10 w-[90%] rounded">
+                                                <i className="text-xs p-1 rounded bg-white text-black -mr-[30px] -z-10">{res.attributes.last_digits}</i>
+                                            </div>
+                                            <h5 className="text-[10px]">
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
+                                                maiores sed doloremque nesciunt neque beatae voluptatibus doloribus.
+                                                Libero et quis magni magnam nihil temporibus? Facere consectetur
+                                                dolore reiciendis et veniam.
+                                            </h5>
                                         </div>
-                                        <h5 className="text-[10px]">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
-                                            maiores sed doloremque nesciunt neque beatae voluptatibus doloribus.
-                                            Libero et quis magni magnam nihil temporibus? Facere consectetur
-                                            dolore reiciendis et veniam.
-                                        </h5>
                                     </div>
-                                </div>
-                                <button
-                                    aria-label="delete card"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDeleteCard(res.id);
-                                    }}
-                                    className="
+                                    <button
+                                        aria-label="delete card"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDeleteCard(res.id);
+                                        }}
+                                        className="
                                 absolute -top-2 -right-2 w-8 h-8
                                 rounded-full bg-white shadow-lg flex items-center justify-center
                                 text-gray-600 text-sm font-bold
@@ -220,9 +221,10 @@ const ListAccountStoreCredits: React.FC<ResAccountCreditCard_ListAll_Prop> = ({ 
                                 z-10
                                 transform-gpu
                             "
-                                >
-                                    <IoClose />
-                                </button>
+                                    >
+                                        <IoClose />
+                                    </button>
+                                </div>
                             </section>
                         );
                     })}
