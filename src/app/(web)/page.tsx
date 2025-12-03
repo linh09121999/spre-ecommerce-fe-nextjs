@@ -110,7 +110,7 @@ const Home: React.FC = () => {
           >
             <div className="flex flex-col md:gap-5 gap-3">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight">Explore Your Style
-                <br className="hidden sm:inline" /> With <span className="text-green-600">Spree Commerce</span></h1>
+                <br className="hidden sm:inline" /> With <span className="bg-gradient-to-r from-green-500 to-green-700 text-transparent bg-clip-text">Spree Commerce</span></h1>
               <p className=" text-slate-600 max-w-xl">Build fully customizable eCommerce experiences with Spree’s powerful open-source platform</p>
               <button
                 onClick={() => router.push('/all-product')}

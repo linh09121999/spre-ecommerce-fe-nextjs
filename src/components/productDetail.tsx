@@ -341,7 +341,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
     return (
         <>
             {/* Header Navigation */}
-            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-4 lg:text-lg text-sm">
+            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-5 lg:text-lg text-sm">
                 <button
                     onClick={() => router.back()}
                     className="flex items-center gap-2 group transition-all duration-300"
@@ -358,7 +358,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
             </div>
 
             {/* Product Section */}
-            <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-10 px-5 py-5">
+            <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_3fr] md:gap-10 gap-5 px-5 py-5">
 
                 {/* Left: Images */}
                 <div className="flex max-lg:flex-col gap-4">
@@ -405,7 +405,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
 
                 {/* Right: Product Info */}
                 <div className="flex flex-col gap-5">
-                    <h1 className="text-4xl font-bold text-gray-900 leading-tight" >
+                    <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold text-gray-900 leading-tight" >
                         {data?.attributes.name}
                     </h1>
 
@@ -416,10 +416,10 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                             {priceInfo(data.attributes.price, data.attributes.compare_at_price) > 0 ?
                                 <>
                                     <div className="flex items-end gap-2">
-                                        <span className="text-5xl font-bold text-green-700">
+                                        <span className="md:text-5xl sm:text-4xl text-3xl font-bold text-green-700">
                                             ${data.attributes.price}
                                         </span>
-                                        <span className="text-xl text-gray-400 line-through mb-1">
+                                        <span className="md:text-xl sm:text-lg text-md text-gray-400 line-through mb-1">
                                             ${data.attributes.compare_at_price}
                                         </span>
                                     </div>
