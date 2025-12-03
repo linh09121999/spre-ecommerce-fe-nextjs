@@ -336,7 +336,7 @@ const HeartFrom: React.FC = () => {
     return (
         <>
             <div className="max-w-[1535px] mx-auto max-2xl:px-5 py-5 flex flex-col">
-                <div className="grid lg:grid-cols-[300px_1fr] lg:gap-10 gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] lg:gap-10 gap-5 ">
                     <aside className="grid h-fit max-lg:hidden  gap-5 "
                         data-aos="fade-right"
                         data-aos-duration="3000"
@@ -660,21 +660,23 @@ const HeartFrom: React.FC = () => {
                                                     className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 p-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center `}>
                                                     <h3 className="text-lg font-semibold text-gray-900 w-full sm:hidden">{res?.product_name}</h3>
 
-                                                    <div className={`flex-row-reverse transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full `}>
+                                                    <div className={`flex-row-reverse  transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full `}>
                                                         {editMode &&
-                                                            <button aria-label="delete item"
-                                                                className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    handleRemoveAItemWishlist(resWishlists.data.attributes.token, res.id)
-                                                                }}
-                                                            >
-                                                                <FaTrashAlt className="mx-auto" />
-                                                                <div className="absolute inset-0 overflow-hidden">
-                                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                                                </div>
-                                                                <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                                            </button>
+                                                            <div className={`flex gap-3 justify-center ml-auto sm:hidden transition-all duration-300`}>
+                                                                <button aria-label="delete item"
+                                                                    className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        handleRemoveAItemWishlist(resWishlists.data.attributes.token, res.id)
+                                                                    }}
+                                                                >
+                                                                    <FaTrashAlt className="mx-auto" />
+                                                                    <div className="absolute inset-0 overflow-hidden">
+                                                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                                    </div>
+                                                                    <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                                </button>
+                                                            </div>
                                                         }
                                                         <div className={`flex relative  sm:gap-10 gap-5 items-center w-full transition-all duration-300`}>
                                                             <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[600px]:min-w-[100px] max-[600px]:min-h-[100px] max-[600px]:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
