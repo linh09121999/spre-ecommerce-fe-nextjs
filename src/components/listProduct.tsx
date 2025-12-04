@@ -1150,7 +1150,7 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                         <img
                             src="https://cdn.vendo.dev/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQ3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--2ea59e9a7f3e0127203fa19260ee4f0c827a725d/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwic2F2ZXIiOnsic3RyaXAiOnRydWUsInF1YWxpdHkiOjc1LCJsb3NzbGVzcyI6ZmFsc2UsImFscGhhX3EiOjg1LCJyZWR1Y3Rpb25fZWZmb3J0Ijo2LCJzbWFydF9zdWJzYW1wbGUiOnRydWV9LCJyZXNpemVfdG9fbGltaXQiOls2NDAsbnVsbF19LCJwdXIiOiJ2YXJpYXRpb24ifX0=--d96e3e5279c093271eeb921db9065be22fee62e4/Image%20banner.jpg"
                             alt="banner"
-                            className="w-full aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
+                            className="w-full aspect-[16/8] sm:aspect-[16/7] md:aspect-[16/6] lg:aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         {/* Lớp phủ gradient tối giúp chữ nổi */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
@@ -1168,42 +1168,65 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
                                 <img
                                     src={taxonsRetrieve?.data.attributes.header_url}
                                     alt={taxonsRetrieve?.data.attributes.name}
-                                    className="w-full aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="w-full aspect-[16/8] sm:aspect-[16/7] md:aspect-[16/6] lg:aspect-[16/5] object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 {/* Lớp phủ gradient tối giúp chữ nổi */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
-
+                                <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 md:p-10 text-white z-10">
+                                    <div className="lg:w-3/4 w-full">
+                                        <div className="grid gap-1 md:gap-2 lg:gap-5">
+                                            <span className="text-xs sm:text-sm uppercase tracking-widest text-gray-300">
+                                                {Category(taxonsRetrieve?.data.attributes.pretty_name)?.replace(/\s*->\s*/g, " / ")}
+                                            </span>
+                                            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
+                                                {taxonsRetrieve?.data.attributes.name}
+                                            </h3>
+                                            {taxonsRetrieve?.data.attributes.description &&
+                                                <div className="mt-1 sm:mt-2">
+                                                    <p className="text-xs sm:text-sm md:text-base text-white/80  overflow-hidden">
+                                                        {taxonsRetrieve?.data.attributes.description}
+                                                    </p>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                            :
+                            <>
                                 {/* Nội dung chữ overlay */}
-                                <div className="absolute md:left-10 left-0 bottom-0  p-10 text-white z-10 w-3/4 grid gap-3">
-                                    <span className="text-sm uppercase tracking-widest text-gray-300">{Category(taxonsRetrieve?.data.attributes.pretty_name)?.replace(/\s*->\s*/g, " / ")}</span>
-                                    <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
-                                        {taxonsRetrieve?.data.attributes.name}
-                                    </h3>
-                                    {taxonsRetrieve?.data.attributes.description &&
-                                        <p className="text-sm sm:text-base text-white/80 max-w-xl">
-                                            {taxonsRetrieve?.data.attributes.description}
-                                        </p>
-                                    }
+                                <div className="relative overflow-hidden group">
+                                    <img
+                                        src="https://cdn.vendo.dev/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQ3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--2ea59e9a7f3e0127203fa19260ee4f0c827a725d/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwic2F2ZXIiOnsic3RyaXAiOnRydWUsInF1YWxpdHkiOjc1LCJsb3NzbGVzcyI6ZmFsc2UsImFscGhhX3EiOjg1LCJyZWR1Y3Rpb25fZWZmb3J0Ijo2LCJzbWFydF9zdWJzYW1wbGUiOnRydWV9LCJyZXNpemVfdG9fbGltaXQiOls2NDAsbnVsbF19LCJwdXIiOiJ2YXJpYXRpb24ifX0=--d96e3e5279c093271eeb921db9065be22fee62e4/Image%20banner.jpg"
+                                        alt="banner"
+                                        className="w-full md:aspect-[16/5] aspect-[16/7] object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                    {/* Lớp phủ gradient tối giúp chữ nổi */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+                                    <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 md:p-10 text-white z-10">
+                                        <div className="lg:w-3/4 w-full">
+                                            <div className="grid gap-1 md:gap-2 lg:gap-5">
+                                                <span className="text-xs sm:text-sm uppercase tracking-widest text-gray-300">
+                                                    {Category(taxonsRetrieve?.data.attributes.pretty_name)?.replace(/\s*->\s*/g, " / ")}
+                                                </span>
+                                                <h3 className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
+                                                    {taxonsRetrieve?.data.attributes.name}
+                                                </h3>
+                                                {taxonsRetrieve?.data.attributes.description &&
+                                                    <div className="mt-1 sm:mt-2">
+                                                        <p className="text-xs sm:text-sm md:text-base text-white/80  overflow-hidden">
+                                                            {taxonsRetrieve?.data.attributes.description}
+                                                        </p>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 {/* Hiệu ứng điểm nhấn (vòng sáng mờ khi hover) */}
                                 <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,white_0%,transparent_60%)] mix-blend-overlay"></div>
 
-                            </>
-                            :
-                            <>
-                                {/* Nội dung chữ overlay */}
-                                <div className=" border-b-[2px] border-b-gray-200 grid gap-3 pb-5 w-full">
-                                    <span className="text-sm uppercase tracking-widest text-gray-500">{Category(taxonsRetrieve?.data.attributes.pretty_name)?.replace(/\s*->\s*/g, " / ")}</span>
-                                    <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent drop-shadow-lg">
-                                        {taxonsRetrieve?.data.attributes.name}
-                                    </h3>
-                                    {taxonsRetrieve?.data.attributes.description &&
-                                        <p className="text-sm sm:text-base text-white/80 max-w-xl">
-                                            {taxonsRetrieve?.data.attributes.description}
-                                        </p>
-                                    }
-                                </div>
                             </>
                         }
                     </>
