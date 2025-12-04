@@ -341,7 +341,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
     return (
         <>
             {/* Header Navigation */}
-            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-5 lg:text-lg text-sm">
+            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-5 lg:text-lg md:text-md text-sm">
                 <button
                     onClick={() => router.back()}
                     className="flex items-center gap-2 group transition-all duration-300"
