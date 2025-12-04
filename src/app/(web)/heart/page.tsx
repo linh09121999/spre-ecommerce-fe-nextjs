@@ -557,7 +557,7 @@ const HeartFrom: React.FC = () => {
                         </Dialog>
                     </div>
                     {(selectedWishlist && resWishlists?.data && resWishlists?.included) ?
-                        <section className="flex flex-col gap-5"
+                        <section className="flex flex-col gap-5 max-lg:-mt-3"
                             data-aos="fade-left"
                             data-aos-duration="3000">
                             <div className="flex justify-between items-center">

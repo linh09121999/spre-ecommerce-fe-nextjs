@@ -540,8 +540,8 @@ const SettingWeb: React.FC = () => {
 
     return (
         <>
-            <div className='max-w-[1535px] mx-auto grid lg:grid-cols-[300px_1fr] py-5 max-2xl:px-5 lg:gap-10 gap-'>
-                <aside className="grid h-fit max-lg:hidden  gap-5 "
+            <div className='max-w-[1535px] mx-auto grid lg:grid-cols-[300px_1fr] py-5 max-2xl:px-5 lg:gap-10 gap-5'>
+                <aside className="grid h-fit max-lg:hidden"
                     data-aos="fade-right"
                     data-aos-duration="3000"
                 >
@@ -564,7 +564,7 @@ const SettingWeb: React.FC = () => {
                         ))}
                     </div>
                 </aside>
-                <div className="lg:hidden flex overflow-x-auto scroll-x gap-5 py-3"
+                <div className="lg:hidden flex overflow-x-auto scroll-x gap-5 py-3 -mt-3"
                     data-aos="fade-right"
                     data-aos-duration="3000"
                 >
@@ -576,9 +576,9 @@ const SettingWeb: React.FC = () => {
                         { id: 4, title: "Store Credits" },
                     ].map(({ id, title }) => (
                         <button
-                            aria-label="click wishlist"
+                            aria-label="click setting"
                             key={id}
-                            className={`${selectTab === id ? 'text-white border border-green-700 shadow-lg' : 'bg-gray-100 group-hover:bg-green-100} group-hover:border-green-200'} text-lg flex group items-center  group-hover:shadow-lg w-fit  gap-3 px-4 h-[45px] rounded-xl  transition-all duration-300`}
+                            className={`${selectTab === id ? ' border border-green-700 shadow-md shadow-green-700/30' : 'bg-white shadow-md border border-slate-100'} group-hover:shadow-lg text-lg flex group items-center  group-hover:shadow-lg w-fit  gap-3 px-4 h-[45px] rounded-xl  transition-all duration-300`}
                             onClick={() =>
                                 handleSelectTab(id)
                             }>
@@ -586,7 +586,7 @@ const SettingWeb: React.FC = () => {
                         </button>
                     ))}
                 </div>
-                <section className="flex flex-col gap-4 md:gap-5"
+                <section className="flex flex-col gap-4 md:gap-5 max-lg:-mt-3"
                     data-aos="fade-left"
                     data-aos-duration="3000"
                 >
