@@ -140,23 +140,16 @@ const Login: React.FC = () => {
             const token = res.data.access_token
             handleLogin(token)
             setErrorLogin("")
-            // if (document.referrer.includes('/register')) {
-            //     rounter.replace('/');
-            // } else if (window.history.length > 1) {
-            //     rounter.back();
-            // } else {
-            //     rounter.replace('/');
-            // }
-            const hasPrevPage = window.history.length > 1;
-            const prevUrl = document.referrer;
+            const previousPage = document.referrer;
+            const referrerUrl = new URL(previousPage);
+            const previousPath = referrerUrl.pathname;
 
-            const cameFromRegister =
-                prevUrl && (prevUrl.endsWith("/register") || prevUrl.includes("/register"));
-
-            if (!hasPrevPage || cameFromRegister) {
-                rounter.push("/");
-            } else {
+            if (previousPath === '/login') {
+                rounter.push('/');
+            } else if (window.history.length > 1) {
                 rounter.back();
+            } else {
+                rounter.push('/');
             }
         } catch (error: any) {
             setErrorLogin(error.response.data.error_description)
