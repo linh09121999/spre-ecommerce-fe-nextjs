@@ -107,7 +107,7 @@ const ProductDetail: React.FC = () => {
   return (
     <>
       <ProductDetailCompoment data={resProduct_Retrieve?.data ?? undefined} included={resProduct_Retrieve?.included ?? []} />
-      <div className="max-w-[1536px] mx-auto px-5 py-10 flex flex-col gap-6">
+      <div className="max-w-[1536px] mx-auto px-5 md:py-10 py-5 flex flex-col gap-5">
         <div className="flex items-center justify-between w-full">
           <h3 className="text-xl font-semibold tracking-wide">
             You might also like</h3>

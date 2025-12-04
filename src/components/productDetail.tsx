@@ -428,7 +428,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                                     </span>
                                 </>
                                 :
-                                <span className="text-5xl font-bold text-green-700">
+                                <span className="md:text-5xl sm:text-4xl text-3xl font-bold text-green-700">
                                     ${data.attributes.price}
                                 </span>
                             }
@@ -559,7 +559,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                         <button
                             onClick={handleAddToCart}
                             disabled={!selectedVariant?.attributes.in_stock}
-                            className={`h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white w-fit font-bold text-lg transition-all duration-500 transform  shadow-lg relative overflow-hidden group 
+                            className={`h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white w-fit font-bold text-lg transition-all duration-300 transform  shadow-lg relative overflow-hidden group 
                                 ${!selectedVariant?.attributes.in_stock
                                     ? 'opacity-60 cursor-not-allowed'
                                     : 'hover:from-green-600 hover:to-emerald-700 hover:shadow-xl hover:scale-105'}`}
@@ -674,7 +674,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                                                     key={res.id}
                                                     className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
-                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group" >
+                            font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group" >
                                                     {res.attributes.name}
                                                     <div className="absolute inset-0 overflow-hidden">
                                                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -693,7 +693,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                                             text-gray-500 font-semibold text-lg flex items-center justify-center gap-2
                                              hover:border-green-400 hover:text-green-600
                                              px-5 py-3
-                                              transition-all duration-500 transform hover:scale-105
+                                              transition-all duration-300 transform hover:scale-105
                                              hover:shadow-xl
                                              bg-white/80 backdrop-blur-sm
                                               group-hover:bg-white/90"
@@ -793,7 +793,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                                             type="submit"
                                             className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
-                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                            font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                         >
                                             <span className="relative z-10">Create</span>
                                             <div className="absolute inset-0 overflow-hidden">

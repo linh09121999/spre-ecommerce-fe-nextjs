@@ -210,7 +210,7 @@ const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => 
                         className="group relative transition-all duration-300  flex flex-col overflow-hidden hover:-translate-y-2"
                     >
                         {/* --- Product Image --- */}
-                        <div className="relative overflow-hidden group-hover:rounded-xl transition-all duration-500 ">
+                        <div className="relative overflow-hidden transition-all duration-300 ">
                             {displayImage ? (
                                 <img
                                     src={displayImage}
@@ -225,7 +225,7 @@ const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => 
                             )}
 
                             {/* Overlay gradient (sáng hơn, tinh tế hơn) */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
 
                             {/* Premium badges */}
                             <div className="absolute top-3 left-3 flex flex-col gap-2">

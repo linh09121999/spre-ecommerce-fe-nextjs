@@ -116,7 +116,7 @@ const Home: React.FC = () => {
                 onClick={() => router.push('/all-product')}
                 className="h-[50px] my-3 w-fit flex gap-2 justify-center items-center rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
-                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                            font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group"
               >
                 Shop Now
                 <div className="absolute inset-0 overflow-hidden">
@@ -317,7 +317,7 @@ const Home: React.FC = () => {
                       <img
                         src={res.attributes.image_url!}
                         alt={res.attributes.title}
-                        className="w-full h-50 max-sm:h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="w-full h-50 max-sm:h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent 
                           opacity-80 group-hover:opacity-90 transition-all"></div>
