@@ -19,7 +19,7 @@ const Register: React.FC = () => {
         '& .MuiOutlinedInput-root': {
             borderRadius: "10px",
             background: "var(--color-white)",
-            height: '45px',
+            height: '40px',
             // boxShadow: 'var(--shadow-lg)',
             padding: '3px 8px',
             transition: 'all 0.3s',
@@ -212,7 +212,7 @@ const Register: React.FC = () => {
 
                         <form
                             onClick={handleSubmit}
-                            className="flex flex-col gap-5">
+                            className="flex flex-col md:gap-5 gap-2">
                             <div className="flex flex-col gap-1">
                                 <label htmlFor="email" className="md:text-xl text-md font-medium text-gray-300">
                                     Email

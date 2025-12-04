@@ -18,6 +18,10 @@
     color: white !important;
 }
 
+*.Mui-error{
+    color: var(--color-red-500) !important;
+}
+
 *.Mui-selected {
     color: var(--color-green-600) !important
 }
