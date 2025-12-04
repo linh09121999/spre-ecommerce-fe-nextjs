@@ -438,7 +438,7 @@ const ViewCart: React.FC = () => {
                                     {itemsWithImages && itemsWithImages?.map((res) => (
                                         <div
                                             onClick={() => router.push(`/product/${res.slug}`)}
-                                            className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 p-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center transition-all duration-300`}>
+                                            className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 py-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center transition-all duration-300`}>
                                             <h3 className="text-lg font-semibold text-gray-900 w-full sm:hidden">{res?.product_name}</h3>
                                             <div className={`max-sm:flex-row-reverse transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full h-full`}>
                                                 {editMode &&
@@ -451,7 +451,7 @@ const ViewCart: React.FC = () => {
 
                                                                 }}
                                                                 aria-label="Add to Wishlist"
-                                                                className="aspect-[1/2] max-md:min-w-[100px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] items-center bg-gradient-to-br from-orange-300 to-orange-400 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                                                                className="max-md:min-w-[60px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[50px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] items-center bg-gradient-to-br from-orange-300 to-orange-400 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                                                             >
                                                                 <FaRegHeart className="mx-auto group-hover:scale-105 " />
                                                                 <div className="absolute inset-0 overflow-hidden">
@@ -463,7 +463,7 @@ const ViewCart: React.FC = () => {
                                                         }
                                                         {res?.id &&
                                                             <button aria-label="delete item"
-                                                                className="aspect-[1/2] max-md:min-w-[100px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                                                                className="max-md:min-w-[60px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[50px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                                                                 onClick={(e) => {
                                                                     e.stopPropagation()
                                                                     handleRemoveItem(res?.id)
@@ -480,7 +480,7 @@ const ViewCart: React.FC = () => {
                                                     </div>
                                                 }
                                                 <div className={`flex relative sm:gap-10 gap-5 items-center w-full transition-all duration-300`}>
-                                                    <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[600px]:min-w-[100px] max-[600px]:min-h-[100px] max-[600px]:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
+                                                    <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-md:min-w-[100px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
                                                         <img src={res.original_url} alt={res?.product_name} height={200} width={200} className=" aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                                                         <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                                                         {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&

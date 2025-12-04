@@ -332,7 +332,7 @@ const HeartFrom: React.FC = () => {
         <>
             <div className="max-w-[1535px] mx-auto max-2xl:px-5 py-5 flex flex-col">
                 <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] lg:gap-10 gap-5 ">
-                    <aside className="grid h-fit max-lg:hidden  gap-5 "
+                    <aside className="grid h-fit max-lg:hidden   "
                         data-aos="fade-right"
                         data-aos-duration="3000"
                     >
@@ -414,7 +414,7 @@ const HeartFrom: React.FC = () => {
                             </form>
                         </div>
                     </aside>
-                    <div className="lg:hidden flex overflow-x-auto scroll-x gap-5 py-3"
+                    <div className="lg:hidden flex overflow-x-auto scroll-x gap-5 py-3  -mt-3 "
                         data-aos="fade-right"
                         data-aos-duration="3000"
                     >
@@ -423,7 +423,7 @@ const HeartFrom: React.FC = () => {
                                 <div className="relative group">
                                     <button
                                         aria-label="click wishlist"
-                                        className={`${selectedWishlist === res.attributes.token ? 'text-white border border-green-700 shadow-lg' : 'bg-gray-100 group-hover:bg-green-100 group-hover:border-green-200'} text-lg flex group items-center  group-hover:shadow-lg w-fit  gap-3 px-4 h-[45px] rounded-xl  transition-all duration-300`}
+                                        className={`${selectedWishlist === res.attributes.token ? ' border border-green-700 shadow-md shadow-green-700/30' : 'bg-white shadow-md border border-slate-100'} group-hover:shadow-lg text-lg flex group items-center  group-hover:shadow-lg w-fit  gap-3 px-4 h-[45px] rounded-xl  transition-all duration-300`}
                                         onClick={() =>
                                             handleOpenWishList(res.attributes.token)
                                         }>
@@ -456,10 +456,17 @@ const HeartFrom: React.FC = () => {
 
                         ))}
                         <button
+                            aria-label="add to wishlist"
+                            onClick={() => setOpenCreateWishlist(true)}
+                            className="flex group items-center justify-center w-[45px] h-[45px] rounded-xl border border-slate-200 bg-white shadow-md hover:border-green-600 hover:shadow-green-600/20 hover:shadow-lg transition-all duration-300 ease"
+                        >
+                            <span className="text-slate-600 text-2xl group-hover:text-green-700 transition-all duration-300 ease">+</span>
+                        </button>
+                        {/* <button
                             onClick={() => setOpenCreateWishlist(true)}
                             className="flex px-4 h-[45px] gap-3 max-sm:text-sm text-lg whitespace-nowrap items-center rounded-xl border-[3px] border-dashed transition-all duration-300 border-gray-200 hover:shadow-lg">
                             Add WishList
-                        </button>
+                        </button> */}
                         <Dialog open={openCreateWishlist} onClose={() => setOpenCreateWishlist(false)}>
                             <DialogContent
                                 sx={{
@@ -562,22 +569,38 @@ const HeartFrom: React.FC = () => {
                                         {resWishlists?.data.relationships.wished_items.data.length || 0} items in this list
                                     </p>
                                 </div>
-                                <div className="flex gap-5 max-sm:hidden">
+                                <div className="flex lg:gap-5 gap-3 max-sm:hidden">
+                                    {resWishlists?.included.length > 0 &&
+                                        <button
+                                            onClick={() => handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))}
+                                            className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-orange-300 to-orange-400 text-white 
+                            hover:from-orange-400 hover:to-orange-500 hover:shadow-xl whitespace-nowrap px-3
+                            font-bold text-md transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                        >
+                                            Clear All Items
+                                            <div className="absolute inset-0 overflow-hidden">
+                                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                            </div>
+                                            <div className="absolute inset-0 border-2 border-orange-300 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                                        </button>
+                                    }
                                     <button
                                         onClick={() => {
                                             handleDeleteWistlist(resWishlists.data.attributes.token)
                                         }}
-                                        className="text-red-500 hover:underline text-sm font-medium">
+                                        className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
+                            hover:from-rose-600 hover:to-red-700 hover:shadow-xl whitespace-nowrap px-3
+                            font-bold text-md transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                    >
                                         Delete Wishlist
+                                        <div className="absolute inset-0 overflow-hidden">
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                        </div>
+                                        <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
                                     </button>
-                                    {resWishlists?.included.length > 0 &&
-                                        <button
-                                            onClick={() => handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))}
-                                            className="flex items-center bg-red-50 text-red-600 px-3 py-2 rounded-xl hover:bg-red-100 text-sm font-medium transition"
-                                        >
-                                            Clear All Items
-                                        </button>
-                                    }
+
                                 </div>
                                 <div className="sm:hidden ">
                                     <button
@@ -596,9 +619,10 @@ const HeartFrom: React.FC = () => {
                                                 onClick={() => {
                                                     router.push(`/product/${res?.slug}`)
                                                 }}
-                                                className="group relative hover:bg-gradient-to-br hover:from-white hover:via-gray-50 hover:to-gray-100 hover:rounded-xl hover:shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden border border-transparent hover:border-gray-100" key={res.id}>
+                                                className="group relative transition-all duration-300  flex flex-col overflow-hidden hover:-translate-y-2"
+                                            >
                                                 <div className="relative overflow-hidden hover:rounded-t-xl">
-                                                    <img src={res.original_url} alt={`img ${res.id}`}
+                                                    <img src={res.original_url} alt={res.product_name}
                                                         className="w-full aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                                                     />
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
@@ -623,11 +647,13 @@ const HeartFrom: React.FC = () => {
                                                     </button>
 
                                                 </div>
-                                                <div className="flex flex-col gap-3 p-5">
+                                                <div className="flex flex-col md:gap-3 gap-1 md:pt-5 pt-3">
                                                     <h3 className="font-semibold text-start text-gray-900 text-base tracking-wide line-clamp-2 group-hover:text-green-700 transition-colors duration-300">
                                                         {res.product_name}
                                                     </h3>
-                                                    <span className="text-sm text-start text-gray-500">{res.options_text}</span>
+                                                    {res.options_text &&
+                                                        <span className="text-sm text-start text-gray-500">{res.options_text}</span>
+                                                    }
                                                     <span className="text-sm flex items-center gap-2 font-semibold">
                                                         Quantity: {res.quantity || 1}
                                                     </span>
@@ -656,14 +682,14 @@ const HeartFrom: React.FC = () => {
                                                     onClick={() => {
                                                         router.push(`/product/${res?.slug}`)
                                                     }}
-                                                    className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 p-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center `}>
+                                                    className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 py-3 border-b border-gray-200  hover:bg-gray-50 transition-colors rounded-lg items-center `}>
                                                     <h3 className="text-lg font-semibold text-gray-900 w-full sm:hidden">{res?.product_name}</h3>
 
                                                     <div className={`flex-row-reverse  transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full `}>
                                                         {editMode &&
                                                             <div className={`flex gap-3 justify-center ml-auto sm:hidden transition-all duration-300`}>
                                                                 <button aria-label="delete item"
-                                                                    className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                                                    className="max-md:min-w-[60px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[50px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                                                                     onClick={(e) => {
                                                                         e.stopPropagation();
                                                                         handleRemoveAItemWishlist(resWishlists.data.attributes.token, res.id)
@@ -678,7 +704,7 @@ const HeartFrom: React.FC = () => {
                                                             </div>
                                                         }
                                                         <div className={`flex relative  sm:gap-10 gap-5 items-center w-full transition-all duration-300`}>
-                                                            <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[600px]:min-w-[100px] max-[600px]:min-h-[100px] max-[600px]:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
+                                                            <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-md:min-w-[100px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
                                                                 <img src={res.original_url} alt={`img ${res.id}`} height={200} width={200} className=" aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                                                                 <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
                                                                 {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
@@ -721,16 +747,20 @@ const HeartFrom: React.FC = () => {
                                         </div>
                                     </div>
                                     {editMode &&
-                                        <div className="sm:hidden bg-white border-t border-gray-200 pt-5 z-10 flex flex-col gap-5">
+                                        <div className="sm:hidden bg-white z-10 flex flex-col gap-5">
                                             {resWishlists?.included.length > 0 &&
                                                 <button
                                                     onClick={() => handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))}
-                                                    className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl border border-red-600 text-red-600 
-                             hover:shadow-xl
+                                                    className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-orange-300 to-orange-400 text-white 
+                            hover:from-orange-400 hover:to-orange-500 hover:shadow-xl whitespace-nowrap px-3
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-
                                                 >
                                                     Clear All Items
+                                                    <div className="absolute inset-0 overflow-hidden">
+                                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                    </div>
+                                                    <div className="absolute inset-0 border-2 border-orange-300 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
                                                 </button>
                                             }
                                             <button

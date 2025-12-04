@@ -247,7 +247,7 @@ const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => 
                             </div>
                         </div>
                         {/* --- Product Info --- */}
-                        <div className="flex flex-col md:gap-3 gap-1 md:pt-5 pt-3 flex-grow">
+                        <div className="flex flex-col md:gap-3 gap-1 md:pt-5 pt-3">
                             {/* Product Name */}
                             <h3 className="font-semibold text-gray-900 text-base tracking-wide line-clamp-2 group-hover:text-green-700 transition-colors duration-300">
                                 {product.attributes.name}
