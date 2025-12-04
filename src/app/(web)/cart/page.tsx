@@ -258,6 +258,8 @@ const ViewCart: React.FC = () => {
         }, duration);
     };
 
+    const [editMode, setEditMode] = useState<boolean>(false)
+
     const postApiAddItemToWishlist = async (variant_id: string, quantity: number, token: string) => {
         const data: WishedItem = {
             variant_id: variant_id,
@@ -267,6 +269,9 @@ const ViewCart: React.FC = () => {
             setLoading(true);
             const res = await AddItemToWishlist(data, token)
             setModalOpenSelectWishlist(false);
+            if (editMode) {
+                setEditMode(false)
+            }
             openSuccessModal("Product added to Wish list successfully!");
         } catch (error: any) {
             openSuccessModal("Add item Wish lists failed: " + (error.response?.data?.error || error.message));
@@ -380,8 +385,6 @@ const ViewCart: React.FC = () => {
         }
     }
 
-    const [editMode, setEditMode] = useState<boolean>(false)
-
     return (
         <>
             <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-5 lg:text-lg md:text-md text-sm">
@@ -445,6 +448,7 @@ const ViewCart: React.FC = () => {
                                                                 onClick={(e) => {
                                                                     e.stopPropagation()
                                                                     handleSaveForLater(res?.variantId, res?.quantity)
+
                                                                 }}
                                                                 aria-label="Add to Wishlist"
                                                                 className="aspect-[1/2] max-md:min-w-[100px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] items-center bg-gradient-to-br from-orange-300 to-orange-400 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
