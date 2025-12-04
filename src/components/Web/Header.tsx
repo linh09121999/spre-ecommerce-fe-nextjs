@@ -586,7 +586,7 @@ const HeaderWeb: React.FC = () => {
 
     const handleInputChange = (_: any, value: string, reason: string) => {
         // MUI gọi event "reset" khi chọn option → bỏ qua tránh gọi lại API
-       if (reason === "clear" || reason === "reset") {
+        if (reason === "clear" || reason === "reset") {
             setResDataProduct_Search([]);
             setResDataIcludes_Search([]);
             lastQueryRef.current = "";
@@ -642,12 +642,19 @@ const HeaderWeb: React.FC = () => {
                     }`}
             >
                 <div className='max-w-[1535px] mx-auto flex justify-between items-center'>
-                    <div className='lg:hidden'>
+                    <div className='lg:hidden flex md:gap-3 items-center'>
                         <IconButton
                             onClick={toggleDrawer(true)}
                         >
                             <RiMenuUnfoldLine className='mx-auto' size={24} />
                         </IconButton>
+                        <button className='p-2 css-icon ' aria-label='search'
+                            onClick={() => setIsSearch(true)}
+                        >
+                            <span className='text-black text-2xl  svgWrapper'>
+                                <IoMdSearch className="mx-auto" />
+                            </span>
+                        </button>
                         <Drawer
                             anchor="left"
                             open={openDrawer}
@@ -766,7 +773,7 @@ const HeaderWeb: React.FC = () => {
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                         onClick={handleClickAccountDrawer}
                                     >
-                                        {token ? 'My Account': 'Login'}
+                                        {token ? 'My Account' : 'Login'}
                                         <div className="absolute inset-0 overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                         </div>
@@ -809,148 +816,6 @@ const HeaderWeb: React.FC = () => {
                                     <IoMdSearch className="mx-auto" />
                                 </span>
                             </button>
-                            {isSearch &&
-                                <Backdrop
-                                    sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-                                    open={isSearch}
-                                >
-                                    <>
-                                        <div className="w-full md:w-[600px] sm:w-auto ">
-                                            <Autocomplete
-                                                noOptionsText={loadingSearch ?
-                                                    < Backdrop
-                                                        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-                                                        open={loading}
-                                                    >
-                                                        <CircularProgress color="inherit" />
-                                                    </Backdrop>
-                                                    : <p className='text-center h-full items-center'>There is no data</p>}
-                                                options={resDataProducts_Search}
-                                                componentsProps={componentsProps}
-                                                getOptionLabel={(option) => option.attributes.name}
-                                                renderOption={(props, option) => {
-                                                    const { key, ...optionProps } = props;
-                                                    const getProductImage = () => {
-                                                        try {
-                                                            if (!option.relationships?.images?.data?.length) return null;
-
-                                                            const imageId = option.relationships.images.data[0].id;
-                                                            const imageData = resDataIcludes_Search?.find(
-                                                                (item): item is IncludedImage => item.type === 'image' && item.id === imageId
-                                                            );
-
-                                                            return imageData?.attributes?.original_url || null;
-                                                        } catch (error) {
-                                                            console.error('Error loading product image:', error);
-                                                            return null;
-                                                        }
-                                                    };
-
-                                                    const productImage = getProductImage();
-                                                    return (
-                                                        <Box
-                                                            key={key}
-                                                            component="li"
-                                                            sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
-                                                            {...optionProps}
-                                                        >
-                                                            <Box sx={{ display: 'flex', alignItems: 'center', py: 1, gap: 2 }}>
-                                                                {productImage ? (
-                                                                    <div className="relative overflow-hidden rounded-xl w-21 h-21">
-                                                                        <img src={productImage} alt={option.attributes.name} />
-                                                                        <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
-                                                                        {(option.attributes.compare_at_price && priceInfo(option.attributes.price, option.attributes.compare_at_price) > 0) &&
-                                                                            <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
-                                                                                -{priceInfo(option.attributes.price, option.attributes.compare_at_price)}%
-                                                                            </span>
-                                                                        }
-                                                                    </div>
-
-                                                                ) : (
-                                                                    // Placeholder khi không có image
-                                                                    <Box
-                                                                        sx={{
-                                                                            width: 60,
-                                                                            height: 60,
-                                                                            bgcolor: 'grey.200',
-                                                                            mr: 2,
-                                                                            borderRadius: 1,
-                                                                            display: 'flex',
-                                                                            alignItems: 'center',
-                                                                            justifyContent: 'center',
-                                                                            flexShrink: 0
-                                                                        }}
-                                                                    >
-                                                                        <span style={{ color: 'grey.500', fontSize: 12 }}>No Image</span>
-                                                                    </Box>
-                                                                )}
-
-                                                                <Box>
-                                                                    <Typography variant="body1" fontWeight="medium">
-                                                                        {option.attributes.name}
-                                                                    </Typography>
-                                                                    <div className="flex items-center gap-3">
-                                                                        <span className="text-xl font-semibold text-green-700">${option.attributes.price}</span>
-                                                                        {Number(option.attributes.compare_at_price) > 0 && (
-                                                                            <span className="text-gray-400 line-through text-sm">
-                                                                                ${option.attributes.compare_at_price}
-                                                                            </span>
-                                                                        )}
-                                                                    </div>
-                                                                </Box>
-                                                            </Box>
-                                                        </Box>
-                                                    );
-                                                }}
-                                                filterOptions={(x) => x}
-                                                value={
-                                                    selectSearchSlug
-                                                        ? resDataProducts_Search.find((c) => c.attributes.slug === selectSearchSlug) ?? undefined
-                                                        : null
-                                                }
-                                                onChange={handleChangeSearch}
-                                                onInputChange={handleInputChange}
-                                                renderInput={(params) => (
-                                                    <TextField  {...params}
-                                                        type="search"
-                                                        placeholder="Search of name..."
-                                                        sx={sxTextField}
-                                                        InputProps={{
-                                                            ...params.InputProps,
-                                                            endAdornment: (
-                                                                <InputAdornment position="end">
-                                                                    <IconButton
-                                                                        className='group relative transition-all duration-300 hover:scale-105'
-                                                                        sx={sxButtonSearch}
-                                                                    >
-                                                                        <div className="relative flex items-center">
-                                                                            <IoMdSearch className="mx-auto text-green-600 group-hover:text-white transition" />
-                                                                        </div>
-                                                                        <div className="absolute inset-0 overflow-hidden">
-                                                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                                                        </div>
-                                                                        <div className="absolute inset-0 rounded-[25px] animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                                                    </IconButton>
-                                                                    < IconButton
-                                                                        sx={sxButton}
-                                                                        onClick={() => {
-                                                                            setIsSearch(false)
-                                                                            setResDataProduct_Search([])
-                                                                            setResDataIcludes_Search([])
-                                                                        }}>
-                                                                        <IoClose className=" mx-auto" />
-                                                                    </IconButton>
-                                                                </InputAdornment>
-                                                            ),
-                                                        }}
-
-                                                    />
-                                                )}
-                                            />
-                                        </div>
-                                    </>
-                                </Backdrop>
-                            }
                         </div>
                         {/* cart */}
                         <button className='p-2 css-icon' aria-label='cart'
@@ -1058,131 +923,150 @@ const HeaderWeb: React.FC = () => {
                             }
                         </div>
                     </div>
-                </div>
-                <div className='lg:hidden mt-3'>
-                    <Autocomplete
-                        noOptionsText={loadingSearch ?
-                            < Backdrop
-                                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-                                open={loading}
-                            >
-                                <CircularProgress color="inherit" />
-                            </Backdrop>
-                            : <p className='text-center h-full items-center'>There is no data</p>}
-                        options={resDataProducts_Search}
-                        componentsProps={componentsProps}
-                        getOptionLabel={(option) => option.attributes.name}
-                        renderOption={(props, option) => {
-                            const { key, ...optionProps } = props;
-                            const getProductImage = () => {
-                                try {
-                                    if (!option.relationships?.images?.data?.length) return null;
+                    {isSearch &&
+                        <Backdrop
+                            sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                            open={isSearch}
+                        >
+                            <>
+                                <div className="w-full min-w-[340px] max-w-[600px] px-5">
+                                    <Autocomplete
+                                        noOptionsText={loadingSearch ?
+                                            < Backdrop
+                                                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                                                open={loading}
+                                            >
+                                                <CircularProgress color="inherit" />
+                                            </Backdrop>
+                                            : <p className='text-center h-full items-center'>There is no data</p>}
+                                        options={resDataProducts_Search}
+                                        componentsProps={componentsProps}
+                                        getOptionLabel={(option) => option.attributes.name}
+                                        renderOption={(props, option) => {
+                                            const { key, ...optionProps } = props;
+                                            const getProductImage = () => {
+                                                try {
+                                                    if (!option.relationships?.images?.data?.length) return null;
 
-                                    const imageId = option.relationships.images.data[0].id;
-                                    const imageData = resDataIcludes_Search?.find(
-                                        (item): item is IncludedImage => item.type === 'image' && item.id === imageId
-                                    );
+                                                    const imageId = option.relationships.images.data[0].id;
+                                                    const imageData = resDataIcludes_Search?.find(
+                                                        (item): item is IncludedImage => item.type === 'image' && item.id === imageId
+                                                    );
 
-                                    return imageData?.attributes?.original_url || null;
-                                } catch (error) {
-                                    console.error('Error loading product image:', error);
-                                    return null;
-                                }
-                            };
-
-                            const productImage = getProductImage();
-                            return (
-                                <Box
-                                    key={key}
-                                    component="li"
-                                    sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
-                                    {...optionProps}
-                                >
-                                    <Box sx={{ display: 'flex', alignItems: 'center', py: 1, gap: 2 }}>
-                                        {productImage ? (
-                                            <div className="relative overflow-hidden rounded-xl w-21 h-21">
-                                                <img src={productImage} alt={option.attributes.name} />
-                                                <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
-                                                {(option.attributes.compare_at_price && priceInfo(option.attributes.price, option.attributes.compare_at_price) > 0) &&
-                                                    <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
-                                                        -{priceInfo(option.attributes.price, option.attributes.compare_at_price)}%
-                                                    </span>
+                                                    return imageData?.attributes?.original_url || null;
+                                                } catch (error) {
+                                                    console.error('Error loading product image:', error);
+                                                    return null;
                                                 }
-                                            </div>
+                                            };
 
-                                        ) : (
-                                            // Placeholder khi không có image
-                                            <Box
-                                                sx={{
-                                                    width: 60,
-                                                    height: 60,
-                                                    bgcolor: 'grey.200',
-                                                    mr: 2,
-                                                    borderRadius: 1,
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    flexShrink: 0
+                                            const productImage = getProductImage();
+                                            return (
+                                                <Box
+                                                    key={key}
+                                                    component="li"
+                                                    sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                                                    {...optionProps}
+                                                >
+                                                    <Box sx={{ display: 'flex', alignItems: 'center', py: 1, gap: 2 }}>
+                                                        {productImage ? (
+                                                            <div className="relative overflow-hidden rounded-xl w-21 h-21">
+                                                                <img src={productImage} alt={option.attributes.name} />
+                                                                <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                                                                {(option.attributes.compare_at_price && priceInfo(option.attributes.price, option.attributes.compare_at_price) > 0) &&
+                                                                    <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
+                                                                        -{priceInfo(option.attributes.price, option.attributes.compare_at_price)}%
+                                                                    </span>
+                                                                }
+                                                            </div>
+
+                                                        ) : (
+                                                            // Placeholder khi không có image
+                                                            <Box
+                                                                sx={{
+                                                                    width: 60,
+                                                                    height: 60,
+                                                                    bgcolor: 'grey.200',
+                                                                    mr: 2,
+                                                                    borderRadius: 1,
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    justifyContent: 'center',
+                                                                    flexShrink: 0
+                                                                }}
+                                                            >
+                                                                <span style={{ color: 'grey.500', fontSize: 12 }}>No Image</span>
+                                                            </Box>
+                                                        )}
+
+                                                        <Box>
+                                                            <Typography variant="body1" fontWeight="medium">
+                                                                {option.attributes.name}
+                                                            </Typography>
+                                                            <div className="flex items-center gap-3">
+                                                                <span className="text-xl font-semibold text-green-700">${option.attributes.price}</span>
+                                                                {Number(option.attributes.compare_at_price) > 0 && (
+                                                                    <span className="text-gray-400 line-through text-sm">
+                                                                        ${option.attributes.compare_at_price}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        </Box>
+                                                    </Box>
+                                                </Box>
+                                            );
+                                        }}
+                                        filterOptions={(x) => x}
+                                        value={
+                                            selectSearchSlug
+                                                ? resDataProducts_Search.find((c) => c.attributes.slug === selectSearchSlug) ?? undefined
+                                                : null
+                                        }
+                                        onChange={handleChangeSearch}
+                                        onInputChange={handleInputChange}
+                                        renderInput={(params) => (
+                                            <TextField  {...params}
+                                                type="search"
+                                                placeholder="Search of name..."
+                                                sx={sxTextField}
+                                                InputProps={{
+                                                    ...params.InputProps,
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                className='group relative transition-all duration-300 hover:scale-105'
+                                                                sx={sxButtonSearch}
+                                                            >
+                                                                <div className="relative flex items-center">
+                                                                    <IoMdSearch className="mx-auto text-green-600 group-hover:text-white transition" />
+                                                                </div>
+                                                                <div className="absolute inset-0 overflow-hidden">
+                                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                                </div>
+                                                                <div className="absolute inset-0 rounded-[25px] animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                            </IconButton>
+                                                            < IconButton
+                                                                sx={sxButton}
+                                                                onClick={() => {
+                                                                    setIsSearch(false)
+                                                                    setResDataProduct_Search([])
+                                                                    setResDataIcludes_Search([])
+                                                                }}>
+                                                                <IoClose className=" mx-auto" />
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
                                                 }}
-                                            >
-                                                <span style={{ color: 'grey.500', fontSize: 12 }}>No Image</span>
-                                            </Box>
+
+                                            />
                                         )}
-
-                                        <Box>
-                                            <Typography variant="body1" fontWeight="medium">
-                                                {option.attributes.name}
-                                            </Typography>
-                                            <div className="flex items-center gap-3">
-                                                <span className="text-xl font-semibold text-green-700">${option.attributes.price}</span>
-                                                {Number(option.attributes.compare_at_price) > 0 && (
-                                                    <span className="text-gray-400 line-through text-sm">
-                                                        ${option.attributes.compare_at_price}
-                                                    </span>
-                                                )}
-                                            </div>
-                                        </Box>
-                                    </Box>
-                                </Box>
-                            );
-                        }}
-                        filterOptions={(x) => x}
-                        value={
-                            selectSearchSlug
-                                ? resDataProducts_Search.find((c) => c.attributes.slug === selectSearchSlug) ?? undefined
-                                : null
-                        }
-                        onChange={handleChangeSearch}
-                        onInputChange={handleInputChange}
-                        renderInput={(params) => (
-                            <TextField  {...params}
-                                type="search"
-                                placeholder="Search of name..."
-                                sx={sxTextField}
-                                InputProps={{
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                className='group relative transition-all duration-300 hover:scale-105'
-                                                sx={sxButtonSearch}
-                                            >
-                                                <div className="relative flex items-center">
-                                                    <IoMdSearch className="mx-auto text-green-600 group-hover:text-white transition" />
-                                                </div>
-                                                <div className="absolute inset-0 overflow-hidden">
-                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                                </div>
-                                                <div className="absolute inset-0 rounded-[25px] animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-
-                            />
-                        )}
-                    />
+                                    />
+                                </div>
+                            </>
+                        </Backdrop>
+                    }
                 </div>
+                
                 {(hoveredNav === 1 || hoveredNav === 2) &&
                     <div
                         onMouseEnter={() => setHoveredNav(hoveredNav)} // Giữ hiển thị khi rê qua div này
