@@ -1,14 +1,16 @@
 "use client"
 import { useRouter } from "next/navigation";
 import type { SxProps, Theme } from "@mui/material/styles";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useStateGeneral } from "@/useState/useStateGeneralStoreFront";
 import { MdOutlineEmail, MdOutlineErrorOutline, MdOutlineLock } from "react-icons/md";
 import { InputAdornment, TextField } from "@mui/material";
-import { IoMdMail } from "react-icons/io";
-import { FaEye, FaEyeSlash, FaLock, FaRegEye, FaRegEyeSlash, FaRegUser, FaUser } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash, FaRegUser } from "react-icons/fa";
 import { User } from "@/interface/sendData/interfaceStorefront";
 import { CreateAnAccount } from "@/service/storefront/account";
+import Particles from "react-tsparticles";
+import type { Engine } from "tsparticles-engine";
+import { loadFull } from "tsparticles";
 
 const Register: React.FC = () => {
     const rounter = useRouter()
@@ -44,8 +46,13 @@ const Register: React.FC = () => {
             border: 'none',
         },
     }
+
+    const particlesInit = useCallback(async (engine: Engine) => {
+        await loadFull(engine);
+    }, []);
+
     const { loading, setLoading } = useStateGeneral()
-    
+
     useEffect(() => {
         setLoading(false);
     }, [])
@@ -151,7 +158,43 @@ const Register: React.FC = () => {
     return (
         <>
             <div className="min-h-screen p-5 flex flex-col items-center justify-center relative overflow-hidden">
-                <div className="relative max-w-[600px] w-full mx-auto flex flex-col rounded-2xl shadow-2xl bg-white/50 backdrop-blur-xl p-5 border border-white/30">
+                <div className="fixed inset-0 bg-gradient-to-br from-black via-emerald-950/50 to-black bg-[length:400%_400%] animate-gradient"></div>
+
+                {/* Particles */}
+                <Particles
+                    id="tsparticles"
+                    init={particlesInit}
+                    options={{
+                        particles: {
+                            number: { value: 80 },
+                            color: { value: ["#10b981", "#06b6d4"] },
+                            shape: { type: "circle" },
+                            opacity: { value: 0.5, random: true },
+                            size: { value: 3, random: true },
+                            links: { enable: true, distance: 150, color: "#10b981", opacity: 0.2, width: 1 },
+                            move: { enable: true, speed: 2, outModes: "out" },
+                        },
+                        interactivity: {
+                            events: {
+                                onHover: { enable: true, mode: "repulse" },
+                                onClick: { enable: true, mode: "push" },
+                            },
+                        },
+                        detectRetina: true,
+                    }}
+                />
+
+                {/* Floating Orbs */}
+                <div className="fixed -top-40 -left-40 w-96 h-96 bg-emerald-500 rounded-full blur-3xl opacity-30 animate-float"></div>
+                <div className="fixed -bottom-52 -right-40 w-[500px] h-[500px] bg-cyan-500 rounded-full blur-3xl opacity-25 animate-float2"></div>
+
+                {/* Grain Texture */}
+                <div
+                    className="fixed inset-0 opacity-5 pointer-events-none"
+                    style={{ background: "url('https://grainy-gradients.vercel.app/noise.svg')" }}
+                ></div>
+                <div className="relative max-w-[600px] w-full backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-10 lg:p-12 shadow-2xl overflow-hidden
+                    before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-emerald-500/20 before:via-transparent before:to-cyan-500/20 before:blur-2xl before:-z-10">
                     <div className=" gap-5 flex flex-col justify-center">
                         <img
                             className="relative w-36 drop-shadow-2xl 
@@ -159,7 +202,7 @@ const Register: React.FC = () => {
                             alt="Spree Logo"
                             src="../../LogoFullBlack.webp"
                         />
-                        <h2 className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-800">
+                        <h2 className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-600">
                             Create Your Account
                         </h2>
                         {errorRegister &&
@@ -171,7 +214,7 @@ const Register: React.FC = () => {
                             onClick={handleSubmit}
                             className="flex flex-col gap-5">
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="email" className="block text-xl font-medium text-gray-700">
+                                <label htmlFor="email" className="block text-xl font-medium text-gray-300">
                                     Email
                                 </label>
                                 <TextField
@@ -207,7 +250,7 @@ const Register: React.FC = () => {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div className="flex flex-col gap-1">
-                                    <label htmlFor="firstName" className="block text-xl font-medium text-gray-700">
+                                    <label htmlFor="firstName" className="block text-xl font-medium text-gray-300">
                                         First name
                                     </label>
                                     <TextField
@@ -242,7 +285,7 @@ const Register: React.FC = () => {
                                     />
                                 </div>
                                 <div className="flex flex-col gap-1">
-                                    <label htmlFor="lastName" className="block text-xl font-medium text-gray-700">
+                                    <label htmlFor="lastName" className="block text-xl font-medium text-gray-300">
                                         Last name
                                     </label>
                                     <TextField
@@ -278,7 +321,7 @@ const Register: React.FC = () => {
                                 </div>
                             </div>
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="password" className="block text-xl font-medium text-gray-700">
+                                <label htmlFor="password" className="block text-xl font-medium text-gray-300">
                                     Password
                                 </label>
                                 <TextField
@@ -320,7 +363,7 @@ const Register: React.FC = () => {
                                 />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="passwordConfirmation" className="block text-xl font-medium text-gray-700">
+                                <label htmlFor="passwordConfirmation" className="block text-xl font-medium text-gray-300">
                                     Password confirmation
                                 </label>
                                 <TextField
@@ -376,9 +419,9 @@ const Register: React.FC = () => {
                             </button>
                         </form>
                         <div className="pt-3 flex">
-                            <div className="mx-auto">
+                            <div className="mx-auto text-gray-300">
                                 There are accounts?
-                                <button className="text-green-600 hover:text-green-700 hover:font-bold ml-[4px]"
+                                <button className="text-green-600 hover:text-green-500 hover:font-bold ml-[4px] transition-all duration-300 ease"
                                     onClick={() => {
                                         rounter.push('/login')
                                     }}>

@@ -766,7 +766,7 @@ const HeaderWeb: React.FC = () => {
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                         onClick={handleClickAccountDrawer}
                                     >
-                                        My Account
+                                        {token ? 'My Account': 'Login'}
                                         <div className="absolute inset-0 overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                         </div>

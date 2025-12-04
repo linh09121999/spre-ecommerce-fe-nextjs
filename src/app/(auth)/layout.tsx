@@ -6,6 +6,8 @@ import BackToTop from "@/components/BackToTop";
 import Loading from "@/components/loadling";
 import { AuthProvider } from "@/components/contexts/AuthContext";
 import { Analytics } from "@vercel/analytics/next";
+
+
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
@@ -29,6 +31,7 @@ const RootLayout = ({
 }: Readonly<{
     children: React.ReactNode;
 }>) => {
+    
     return (
         <html lang="en">
             <body
@@ -38,7 +41,6 @@ const RootLayout = ({
                     <BackToTop />
                     <Loading />
                     <main className="min-h-screen content-center ">
-                        
                         {children}
                     </main>
                     <Analytics />
