@@ -23,7 +23,7 @@ const Register: React.FC = () => {
             // boxShadow: 'var(--shadow-lg)',
             padding: '3px 8px',
             transition: 'all 0.3s',
-            fontSize: 'var(--text-xl)',
+            fontSize: 'var(--text-md)',
             border: '1px solid var(--color-gray-200)',
         },
 
@@ -193,16 +193,16 @@ const Register: React.FC = () => {
                     className="fixed inset-0 opacity-5 pointer-events-none"
                     style={{ background: "url('https://grainy-gradients.vercel.app/noise.svg')" }}
                 ></div>
-                <div className="relative max-w-[600px] w-full backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-10 lg:p-12 shadow-2xl overflow-hidden
+                <div className="relative max-w-[600px] w-full backdrop-blur-md bg-white/5 border border-white/10 rounded-3xl  lg:p-10 md:p-5 p-3 shadow-2xl overflow-hidden
                     before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-emerald-500/20 before:via-transparent before:to-cyan-500/20 before:blur-2xl before:-z-10">
-                    <div className=" gap-5 flex flex-col justify-center">
+                    <div className="md:gap-5 gap-3 flex flex-col justify-center">
                         <img
                             className="relative w-36 drop-shadow-2xl 
         animate-[float_4s_ease-in-out_infinite] transition-transform duration-300 hover:scale-105 mx-auto"
                             alt="Spree Logo"
                             src="../../LogoFullBlack.webp"
                         />
-                        <h2 className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-600">
+                        <h2 className="md:text-2xl text-xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-600">
                             Create Your Account
                         </h2>
                         {errorRegister &&
@@ -214,14 +214,14 @@ const Register: React.FC = () => {
                             onClick={handleSubmit}
                             className="flex flex-col gap-5">
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="email" className="block text-xl font-medium text-gray-300">
+                                <label htmlFor="email" className="md:text-xl text-md font-medium text-gray-300">
                                     Email
                                 </label>
                                 <TextField
                                     type="email"
                                     required
                                     autoComplete="email"
-                                    placeholder="Your email"
+                                    placeholder="Email"
                                     name="email"
                                     slotProps={{
                                         input: {
@@ -248,16 +248,16 @@ const Register: React.FC = () => {
                                     helperText={error.email}
                                 />
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div className="grid grid-cols-2 gap-5">
                                 <div className="flex flex-col gap-1">
-                                    <label htmlFor="firstName" className="block text-xl font-medium text-gray-300">
+                                    <label htmlFor="firstName" className="md:text-xl text-md font-medium text-gray-300">
                                         First name
                                     </label>
                                     <TextField
                                         type="text"
                                         required
                                         autoComplete="firstName"
-                                        placeholder="Your First name"
+                                        placeholder="First name"
                                         name="firstName"
                                         slotProps={{
                                             input: {
@@ -285,14 +285,14 @@ const Register: React.FC = () => {
                                     />
                                 </div>
                                 <div className="flex flex-col gap-1">
-                                    <label htmlFor="lastName" className="block text-xl font-medium text-gray-300">
+                                    <label htmlFor="lastName" className="md:text-xl text-md font-medium text-gray-300">
                                         Last name
                                     </label>
                                     <TextField
                                         type="text"
                                         required
                                         autoComplete="lastName"
-                                        placeholder="Your Last name"
+                                        placeholder="Last name"
                                         name="lastName"
                                         slotProps={{
                                             input: {
@@ -321,14 +321,14 @@ const Register: React.FC = () => {
                                 </div>
                             </div>
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="password" className="block text-xl font-medium text-gray-300">
+                                <label htmlFor="password" className="md:text-xl text-md font-medium text-gray-300">
                                     Password
                                 </label>
                                 <TextField
                                     type={showPassword ? 'text' : 'password'}
                                     required
                                     autoComplete="password"
-                                    placeholder="Your password"
+                                    placeholder="Password"
                                     name="password"
                                     slotProps={{
                                         input: {
@@ -363,14 +363,14 @@ const Register: React.FC = () => {
                                 />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="passwordConfirmation" className="block text-xl font-medium text-gray-300">
+                                <label htmlFor="passwordConfirmation" className="md:text-xl text-md font-medium text-gray-300">
                                     Password confirmation
                                 </label>
                                 <TextField
                                     type={showPasswordConfirmation ? 'text' : 'password'}
                                     required
                                     autoComplete="passwordConfirmation"
-                                    placeholder="Your password confirmation"
+                                    placeholder="Password confirmation"
                                     name="passwordConfirmation"
                                     slotProps={{
                                         input: {
@@ -418,10 +418,10 @@ const Register: React.FC = () => {
 
                             </button>
                         </form>
-                        <div className="pt-3 flex">
-                            <div className="mx-auto text-gray-300">
+                        <div className=" flex">
+                            <div className="mx-auto text-gray-300 md:text-md text-sm">
                                 There are accounts?
-                                <button className="text-green-600 hover:text-green-500 hover:font-bold ml-[4px] transition-all duration-300 ease"
+                                <button className="text-green-500 hover:text-green-400 hover:font-bold ml-[4px] transition-all duration-300 ease"
                                     onClick={() => {
                                         rounter.push('/login')
                                     }}>
