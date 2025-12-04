@@ -16,9 +16,7 @@ import { IncludedImage, IncludedVariant, ProcessedWishedItem } from "@/interface
 import { Product, WishListItem } from "@/interface/responseData/interfaceStorefront";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { BsBox2Heart } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
-import { RiMenuFoldLine } from "react-icons/ri";
 
 const HeartFrom: React.FC = () => {
     const router = useRouter()
@@ -329,7 +327,7 @@ const HeartFrom: React.FC = () => {
     }
 
     const [editMode, setEditMode] = useState<boolean>(false)
-    
+
     return (
         <>
             <div className="max-w-[1535px] mx-auto max-2xl:px-5 py-5 flex flex-col">
@@ -485,9 +483,13 @@ const HeartFrom: React.FC = () => {
                                         <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-200/30 rounded-full blur-xl"></div>
                                         <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
                                         <div className="relative z-10">
-                                            <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
+                                            <h1 className="md:text-2xl text-xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
                                                 Create An Wishlist
                                             </h1>
+
+                                            <p className="text-gray-500 text-center mb-6 text-sm">
+                                                Give your wishlist a unique name
+                                            </p>
                                             {errorCreateWishlist &&
                                                 <div className="p-4 mb-6 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
                                                     <MdOutlineErrorOutline className="mx-auto" size={21} />
@@ -533,7 +535,7 @@ const HeartFrom: React.FC = () => {
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                                     >
-                                                        <span className="relative z-10">Create An Address</span>
+                                                        <span className="relative z-10">Create</span>
                                                         <div className="absolute inset-0 overflow-hidden">
                                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                                         </div>

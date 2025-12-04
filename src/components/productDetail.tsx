@@ -671,11 +671,11 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                             <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
 
                             <div className="relative z-10">
-                                <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
+                                <h1 className="md:text-2xl text-xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
                                     List Wishlist
                                 </h1>
 
-                                <p className="text-gray-600 text-center mb-6">
+                                <p className="text-gray-500 text-sm text-center mb-6">
                                     Your favorite items are listed here.
                                 </p>
                                 <div className="flex flex-col gap-3">
@@ -748,11 +748,11 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                             <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
 
                             <div className="relative z-10">
-                                <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
-                                    Create Wishlist
+                                <h1 className="md:text-2xl text-xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
+                                    Create An Wishlist
                                 </h1>
 
-                                <p className="text-gray-600 text-center mb-6">
+                                <p className="text-gray-500 text-center mb-6 text-sm">
                                     Give your wishlist a unique name
                                 </p>
 
@@ -763,8 +763,8 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                                     </div>
                                 )}
 
-                                <form onSubmit={handleCreateWishlist} className="flex flex-col gap-6">
-                                    <div className="flex flex-col gap-2">
+                                <form onSubmit={handleCreateWishlist} className="flex flex-col gap-5">
+                                    <div className="flex flex-col gap-1">
                                         <label htmlFor="name" className="block text-lg font-medium text-gray-700">
                                             Wishlist Name
                                         </label>
