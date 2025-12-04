@@ -6,6 +6,8 @@ import { useStateGeneral } from '@/useState/useStateGeneralStoreFront';
 import { useState_ResPosts } from '@/useState/useStatestorefront';
 import { ListAllPost } from '@/service/storefront/posts';
 import { FaArrowLeft } from 'react-icons/fa';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Posts: React.FC = () => {
     const router = useRouter();
@@ -31,6 +33,11 @@ const Posts: React.FC = () => {
     useEffect(() => {
         setSelectNav(null)
         getApiPosts()
+        AOS.init({
+            duration: 2000,
+            once: false,
+            mirror: true,
+        });
     }, [])
 
     return (
@@ -52,6 +59,8 @@ const Posts: React.FC = () => {
                 {resPosts_List?.data.map((res, id) => (
                     <>
                         <button className=" flex flex-col gap-2" key={id}
+                            data-aos-duration="1200"
+                            data-aos="zoom-in"
                             onClick={() => {
                                 router.push(`/post/${res.id}`)
                             }}

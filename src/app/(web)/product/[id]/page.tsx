@@ -8,6 +8,8 @@ import { useState_ResProducts } from "@/useState/useStatestorefront";
 import ProductDetailCompoment from "@/components/productDetail";
 import { IncludedTaxon } from "@/interface/interface";
 import ListProductCard from "@/components/cardListProduct";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const ProductDetail: React.FC = () => {
   const params = useParams();  // Trả về object { id: '123' }
@@ -87,6 +89,11 @@ const ProductDetail: React.FC = () => {
   useEffect(() => {
     getApiProductRetrieve(String(id), "default_variant,variants,option_types,product_properties,taxons,images,primary_variant")
     setSelectNav(null)
+    AOS.init({
+      duration: 2000,
+      once: false,
+      mirror: true,
+    });
   }, [])
 
   useEffect(() => {
@@ -107,7 +114,10 @@ const ProductDetail: React.FC = () => {
   return (
     <>
       <ProductDetailCompoment data={resProduct_Retrieve?.data ?? undefined} included={resProduct_Retrieve?.included ?? []} />
-      <div className="max-w-[1536px] mx-auto px-5 md:py-10 py-5 flex flex-col gap-5">
+      <div
+        data-aos-duration="1200"
+        data-aos="fade-up"
+        className="max-w-[1536px] mx-auto px-5 md:py-10 py-5 flex flex-col gap-5">
         <div className="flex items-center justify-between w-full">
           <h3 className="text-xl font-semibold tracking-wide">
             You might also like</h3>

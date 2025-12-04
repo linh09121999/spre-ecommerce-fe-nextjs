@@ -18,6 +18,8 @@ import { MdOutlineErrorOutline } from 'react-icons/md';
 import { PiBarcodeBold } from 'react-icons/pi';
 import { TbTag } from 'react-icons/tb';
 import { toast, ToastContainer } from 'react-toastify';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 interface SelectedOptions {
     [key: string]: string;
@@ -222,6 +224,11 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
     }
 
     useEffect(() => {
+        AOS.init({
+            duration: 2000,
+            once: false,
+            mirror: true,
+        });
         const token = localStorage.getItem("token")
 
         if (token) {
@@ -361,7 +368,10 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
             <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_3fr] md:gap-10 gap-5 px-5 py-5">
 
                 {/* Left: Images */}
-                <div className="flex max-lg:flex-col gap-4">
+                <div className="flex max-lg:flex-col gap-4"
+                    data-aos-duration="1200"
+                    data-aos="zoom-in"
+                >
                     <div className="flex flex-col gap-3 order-2 lg:order-1">
                         {displayImages.map((image, index) => (
                             <button
@@ -404,7 +414,10 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                 </div>
 
                 {/* Right: Product Info */}
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-5"
+                    data-aos-duration="1200"
+                    data-aos="fade-left"
+                >
                     <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold text-gray-900 leading-tight" >
                         {data?.attributes.name}
                     </h1>

@@ -30,124 +30,134 @@ const RootLayout = ({
 }: Readonly<{
     children: React.ReactNode;
 }>) => {
-
+    const imageGroups: string[][] = [
+        [
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA3MCwicHVyIjoiYmxvYl9pZCJ9fQ==--fa96302c10fa99b13ae594abbfc1617b7c1289bb/greenstripedsweatshirt1.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA3MSwicHVyIjoiYmxvYl9pZCJ9fQ==--05fd73fc84b12ad178723333d497b27688e0e132/greenstripedsweatshirt1.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQwNSwicHVyIjoiYmxvYl9pZCJ9fQ==--228e7821b5106192b2b68df3f2c19c10182d75b6/Photo-7.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTIzOSwicHVyIjoiYmxvYl9pZCJ9fQ==--bbc2cb0cc7790c292ec34041585758b8fe563f6c/Photo-22_i6q7mi",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MiwicHVyIjoiYmxvYl9pZCJ9fQ==--932e469092081b78917655d4ea49561b4f9231b8/hornedglasses_e3x48j",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQyNSwicHVyIjoiYmxvYl9pZCJ9fQ==--cc0787f80f755fa7fee3b1f3d6cb6fc34da3105d/Photo-4.png"
+        ],
+        [
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA3MiwicHVyIjoiYmxvYl9pZCJ9fQ==--971d5cea4792290d62852b2aa6eb17d44d72f6b3/greenstripedsweatshirt1.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA4NiwicHVyIjoiYmxvYl9pZCJ9fQ==--766da2b210a91f4f20a0f7514fe996952dacd9fe/yellowstripedsweatshirt1.jpeg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQzNSwicHVyIjoiYmxvYl9pZCJ9fQ==--964ce3011b3fd3214c9566a653e463339850ddf4/Photo-23.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MSwicHVyIjoiYmxvYl9pZCJ9fQ==--03955861d6b565b883f325547e5a748d26ed5ac0/Photo-18_bdmsap",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MiwicHVyIjoiYmxvYl9pZCJ9fQ==--d919c3f2076309beee14c4c5f34dcffcea24ebbe/Photo-9_o7gpw6",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjEwMCwicHVyIjoiYmxvYl9pZCJ9fQ==--458cf7bf3205145466890afdf1a265e93f7c879d/Photo-8.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA5MCwicHVyIjoiYmxvYl9pZCJ9fQ==--a507976947f724bbc9e0fab9eff30a52fb311d49/yellowstripedsweatshirt1.jpeg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjI4MSwicHVyIjoiYmxvYl9pZCJ9fQ==--f91553b127912042ef112b96e149b3b952dbf3d8/Photo-3.png"
+        ],
+        [
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA4MiwicHVyIjoiYmxvYl9pZCJ9fQ==--5008f31a88d11abc2cdb59dac4bd66ed06d79480/yellowstripedsweatshirt1.jpeg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA4NywicHVyIjoiYmxvYl9pZCJ9fQ==--4680ff2bd63c50bbbb89b56a6f13a2e87dfcaeca/yellowstripedsweatshirt1.jpeg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MywicHVyIjoiYmxvYl9pZCJ9fQ==--c9b59fc6763268fa91667c866f0bb6fa8ed2e23c/Photo-20_gwikjn",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NywicHVyIjoiYmxvYl9pZCJ9fQ==--fa0b7577b30f9e12ab862d5ba8d6142c80b23b83/Photo-11_fvjyjy",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NSwicHVyIjoiYmxvYl9pZCJ9fQ==--717be024ca2ee2761324db3aab97b64893ef29e5/Photo-1_ur8c0l",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NiwicHVyIjoiYmxvYl9pZCJ9fQ==--86a469a4a314df6a0412e302aa5407e5807e00e9/Photo-10_f1ypq4",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQyNSwicHVyIjoiYmxvYl9pZCJ9fQ==--cc0787f80f755fa7fee3b1f3d6cb6fc34da3105d/Photo-4.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQzNSwicHVyIjoiYmxvYl9pZCJ9fQ==--964ce3011b3fd3214c9566a653e463339850ddf4/Photo-23.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MSwicHVyIjoiYmxvYl9pZCJ9fQ==--03955861d6b565b883f325547e5a748d26ed5ac0/Photo-18_bdmsap"
+        ],
+        [
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM2MywicHVyIjoiYmxvYl9pZCJ9fQ==--e2c4ac016ac611b1c26382c9530e5626f180abf1/yellowstripedsweatshirt2.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA3NSwicHVyIjoiYmxvYl9pZCJ9fQ==--29ee4f4e8deddd32d28cedcbc9f916c962095fca/greenstripedsweatshirt1.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MiwicHVyIjoiYmxvYl9pZCJ9fQ==--d919c3f2076309beee14c4c5f34dcffcea24ebbe/Photo-9_o7gpw6",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjEwMCwicHVyIjoiYmxvYl9pZCJ9fQ==--458cf7bf3205145466890afdf1a265e93f7c879d/Photo-8.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjI4MSwicHVyIjoiYmxvYl9pZCJ9fQ==--f91553b127912042ef112b96e149b3b952dbf3d8/Photo-3.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MywicHVyIjoiYmxvYl9pZCJ9fQ==--c9b59fc6763268fa91667c866f0bb6fa8ed2e23c/Photo-20_gwikjn",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NywicHVyIjoiYmxvYl9pZCJ9fQ==--fa0b7577b30f9e12ab862d5ba8d6142c80b23b83/Photo-11_fvjyjy",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NSwicHVyIjoiYmxvYl9pZCJ9fQ==--717be024ca2ee2761324db3aab97b64893ef29e5/Photo-1_ur8c0l"
+        ],
+        [
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM2NCwicHVyIjoiYmxvYl9pZCJ9fQ==--31bdc4fefa5807fb8089e25f2d380dc458a47e8c/redsweatshirt1.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM2OSwicHVyIjoiYmxvYl9pZCJ9fQ==--1e2c864dbc79618c8dd98df3dbd94e76c291e625/redsweatshirt2.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM2NiwicHVyIjoiYmxvYl9pZCJ9fQ==--88e11838e0ebbd23116a69ad41c19654314d58b1/brownsweatshirt2.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NiwicHVyIjoiYmxvYl9pZCJ9fQ==--86a469a4a314df6a0412e302aa5407e5807e00e9/Photo-10_f1ypq4",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI1OSwicHVyIjoiYmxvYl9pZCJ9fQ==--c1780ddf5173a0e6a3861e8459b13b99cde8ad02/pinkscarf_dmheu0",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2MywicHVyIjoiYmxvYl9pZCJ9fQ==--3bf0b9c78c175a1dcd9c7f85ad9452d372a2d338/rosetintedsunglasses_mqtqp9",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2MCwicHVyIjoiYmxvYl9pZCJ9fQ==--255e401046bfe28bd700caca879cbea958fcf9e2/blackstuddedbag_bmvifs",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2MSwicHVyIjoiYmxvYl9pZCJ9fQ==--4a9a53dfdf6ae7809451472ada2541a310b5a369/beigehandbag_tyzvrx",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2MiwicHVyIjoiYmxvYl9pZCJ9fQ==--9dee4a9e4610f8513b6491a080f6e225dc44018f/sliverchain_gphmix"
+        ],
+        [
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM3MCwicHVyIjoiYmxvYl9pZCJ9fQ==--51754cc47605c0fa3d95bf570087fd1285c3cbb7/brownsweatshirt1.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIwOCwicHVyIjoiYmxvYl9pZCJ9fQ==--018432fbdc791af52048c1376370a061ea01ba04/pinkturtleneck1.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIxOCwicHVyIjoiYmxvYl9pZCJ9fQ==--1c9eedc656b362f4049a0f5c842fe315396b44de/creamturtleneck.png6",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2NiwicHVyIjoiYmxvYl9pZCJ9fQ==--57c716b6cacfed9699b04c7c8fc8831cb3017522/whitewatchh_nesxmq",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2NSwicHVyIjoiYmxvYl9pZCJ9fQ==--1bff59b9ef74ce42c1785d636cef81719bfb9cdf/leathercharmbracelet_ogdlsi",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2OSwicHVyIjoiYmxvYl9pZCJ9fQ==--498289f99124c38e86134f8126cbf04bf38ffe58/goldbracelet_c7n0xr",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2OCwicHVyIjoiYmxvYl9pZCJ9fQ==--8639b3ecc5dd1821cbe816b9adf064fdeba39465/orangehandbag_dzi6kw",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MCwicHVyIjoiYmxvYl9pZCJ9fQ==--429fe64bfbf1cd84411dfa93108039927b0ceaad/bluerucksacxk_rxssdp",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MSwicHVyIjoiYmxvYl9pZCJ9fQ==--1163e57ff7720c0445019f89509dc8c8ce83de92/rosegoldhandbgag_skfnrw",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3NCwicHVyIjoiYmxvYl9pZCJ9fQ==--2aecb0c4a820ee92de081185184e785c87e9b0c4/goldrimmedglasses_z8q63p"
+        ],
+        [
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIyMywicHVyIjoiYmxvYl9pZCJ9fQ==--63b1a04065ea808afec60f6b3d5d41efa33e038b/blueturtleneck.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIyNCwicHVyIjoiYmxvYl9pZCJ9fQ==--47faa9f2afc616239d485bccf29b67162a04cedf/blueturtleneck.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3NSwicHVyIjoiYmxvYl9pZCJ9fQ==--816fa80c64366c0b287a381024da81d1671dab5f/patternedscarf_jzk59w",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3NiwicHVyIjoiYmxvYl9pZCJ9fQ==--463fc9c012fd2a67fd909a72f97c75a414ad8c10/rosegoldwatch_honnwc",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--aaa4bd0bd824590f988fcd7384d1f2e5b527d116/rimmedglasses_piph5l",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI4MSwicHVyIjoiYmxvYl9pZCJ9fQ==--076d1594741e31f4557755be3fab473db7ce3841/pinkhandbag_u3jvjv",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI4MCwicHVyIjoiYmxvYl9pZCJ9fQ==--cd15b00711f3e90bf4c215e30101cb7c82d4733b/pairbracelet_qcs7av",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMwOCwicHVyIjoiYmxvYl9pZCJ9fQ==--6194916e8811b28a6f075ad8f7604025e711d57e/Laced_Crop_Top_BLACK_bdbijr.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMwNiwicHVyIjoiYmxvYl9pZCJ9fQ==--71e35f38bf1cd1945cef0b0e31c2d7a7c4383c69/Sports_Bra_Low_Support_GREY_2_myuxk1.png"
+        ],
+        [
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIwNywicHVyIjoiYmxvYl9pZCJ9fQ==--67ed2d4b2d62f84f0c38caa3f8e66fba291727d6/pinkturtleneck1.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIwOSwicHVyIjoiYmxvYl9pZCJ9fQ==--80bc32ac145e4e78878c7448a4009242f53d2497/pinkturtleneck1.png",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMwNSwicHVyIjoiYmxvYl9pZCJ9fQ==--f4fc7707d45d56d0d748fa502fb72d420b118c2d/High_Waist_Pants_With_Pockets_zlloqb.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxMCwicHVyIjoiYmxvYl9pZCJ9fQ==--28c6cd70617d4b875531aa979a67bbeb884dbc00/Sports_Bra_Medium_Support_rvbteh.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxMSwicHVyIjoiYmxvYl9pZCJ9fQ==--fed279725a6292bec80c56c2660f57d8a47b70b9/Sport_Waistcoat_s4xq49.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxMywicHVyIjoiYmxvYl9pZCJ9fQ==--3a2ff893752fbe0bc2880b62901fc76d67fe7a63/Black_Gym_Pants_uuriyt.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxNCwicHVyIjoiYmxvYl9pZCJ9fQ==--1dc2ad9eb30772af53a1f3e28dbc67d2142cffca/Sport_Windproof_Jacket_g25etd.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxNSwicHVyIjoiYmxvYl9pZCJ9fQ==--a2d03089057b963d1e31ef5a263a2407eb3b364c/Long_Sleeves_Crop_Top_ev0fyf.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxNiwicHVyIjoiYmxvYl9pZCJ9fQ==--a61f5294b24c403c38b02d394827796b4a14e23c/Printed_Pants_With_Holes_o8noxl.jpg"
+        ],
+        [
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxNywicHVyIjoiYmxvYl9pZCJ9fQ==--a447444eb49004f806e3add6d9cdb046dbd1892d/Oversize_Sweatshirt_eguqe9.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxOSwicHVyIjoiYmxvYl9pZCJ9fQ==--9b2708fd6ad8ffc3d0d5686de8842bdca328b830/Oversize_T_Shirt_Wrapped_On_Back_hesdd7.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxOCwicHVyIjoiYmxvYl9pZCJ9fQ==--1c6401ed5095a1b5d4f2e46c8d30e8d779603212/Short_Pants_q6k92q.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyMCwicHVyIjoiYmxvYl9pZCJ9fQ==--4a5eeea4b0b6b8fafa184cd190e5258c7b1d63c7/Leightweight_Running_Jacket_mnlgcs.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyNCwicHVyIjoiYmxvYl9pZCJ9fQ==--2e88d0b7622780e5740442e0ee912ae231093147/Long_Sleeves_Yoga_Crop_Top_i3ytid.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyMSwicHVyIjoiYmxvYl9pZCJ9fQ==--10284826e9b354d0cf52c911b89119214b526498/Shined_Pants_GREY_ugjyhq.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyMywicHVyIjoiYmxvYl9pZCJ9fQ==--8e7ce5108a3a74752c08b1069cabf73394bc779c/Running_Sweatshirt_lcbch5.jpg",
+            "https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyMiwicHVyIjoiYmxvYl9pZCJ9fQ==--0f6b5007a6cf9eccd06397333dbcd6857bb8daad/Sports_Bra_Low_Support_GREY1_xygxif.png"
+        ]
+    ];
     return (
         <html lang="en">
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col w-full h-full `} style={{ background: 'var(--color-gray-100)' }}
+                className={`${geistSans.variable} ${geistMono.variable}  overflow-hidden antialiased flex flex-col w-full h-full `} style={{ background: 'var(--color-gray-100)' }}
             >
                 <AuthProvider>
                     <BackToTop />
                     <Loading />
                     <main className="min-h-screen content-center">
-                        <div
-                            className="absolute inset-0 h-[200vh] w-[180vw] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  rotate-[-45deg] flex flex-col gap-4 opacity-60">
+                        <div className="absolute inset-0 h-[200vh] w-[180vw] 
+                            top-1/2 left-1/2 
+                            -translate-x-1/2 -translate-y-1/2 
+                            rotate-[-45deg] 
+                            flex flex-col gap-4 opacity-60">
 
-                            <div className="flex gap-4">
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA3MCwicHVyIjoiYmxvYl9pZCJ9fQ==--fa96302c10fa99b13ae594abbfc1617b7c1289bb/greenstripedsweatshirt1.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA3MSwicHVyIjoiYmxvYl9pZCJ9fQ==--05fd73fc84b12ad178723333d497b27688e0e132/greenstripedsweatshirt1.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
+                            {imageGroups.map((group, i) => (
+                                <div key={i} className="flex gap-4">
+                                    {group.map((src, idx) => (
+                                        <img
+                                            key={idx}
+                                            alt="Gallery item"
+                                            src={src}
+                                            className="w-64 aspect-[4/3] rounded-2xl shadow-lg object-cover"
+                                        />
+                                    ))}
+                                </div>
+                            ))}
 
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQwNSwicHVyIjoiYmxvYl9pZCJ9fQ==--228e7821b5106192b2b68df3f2c19c10182d75b6/Photo-7.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTIzOSwicHVyIjoiYmxvYl9pZCJ9fQ==--bbc2cb0cc7790c292ec34041585758b8fe563f6c/Photo-22_i6q7mi" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MiwicHVyIjoiYmxvYl9pZCJ9fQ==--932e469092081b78917655d4ea49561b4f9231b8/hornedglasses_e3x48j" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQyNSwicHVyIjoiYmxvYl9pZCJ9fQ==--cc0787f80f755fa7fee3b1f3d6cb6fc34da3105d/Photo-4.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                            </div>
-                            <div className="flex gap-4">
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA3MiwicHVyIjoiYmxvYl9pZCJ9fQ==--971d5cea4792290d62852b2aa6eb17d44d72f6b3/greenstripedsweatshirt1.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA4NiwicHVyIjoiYmxvYl9pZCJ9fQ==--766da2b210a91f4f20a0f7514fe996952dacd9fe/yellowstripedsweatshirt1.jpeg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQzNSwicHVyIjoiYmxvYl9pZCJ9fQ==--964ce3011b3fd3214c9566a653e463339850ddf4/Photo-23.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MSwicHVyIjoiYmxvYl9pZCJ9fQ==--03955861d6b565b883f325547e5a748d26ed5ac0/Photo-18_bdmsap" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MiwicHVyIjoiYmxvYl9pZCJ9fQ==--d919c3f2076309beee14c4c5f34dcffcea24ebbe/Photo-9_o7gpw6" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjEwMCwicHVyIjoiYmxvYl9pZCJ9fQ==--458cf7bf3205145466890afdf1a265e93f7c879d/Photo-8.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA5MCwicHVyIjoiYmxvYl9pZCJ9fQ==--a507976947f724bbc9e0fab9eff30a52fb311d49/yellowstripedsweatshirt1.jpeg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjI4MSwicHVyIjoiYmxvYl9pZCJ9fQ==--f91553b127912042ef112b96e149b3b952dbf3d8/Photo-3.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                            </div>
-                            <div className="flex gap-4">
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA4MiwicHVyIjoiYmxvYl9pZCJ9fQ==--5008f31a88d11abc2cdb59dac4bd66ed06d79480/yellowstripedsweatshirt1.jpeg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA4NywicHVyIjoiYmxvYl9pZCJ9fQ==--4680ff2bd63c50bbbb89b56a6f13a2e87dfcaeca/yellowstripedsweatshirt1.jpeg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MywicHVyIjoiYmxvYl9pZCJ9fQ==--c9b59fc6763268fa91667c866f0bb6fa8ed2e23c/Photo-20_gwikjn" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NywicHVyIjoiYmxvYl9pZCJ9fQ==--fa0b7577b30f9e12ab862d5ba8d6142c80b23b83/Photo-11_fvjyjy" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NSwicHVyIjoiYmxvYl9pZCJ9fQ==--717be024ca2ee2761324db3aab97b64893ef29e5/Photo-1_ur8c0l" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NiwicHVyIjoiYmxvYl9pZCJ9fQ==--86a469a4a314df6a0412e302aa5407e5807e00e9/Photo-10_f1ypq4" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQyNSwicHVyIjoiYmxvYl9pZCJ9fQ==--cc0787f80f755fa7fee3b1f3d6cb6fc34da3105d/Photo-4.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjQzNSwicHVyIjoiYmxvYl9pZCJ9fQ==--964ce3011b3fd3214c9566a653e463339850ddf4/Photo-23.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MSwicHVyIjoiYmxvYl9pZCJ9fQ==--03955861d6b565b883f325547e5a748d26ed5ac0/Photo-18_bdmsap" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                            </div>
-                            <div className="flex gap-4">
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM2MywicHVyIjoiYmxvYl9pZCJ9fQ==--e2c4ac016ac611b1c26382c9530e5626f180abf1/yellowstripedsweatshirt2.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA3NSwicHVyIjoiYmxvYl9pZCJ9fQ==--29ee4f4e8deddd32d28cedcbc9f916c962095fca/greenstripedsweatshirt1.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MiwicHVyIjoiYmxvYl9pZCJ9fQ==--d919c3f2076309beee14c4c5f34dcffcea24ebbe/Photo-9_o7gpw6" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjEwMCwicHVyIjoiYmxvYl9pZCJ9fQ==--458cf7bf3205145466890afdf1a265e93f7c879d/Photo-8.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjI4MSwicHVyIjoiYmxvYl9pZCJ9fQ==--f91553b127912042ef112b96e149b3b952dbf3d8/Photo-3.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0MywicHVyIjoiYmxvYl9pZCJ9fQ==--c9b59fc6763268fa91667c866f0bb6fa8ed2e23c/Photo-20_gwikjn" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NywicHVyIjoiYmxvYl9pZCJ9fQ==--fa0b7577b30f9e12ab862d5ba8d6142c80b23b83/Photo-11_fvjyjy" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NSwicHVyIjoiYmxvYl9pZCJ9fQ==--717be024ca2ee2761324db3aab97b64893ef29e5/Photo-1_ur8c0l" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                            </div>
-                            <div className="flex gap-4">
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM2NCwicHVyIjoiYmxvYl9pZCJ9fQ==--31bdc4fefa5807fb8089e25f2d380dc458a47e8c/redsweatshirt1.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM2OSwicHVyIjoiYmxvYl9pZCJ9fQ==--1e2c864dbc79618c8dd98df3dbd94e76c291e625/redsweatshirt2.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM2NiwicHVyIjoiYmxvYl9pZCJ9fQ==--88e11838e0ebbd23116a69ad41c19654314d58b1/brownsweatshirt2.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI0NiwicHVyIjoiYmxvYl9pZCJ9fQ==--86a469a4a314df6a0412e302aa5407e5807e00e9/Photo-10_f1ypq4" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI1OSwicHVyIjoiYmxvYl9pZCJ9fQ==--c1780ddf5173a0e6a3861e8459b13b99cde8ad02/pinkscarf_dmheu0" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2MywicHVyIjoiYmxvYl9pZCJ9fQ==--3bf0b9c78c175a1dcd9c7f85ad9452d372a2d338/rosetintedsunglasses_mqtqp9" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2MCwicHVyIjoiYmxvYl9pZCJ9fQ==--255e401046bfe28bd700caca879cbea958fcf9e2/blackstuddedbag_bmvifs" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2MSwicHVyIjoiYmxvYl9pZCJ9fQ==--4a9a53dfdf6ae7809451472ada2541a310b5a369/beigehandbag_tyzvrx" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2MiwicHVyIjoiYmxvYl9pZCJ9fQ==--9dee4a9e4610f8513b6491a080f6e225dc44018f/sliverchain_gphmix" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                            </div>
-                            <div className="flex gap-4">
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTM3MCwicHVyIjoiYmxvYl9pZCJ9fQ==--51754cc47605c0fa3d95bf570087fd1285c3cbb7/brownsweatshirt1.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIwOCwicHVyIjoiYmxvYl9pZCJ9fQ==--018432fbdc791af52048c1376370a061ea01ba04/pinkturtleneck1.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIxOCwicHVyIjoiYmxvYl9pZCJ9fQ==--1c9eedc656b362f4049a0f5c842fe315396b44de/creamturtleneck.png6" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2NiwicHVyIjoiYmxvYl9pZCJ9fQ==--57c716b6cacfed9699b04c7c8fc8831cb3017522/whitewatchh_nesxmq" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2NSwicHVyIjoiYmxvYl9pZCJ9fQ==--1bff59b9ef74ce42c1785d636cef81719bfb9cdf/leathercharmbracelet_ogdlsi" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2OSwicHVyIjoiYmxvYl9pZCJ9fQ==--498289f99124c38e86134f8126cbf04bf38ffe58/goldbracelet_c7n0xr" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI2OCwicHVyIjoiYmxvYl9pZCJ9fQ==--8639b3ecc5dd1821cbe816b9adf064fdeba39465/orangehandbag_dzi6kw" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MCwicHVyIjoiYmxvYl9pZCJ9fQ==--429fe64bfbf1cd84411dfa93108039927b0ceaad/bluerucksacxk_rxssdp" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MSwicHVyIjoiYmxvYl9pZCJ9fQ==--1163e57ff7720c0445019f89509dc8c8ce83de92/rosegoldhandbgag_skfnrw" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3NCwicHVyIjoiYmxvYl9pZCJ9fQ==--2aecb0c4a820ee92de081185184e785c87e9b0c4/goldrimmedglasses_z8q63p" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                            </div>
-                            <div className="flex gap-4">
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIyMywicHVyIjoiYmxvYl9pZCJ9fQ==--63b1a04065ea808afec60f6b3d5d41efa33e038b/blueturtleneck.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIyNCwicHVyIjoiYmxvYl9pZCJ9fQ==--47faa9f2afc616239d485bccf29b67162a04cedf/blueturtleneck.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3NSwicHVyIjoiYmxvYl9pZCJ9fQ==--816fa80c64366c0b287a381024da81d1671dab5f/patternedscarf_jzk59w" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3NiwicHVyIjoiYmxvYl9pZCJ9fQ==--463fc9c012fd2a67fd909a72f97c75a414ad8c10/rosegoldwatch_honnwc" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI3OSwicHVyIjoiYmxvYl9pZCJ9fQ==--aaa4bd0bd824590f988fcd7384d1f2e5b527d116/rimmedglasses_piph5l" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI4MSwicHVyIjoiYmxvYl9pZCJ9fQ==--076d1594741e31f4557755be3fab473db7ce3841/pinkhandbag_u3jvjv" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTI4MCwicHVyIjoiYmxvYl9pZCJ9fQ==--cd15b00711f3e90bf4c215e30101cb7c82d4733b/pairbracelet_qcs7av" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMwOCwicHVyIjoiYmxvYl9pZCJ9fQ==--6194916e8811b28a6f075ad8f7604025e711d57e/Laced_Crop_Top_BLACK_bdbijr.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMwNiwicHVyIjoiYmxvYl9pZCJ9fQ==--71e35f38bf1cd1945cef0b0e31c2d7a7c4383c69/Sports_Bra_Low_Support_GREY_2_myuxk1.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                            </div>
-                            <div className="flex gap-4">
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIwNywicHVyIjoiYmxvYl9pZCJ9fQ==--67ed2d4b2d62f84f0c38caa3f8e66fba291727d6/pinkturtleneck1.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjIwOSwicHVyIjoiYmxvYl9pZCJ9fQ==--80bc32ac145e4e78878c7448a4009242f53d2497/pinkturtleneck1.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMwNSwicHVyIjoiYmxvYl9pZCJ9fQ==--f4fc7707d45d56d0d748fa502fb72d420b118c2d/High_Waist_Pants_With_Pockets_zlloqb.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxMCwicHVyIjoiYmxvYl9pZCJ9fQ==--28c6cd70617d4b875531aa979a67bbeb884dbc00/Sports_Bra_Medium_Support_rvbteh.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxMSwicHVyIjoiYmxvYl9pZCJ9fQ==--fed279725a6292bec80c56c2660f57d8a47b70b9/Sport_Waistcoat_s4xq49.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxMywicHVyIjoiYmxvYl9pZCJ9fQ==--3a2ff893752fbe0bc2880b62901fc76d67fe7a63/Black_Gym_Pants_uuriyt.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxNCwicHVyIjoiYmxvYl9pZCJ9fQ==--1dc2ad9eb30772af53a1f3e28dbc67d2142cffca/Sport_Windproof_Jacket_g25etd.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxNSwicHVyIjoiYmxvYl9pZCJ9fQ==--a2d03089057b963d1e31ef5a263a2407eb3b364c/Long_Sleeves_Crop_Top_ev0fyf.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxNiwicHVyIjoiYmxvYl9pZCJ9fQ==--a61f5294b24c403c38b02d394827796b4a14e23c/Printed_Pants_With_Holes_o8noxl.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                            </div>
-                            <div className="flex gap-4">
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxNywicHVyIjoiYmxvYl9pZCJ9fQ==--a447444eb49004f806e3add6d9cdb046dbd1892d/Oversize_Sweatshirt_eguqe9.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxOSwicHVyIjoiYmxvYl9pZCJ9fQ==--9b2708fd6ad8ffc3d0d5686de8842bdca328b830/Oversize_T_Shirt_Wrapped_On_Back_hesdd7.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMxOCwicHVyIjoiYmxvYl9pZCJ9fQ==--1c6401ed5095a1b5d4f2e46c8d30e8d779603212/Short_Pants_q6k92q.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyMCwicHVyIjoiYmxvYl9pZCJ9fQ==--4a5eeea4b0b6b8fafa184cd190e5258c7b1d63c7/Leightweight_Running_Jacket_mnlgcs.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyNCwicHVyIjoiYmxvYl9pZCJ9fQ==--2e88d0b7622780e5740442e0ee912ae231093147/Long_Sleeves_Yoga_Crop_Top_i3ytid.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyMSwicHVyIjoiYmxvYl9pZCJ9fQ==--10284826e9b354d0cf52c911b89119214b526498/Shined_Pants_GREY_ugjyhq.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyMywicHVyIjoiYmxvYl9pZCJ9fQ==--8e7ce5108a3a74752c08b1069cabf73394bc779c/Running_Sweatshirt_lcbch5.jpg" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                                <img alt="Spree Logo" src="https://cdn.vendo.dev/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTMyMiwicHVyIjoiYmxvYl9pZCJ9fQ==--0f6b5007a6cf9eccd06397333dbcd6857bb8daad/Sports_Bra_Low_Support_GREY1_xygxif.png" className="w-64 aspect-[4/3] rounded-2xl shadow-lg" />
-                            </div>
                         </div>
-                        {children}</main>
-                        <Analytics />
+                        {children}
+                    </main>
+                    <Analytics />
                 </AuthProvider>
             </body>
         </html>

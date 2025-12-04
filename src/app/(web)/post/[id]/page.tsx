@@ -5,7 +5,10 @@ import { useParams, useRouter } from "next/navigation";
 import { useStateGeneral } from '@/useState/useStateGeneralStoreFront';
 import { useState_ResPosts } from '@/useState/useStatestorefront';
 import { ListAllPost, RetrieveAPost } from '@/service/storefront/posts';
-import { FaArrowLeft, FaCalendarAlt, FaRegCalendarAlt, FaRegUser, FaUser } from 'react-icons/fa';
+import { FaArrowLeft, FaRegCalendarAlt, FaRegUser } from 'react-icons/fa';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 const PostDetail: React.FC = () => {
     const router = useRouter();
     const params = useParams();  // Trả về object { id: '123' }
@@ -46,6 +49,11 @@ const PostDetail: React.FC = () => {
         setSelectNav(null)
         getApiPostRetrieve(String(id), "post_category")
         getApiPosts()
+        AOS.init({
+            duration: 2000,
+            once: false,
+            mirror: true,
+        });
     }, [])
 
     const filterPost = useMemo(() => {
@@ -71,7 +79,10 @@ const PostDetail: React.FC = () => {
             {/* Main Post Section */}
             {resPosts_Retrieve?.data && (
                 <>
-                    <div className="relative overflow-hidden group shadow-md aspect-[16/6]">
+                    <div
+                        data-aos-duration="1200"
+                        data-aos="zoom-in"
+                        className="relative overflow-hidden group shadow-md aspect-[16/6]">
                         <img
                             src={`${resPosts_Retrieve.data.attributes.image_url}`}
                             alt={resPosts_Retrieve.data.attributes.title}
@@ -87,7 +98,10 @@ const PostDetail: React.FC = () => {
 
 
                         {/* Title & Meta */}
-                        <div className="flex flex-col gap-5">
+                        <div className="flex flex-col gap-5"
+                            data-aos-duration="1200"
+                            data-aos="fade-right"
+                        >
                             <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold text-gray-900 leading-tight" >
                                 {resPosts_Retrieve.data.attributes.title}
                             </h1>
@@ -122,7 +136,10 @@ const PostDetail: React.FC = () => {
             )}
 
             {/* Related Posts */}
-            <div className="max-w-[1536px] mx-auto px-5 md:py-10 py-5 flex flex-col gap-5">
+            <div
+                data-aos-duration="1200"
+                data-aos="fade-up"
+                className="max-w-[1536px] mx-auto px-5 md:py-10 py-5 flex flex-col gap-5">
                 <div className="flex items-center justify-between w-full">
                     <h3 className="text-xl font-semibold tracking-wide ">
                         You may be interested
