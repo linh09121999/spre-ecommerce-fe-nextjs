@@ -140,12 +140,23 @@ const Login: React.FC = () => {
             const token = res.data.access_token
             handleLogin(token)
             setErrorLogin("")
-            if (document.referrer.includes('/register')) {
-                rounter.replace('/');
-            } else if (window.history.length > 1) {
-                rounter.back();
+            // if (document.referrer.includes('/register')) {
+            //     rounter.replace('/');
+            // } else if (window.history.length > 1) {
+            //     rounter.back();
+            // } else {
+            //     rounter.replace('/');
+            // }
+            const hasPrevPage = window.history.length > 1;
+            const prevUrl = document.referrer;
+
+            const cameFromRegister =
+                prevUrl && (prevUrl.endsWith("/register") || prevUrl.includes("/register"));
+
+            if (!hasPrevPage || cameFromRegister) {
+                rounter.push("/");
             } else {
-                rounter.replace('/');
+                rounter.back();
             }
         } catch (error: any) {
             setErrorLogin(error.response.data.error_description)
@@ -200,7 +211,7 @@ const Login: React.FC = () => {
                 ></div>
                 <div className="relative max-w-[600px] w-full backdrop-blur-md bg-white/5 border border-white/10 rounded-3xl lg:p-10 md:p-5 p-3 shadow-2xl overflow-hidden
                     before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-emerald-500/20 before:via-transparent before:to-cyan-500/20 before:blur-2xl before:-z-10">
-                    
+
                     <div className=" md:gap-5 gap-3 flex flex-col justify-center">
                         <div className="gap-1 flex flex-col">
                             <img
