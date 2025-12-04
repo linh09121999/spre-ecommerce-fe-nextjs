@@ -35,7 +35,7 @@ const RootLayout = ({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col w-full h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col w-full h-full overflow-x-hidden`}
       >
         <AuthProvider>
           <BackToTop />

@@ -3,10 +3,10 @@ import { useRouter } from "next/navigation";
 import type { SxProps, Theme } from "@mui/material/styles";
 import React, { useState, useEffect } from "react";
 import { useStateGeneral } from "@/useState/useStateGeneralStoreFront";
-import { MdOutlineErrorOutline } from "react-icons/md";
+import { MdOutlineEmail, MdOutlineErrorOutline, MdOutlineLock } from "react-icons/md";
 import { InputAdornment, TextField } from "@mui/material";
 import { IoMdMail } from "react-icons/io";
-import { FaEye, FaEyeSlash, FaLock, FaUser } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaLock, FaRegEye, FaRegEyeSlash, FaRegUser, FaUser } from "react-icons/fa";
 import { User } from "@/interface/sendData/interfaceStorefront";
 import { CreateAnAccount } from "@/service/storefront/account";
 
@@ -185,7 +185,7 @@ const Register: React.FC = () => {
                                             startAdornment: (
                                                 <InputAdornment position="start"
                                                 >
-                                                    <IoMdMail />
+                                                    <MdOutlineEmail />
                                                 </InputAdornment>
                                             ),
                                         },
@@ -205,7 +205,7 @@ const Register: React.FC = () => {
                                     helperText={error.email}
                                 />
                             </div>
-                            <div className="grid grid-cols-2 gap-5">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div className="flex flex-col gap-1">
                                     <label htmlFor="firstName" className="block text-xl font-medium text-gray-700">
                                         First name
@@ -221,7 +221,7 @@ const Register: React.FC = () => {
                                                 startAdornment: (
                                                     <InputAdornment position="start"
                                                     >
-                                                        <FaUser />
+                                                        <FaRegUser />
                                                     </InputAdornment>
                                                 ),
                                             },
@@ -256,7 +256,7 @@ const Register: React.FC = () => {
                                                 startAdornment: (
                                                     <InputAdornment position="start"
                                                     >
-                                                        <FaUser />
+                                                        <FaRegUser />
                                                     </InputAdornment>
                                                 ),
                                             },
@@ -292,13 +292,13 @@ const Register: React.FC = () => {
                                             startAdornment: (
                                                 <InputAdornment position="start"
                                                 >
-                                                    <FaLock />
+                                                    <MdOutlineLock />
                                                 </InputAdornment>
                                             ),
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <button onClick={() => setShowPassword(!showPassword)}>
-                                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                                        {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                                                     </button>
                                                 </InputAdornment>
                                             )
@@ -334,13 +334,13 @@ const Register: React.FC = () => {
                                             startAdornment: (
                                                 <InputAdornment position="start"
                                                 >
-                                                    <FaLock />
+                                                    <MdOutlineLock />
                                                 </InputAdornment>
                                             ),
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <button onClick={() => setShowPasswordConfirmation(!showPasswordConfirmation)}>
-                                                        {showPasswordConfirmation ? <FaEyeSlash /> : <FaEye />}
+                                                        {showPasswordConfirmation ? <FaRegEyeSlash /> : <FaRegEye />}
                                                     </button>
                                                 </InputAdornment>
                                             )

@@ -18,6 +18,8 @@ import { FaArrowLeft, FaHeart, FaRegHeart, FaShieldAlt, FaShippingFast, FaTrashA
 import { GrAddCircle } from "react-icons/gr";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const ViewCart: React.FC = () => {
 
@@ -211,6 +213,11 @@ const ViewCart: React.FC = () => {
 
     useEffect(() => {
         setSelectNav(null)
+        AOS.init({
+            duration: 2000,
+            once: false,
+            mirror: true,
+        });
         // getApiEstimatedShippingRate()
         getApiRetrieveCart("line_items,line_items.variant,line_items.variant.images")
         const token = localStorage.getItem("token")
@@ -377,7 +384,7 @@ const ViewCart: React.FC = () => {
 
     return (
         <>
-            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-4 lg:text-lg text-sm">
+            <div className="flex items-center gap-3 px-5 max-w-[1535px] mx-auto py-5 lg:text-lg md:text-md text-sm">
                 <button
                     onClick={() => router.back()}
                     className="flex items-center gap-2 group transition-all duration-300"
@@ -390,8 +397,10 @@ const ViewCart: React.FC = () => {
                     </span>
                 </button>
             </div>
-            <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] sm:gap-10 gap-5 lg:p-5 px-5 pb-5">
-                <div className="flex flex-col  self-start rounded-xl bg-white p-5 flex-1 shadow-lg ">
+            <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] md:gap-10 gap-5 lg:p-5 px-5 pb-5">
+                <div className="flex flex-col  self-start rounded-xl bg-white p-5 flex-1 shadow-lg "
+                    data-aos-duration="1200"
+                    data-aos="fade-right">
                     <div className="flex items-center justify-between gap-5 pb-4 border-b border-gray-200">
                         <div>
                             <h1 className="sm:text-2xl font-bold text-xl">Your Cart</h1>
@@ -421,16 +430,16 @@ const ViewCart: React.FC = () => {
                         <img src="../../no-items-in-cart.png" alt="no items in cart" />
                         :
                         <>
-                            <div className={`relative overflow-hidden `}>
-                                <div className={`transition-transform duration-500 ease-in-out `}>
+                            <div className={`relative overflow-hidden transition-all duration-300`}>
+                                <div className={`transition-transform duration-300 ease-in-out `}>
                                     {itemsWithImages && itemsWithImages?.map((res) => (
                                         <div
                                             onClick={() => router.push(`/product/${res.slug}`)}
-                                            className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 p-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center `}>
+                                            className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 p-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center transition-all duration-300`}>
                                             <h3 className="text-lg font-semibold text-gray-900 w-full sm:hidden">{res?.product_name}</h3>
-                                            <div className={`max-sm:flex-row-reverse transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full`}>
+                                            <div className={`max-sm:flex-row-reverse transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full h-full`}>
                                                 {editMode &&
-                                                    <div className={`flex gap-3 justify-center ml-auto sm:hidden transition-all duration-300`}>
+                                                    <div className={`flex  justify-center ml-auto sm:hidden transition-all duration-300`}>
                                                         {res?.variantId &&
                                                             <button
                                                                 onClick={(e) => {
@@ -438,32 +447,29 @@ const ViewCart: React.FC = () => {
                                                                     handleSaveForLater(res?.variantId, res?.quantity)
                                                                 }}
                                                                 aria-label="Add to Wishlist"
-                                                                className="group w-[45px] h-[45px] bg-white border-2 border-gray-300 rounded-xl hover:border-pink-400 transition-all duration-300 hover:scale-110 shadow-md relative overflow-hidden"
+                                                                className="aspect-[1/2] max-md:min-w-[100px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] items-center bg-gradient-to-br from-orange-300 to-orange-400 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                                                             >
-                                                                <FaRegHeart className="text-gray-600 text-xl group-hover:text-pink-500 absolute inset-0 m-auto transition-all duration-300 group-hover:scale-110" />
-                                                                <FaHeart className="text-pink-500 text-xl absolute inset-0 m-auto scale-0 group-hover:scale-110 transition-all duration-300" />
-
-                                                                {/* Sparkle Effect */}
-                                                                <div className="absolute inset-0 overflow-hidden rounded-xl">
-                                                                    <div className="absolute top-0 left-0 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-1"></div>
-                                                                    <div className="absolute top-0 right-0 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-2"></div>
-                                                                    <div className="absolute bottom-0 left-0 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-sparkle-3"></div>
+                                                                <FaRegHeart className="mx-auto group-hover:scale-105 " />
+                                                                <div className="absolute inset-0 overflow-hidden">
+                                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                                                 </div>
+                                                                <div className="absolute inset-0 border-2 border-orange-300 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
                                                             </button>
                                                         }
                                                         {res?.id &&
                                                             <button aria-label="delete item"
-                                                                className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                                                className="aspect-[1/2] max-md:min-w-[100px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                                                                 onClick={(e) => {
                                                                     e.stopPropagation()
                                                                     handleRemoveItem(res?.id)
                                                                 }}
                                                             >
-                                                                <FaTrashAlt className="mx-auto" />
+                                                                <FaTrashAlt className="mx-auto group-hover:scale-105" />
                                                                 <div className="absolute inset-0 overflow-hidden">
                                                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                                                 </div>
-                                                                <div className="absolute inset-0 rounded-xl border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                                <div className="absolute inset-0 border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                                             </button>
                                                         }
 
@@ -472,14 +478,14 @@ const ViewCart: React.FC = () => {
                                                 <div className={`flex relative sm:gap-10 gap-5 items-center w-full transition-all duration-300`}>
                                                     <div className="relative overflow-hidden rounded-xl aspect-[1/1] max-[600px]:min-w-[100px] max-[600px]:min-h-[100px] max-[600px]:max-h-[100px] max-[400px]:min-w-[80px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px]">
                                                         <img src={res.original_url} alt={res?.product_name} height={200} width={200} className=" aspect-[1/1] object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
-                                                        <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                                                        <div className="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                                                         {(res?.compare_at_price && priceInfo(res?.price, res?.compare_at_price) > 0) &&
                                                             <span className="absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-sm">
                                                                 -{priceInfo(res?.price, res?.compare_at_price)}%
                                                             </span>
                                                         }
                                                     </div>
-                                                    <div className={`flex gap-5 sm:justify-between min-w-[200px] items-center `}>
+                                                    <div className={`flex gap-5 sm:justify-between min-w-[200px] items-center w-full`}>
                                                         <div className="flex flex-col gap-3 w-full">
                                                             <div className="flex flex-col gap-1">
                                                                 <h3 className="text-lg font-semibold text-gray-900 max-sm:hidden">{res?.product_name}</h3>
@@ -559,7 +565,7 @@ const ViewCart: React.FC = () => {
                                                                 }
                                                                 {res?.id &&
                                                                     <button aria-label="delete item"
-                                                                        className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                                                                        className="rounded-xl w-[45px] h-[45px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                                                         onClick={(e) => {
                                                                             e.stopPropagation()
                                                                             handleRemoveItem(res?.id)
@@ -590,7 +596,7 @@ const ViewCart: React.FC = () => {
                                         onClick={handleRemoveAllItem}
                                         className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
                             hover:from-rose-600 hover:to-red-700 hover:shadow-xl
-                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                            font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                     >
                                         <FaTrashAlt />
                                         <span>Delete All Items</span>
@@ -650,7 +656,7 @@ const ViewCart: React.FC = () => {
                                                         key={res.id}
                                                         className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
-                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group" >
+                            font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group" >
                                                         {res.attributes.name}
                                                         <div className="absolute inset-0 overflow-hidden">
                                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -669,7 +675,7 @@ const ViewCart: React.FC = () => {
                                             text-gray-500 font-semibold text-lg flex items-center justify-center gap-2
                                              hover:border-green-400 hover:text-green-600
                                              px-5 py-3
-                                              transition-all duration-500 transform hover:scale-105
+                                              transition-all duration-300 transform hover:scale-105
                                              hover:shadow-xl
                                              bg-white/80 backdrop-blur-sm
                                               group-hover:bg-white/90"
@@ -843,7 +849,9 @@ const ViewCart: React.FC = () => {
                         </div>
                     </div>
                 </Modal>
-                <aside className="flex flex-col gap-5 self-start ">
+                <aside className="flex flex-col gap-5 self-start "
+                    data-aos-duration="1200"
+                    data-aos="fade-left">
                     <div className="flex flex-col gap-5 rounded-xl bg-white p-5 flex-1 shadow-lg">
                         <div className=" items-center pb-4 border-b border-gray-200">
                             <h3 className="text-lg font-semibold">Order summary</h3>
@@ -881,7 +889,7 @@ const ViewCart: React.FC = () => {
                                 }}
                                 className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
-                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                            font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                             >
                                 Checkout
                                 <div className="absolute inset-0 overflow-hidden">
@@ -890,7 +898,7 @@ const ViewCart: React.FC = () => {
                                 <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             </button>
                         </div>
-                        <div className="sm:grid sm:grid-cols-3 flex flex-wrap gap-4 pt-4 border-t border-gray-200">
+                        <div className="sm:grid sm:grid-cols-3 flex flex-wrap gap-4 pt-4 border-t border-gray-200 justify-center">
                             <div className="flex sm:flex-col justify-center items-center gap-2 ">
                                 <FaShippingFast className='text-green-500' />
                                 <span className='text-sm'>Free shipping</span>

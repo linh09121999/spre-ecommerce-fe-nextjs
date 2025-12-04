@@ -604,12 +604,12 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                             onClick={handleSaveForLater}
                             disabled={!selectedVariant?.attributes.in_stock}
                             aria-label="Add to Wishlist"
-                            className={`group w-[50px] h-[50px] bg-white border-2 border-gray-300 rounded-xl hover:border-pink-400 transition-all duration-300
+                            className={`group w-[50px] h-[50px] bg-white border-2 border-gray-300 rounded-xl hover:border-orange-400 transition-all duration-300
                             ${!selectedVariant?.attributes.in_stock ? '' : 'hover:scale-110'}
                              shadow-md relative overflow-hidden`}
                         >
-                            <FaRegHeart className={` text-xl ${selectedVariant?.attributes.in_stock && 'group-hover:text-pink-500 group-hover:scale-110 text-gray-600'} absolute inset-0 m-auto transition-all duration-300 `} />
-                            {selectedVariant?.attributes.in_stock && <FaHeart className="text-pink-500 text-xl absolute inset-0 m-auto scale-0 group-hover:scale-110 transition-all duration-300" />}
+                            <FaRegHeart className={` text-xl ${selectedVariant?.attributes.in_stock && 'group-hover:text-orange-500 group-hover:scale-110 text-gray-600'} absolute inset-0 m-auto transition-all duration-300 `} />
+                            {selectedVariant?.attributes.in_stock && <FaHeart className="text-orange-500 text-xl absolute inset-0 m-auto scale-0 group-hover:scale-110 transition-all duration-300" />}
 
                             {/* Sparkle Effect */}
                             <div className="absolute inset-0 overflow-hidden rounded-xl">

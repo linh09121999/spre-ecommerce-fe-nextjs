@@ -4,12 +4,11 @@ import { Checkbox, FormControlLabel, InputAdornment, TextField } from "@mui/mate
 import type { SxProps, Theme } from "@mui/material/styles";
 
 import React, { useEffect, useState } from "react";
-import { FaCheckCircle, FaEye, FaEyeSlash, FaLock, FaRegCircle } from "react-icons/fa";
-import { IoMdMail } from "react-icons/io";
+import { FaCheckCircle, FaEye, FaEyeSlash, FaRegCircle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GeneratingOAuthToken } from "@/service/authentication/oAuth";
 import { AuthLogin } from "@/interface/interface";
 import { useRouter } from "next/navigation";
-import { MdOutlineErrorOutline } from "react-icons/md";
+import { MdOutlineEmail, MdOutlineErrorOutline, MdOutlineLock } from "react-icons/md";
 import { useAuth } from "@/components/contexts/AuthContext";
 
 const Login: React.FC = () => {
@@ -194,7 +193,7 @@ const Login: React.FC = () => {
                                             startAdornment: (
                                                 <InputAdornment position="start"
                                                 >
-                                                    <IoMdMail />
+                                                    <MdOutlineEmail />
                                                 </InputAdornment>
                                             ),
                                         },
@@ -223,6 +222,16 @@ const Login: React.FC = () => {
                                 />
                             </div>
                             <div className="flex flex-col gap-1">
+                                {/* <div className="flex justify-between">
+                                    <label htmlFor="password" className="block text-xl font-medium text-gray-700">
+                                        Password
+                                    </label>
+                                    <button
+                                        onClick={() => rounter.push('/forgot-password')}
+                                        className="text-green-600 hover:text-green-700">
+                                        Forgot password?
+                                    </button>
+                                </div> */}
                                 <label htmlFor="password" className="block text-xl font-medium text-gray-700">
                                     Password
                                 </label>
@@ -237,13 +246,13 @@ const Login: React.FC = () => {
                                             startAdornment: (
                                                 <InputAdornment position="start"
                                                 >
-                                                    <FaLock />
+                                                    <MdOutlineLock />
                                                 </InputAdornment>
                                             ),
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <button onClick={() => setShowPassword(!showPassword)}>
-                                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                                        {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                                                     </button>
                                                 </InputAdornment>
                                             )
