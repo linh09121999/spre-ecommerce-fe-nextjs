@@ -262,7 +262,7 @@ const CheckoutDelivery: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBac
                                                             <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
                                                             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
                                                         </div>
-                                                        <div className={`flex justify-between w-full gap-5`}>
+                                                        <div className={`flex justify-between w-full gap-5 relative z-1`}>
                                                             <div className="flex flex-col gap-1">
                                                                 <div className="font-medium text-gray-900">{res.attributes.name}</div>
                                                                 <div className="text-gray-600 text-sm">

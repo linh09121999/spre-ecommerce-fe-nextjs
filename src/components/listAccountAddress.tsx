@@ -835,7 +835,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                             type="button"
                                                             onClick={() => setOpenUpdateAccountAddress(false)}
                                                             className="
-                                                                        flex-1 py-3 rounded-xl 
+                                                                        flex-1 h-[45px] rounded-xl 
                                                                         text-lg font-semibold text-gray-700
                                                                         bg-gray-100 hover:bg-gray-200
                                                                         shadow-md hover:shadow-lg
@@ -847,7 +847,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                         <button
                                                             type="submit"
                                                             className="
-                                                                        flex-1 py-3 rounded-xl 
+                                                                        flex-1 h-[45px] rounded-xl 
                                                                         text-lg font-semibold text-white
                                                                         bg-gradient-to-br from-green-500 to-emerald-600
                                                                         hover:from-green-600 hover:to-emerald-700

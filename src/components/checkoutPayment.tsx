@@ -179,7 +179,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
         background: "var(--color-white)",
         height: '45px',
         padding: '3px 8px',
-        borderRadius: "10px",
+        borderRadius: "var(--radius-xl)",
         transition: 'all 0.3s',
         fontSize: 'var(--text-xl)',
         border: 'none',
@@ -616,8 +616,8 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                             background: "transparent",
                                         }}
                                     >
-                                        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                                            <div className="w-full max-w-2xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-2xl relative overflow-hidden">
+                                        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center md:p-5 p-3 z-50">
+                                            <div className="w-full max-w-3xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl lg:p-10 md:p-5 p-3 border border-white/40 shadow-2xl relative overflow-hidden">
                                                 <button
                                                     onClick={() => {
                                                         setOpenCreateCredit(false);
@@ -635,11 +635,11 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                                 <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
 
                                                 <div className="relative z-10">
-                                                    <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-6">
+                                                    <h1 className="md:text-2xl text-xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-600">
                                                         Add Credit Card
                                                     </h1>
 
-                                                    <div className="flex flex-col gap-1">
+                                                    <div className="flex flex-col gap-1 mt-3">
                                                         <label className="block text-md font-medium text-gray-700 mb-2">
                                                             Payment Method <span className="text-red-500">*</span>
                                                         </label>
@@ -711,6 +711,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                                             value={res.id}
                                                             control={<Radio sx={{
                                                                 zIndex: '10',
+                                                                p: '0',
                                                                 '&.Mui-checked': {
                                                                     color: 'var(--color-green-600)',
                                                                 },
@@ -722,7 +723,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
                                                                         <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
                                                                     </div>
-                                                                    <div className="max-sm:grid max-sm:text-sm">
+                                                                    <div className="max-sm:grid max-sm:text-sm relative z-1">
                                                                         <div className="flex gap-3 items-center ">
                                                                             <span className="transition-all duration-300 group-hover:scale-110">{style.logo}</span>
 

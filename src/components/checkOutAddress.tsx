@@ -5,7 +5,7 @@ import { UpdateCheckOut } from "@/service/storefront/checkout";
 import { ListShippingRates } from "@/service/storefront/checkoutShipments";
 import { useStateGeneral } from "@/useState/useStateGeneralStoreFront";
 import { useState_ResAccount, useState_ResAccountAddress, useState_ResCheckoutShipments, useState_ResCountries } from "@/useState/useStatestorefront";
-import { Autocomplete, Checkbox, Dialog, DialogContent, FormControl, FormControlLabel, FormHelperText, IconButton, InputAdornment, Radio, RadioGroup, TextField } from "@mui/material";
+import { Autocomplete, Avatar, Checkbox, Dialog, DialogContent, FormControl, FormControlLabel, FormHelperText, IconButton, InputAdornment, Radio, RadioGroup, Stack, TextField, Badge, styled } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -21,7 +21,45 @@ import { IoMdAdd, IoMdSearch } from "react-icons/io";
 import { CreateAccountAddress, ListAccountAddress } from "@/service/storefront/accountAddress";
 import { LuMapPinHouse } from "react-icons/lu";
 
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    width: '45px',
+    height: '45px',
+    '& .MuiBadge-badge': {
+        backgroundColor: '#44b700',
+        color: '#44b700',
+        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+        '&::after': {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            animation: 'ripple 1.2s infinite ease-in-out',
+            border: '2px solid currentColor',
+            content: '""',
+        },
+    },
+    '@keyframes ripple': {
+        '0%': {
+            transform: 'scale(.8)',
+            opacity: 1,
+        },
+        '100%': {
+            transform: 'scale(2.4)',
+            opacity: 0,
+        },
+    },
+}));
+
 const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBackStep, lengthStep }) => {
+    const sxAvata: SxProps<Theme> = {
+        width: "100%",
+        height: "100%",
+        boxShadow: 'var(--shadow-xl)',
+
+    }
+
     const sxTextField: SxProps<Theme> = {
         width: '100%',
         '& .MuiOutlinedInput-root': {
@@ -663,8 +701,8 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                             background: "transparent",
                                         }}
                                     >
-                                        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                                            <div className="w-full max-w-3xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-2xl relative overflow-hidden">
+                                        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center md:p-5 p-3 z-50">
+                                            <div className="w-full max-w-3xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl lg:p-10 md:p-5 p-3 border border-white/40 shadow-2xl relative overflow-hidden">
                                                 <button
                                                     onClick={() => setOpenCreateAccountAddress(false)}
                                                     className="absolute top-3 right-3 w-10 h-10 z-50 flex items-center justify-center
@@ -677,7 +715,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                 <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-200/30 rounded-full blur-xl"></div>
                                                 <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
                                                 <div className="relative z-10">
-                                                    <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
+                                                    <h1 className="md:text-2xl text-xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-600">
                                                         Create An Address
                                                     </h1>
                                                     {errorCreateAccountAddress && (
@@ -686,7 +724,8 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                             <span>{errorCreateAccountAddress}</span>
                                                         </div>
                                                     )}
-                                                    <form onSubmit={handleCreateAccountAddress} className="flex flex-col gap-5">
+                                                    <form onSubmit={handleCreateAccountAddress}
+                                                        className="flex flex-col md:gap-5 gap-2">
                                                         <div className="flex flex-col gap-1">
                                                             <label htmlFor="label" className="block text-md font-medium text-gray-700">
                                                                 Label
@@ -707,37 +746,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                                 }
                                                             />
                                                         </div>
-                                                        <div className="flex flex-col gap-1">
-                                                            <label htmlFor="country" className="block text-md font-medium text-gray-700">
-                                                                Country <span className="text-red-500">*</span>
-                                                            </label>
-                                                            {/* auto complate */}
-                                                            <FormControl className="w-full" sx={sxFormControl} size="small">
-                                                                <Autocomplete
-                                                                    // disableClearable
-                                                                    noOptionsText="There is no coutries"
-                                                                    options={resCountries_List?.data || []}
-                                                                    componentsProps={componentsProps}
-                                                                    getOptionLabel={(option) => option.attributes.name}
-                                                                    filterOptions={(options, { inputValue }) =>
-                                                                        options.filter((option) =>
-                                                                            removeVietnameseTones(option.attributes.name)
-                                                                                .toLowerCase()
-                                                                                .includes(removeVietnameseTones(inputValue).toLowerCase())
-                                                                        )
-                                                                    }
-                                                                    onChange={handleChangeSearchCountry}
-                                                                    renderInput={(params) => (
-                                                                        <TextField  {...params}
-                                                                            placeholder="Search for countries..."
-                                                                            sx={sxTextField}
-                                                                            error={Boolean(errorEmptyAccountAddress.country_iso)}
-                                                                            helperText={errorEmptyAccountAddress.country_iso}
-                                                                        />
-                                                                    )}
-                                                                />
-                                                            </FormControl>
-                                                        </div>
+
                                                         <div className='grid grid-cols-2 gap-3'>
                                                             <div className="flex flex-col gap-1">
                                                                 <label htmlFor="firstName" className="block text-md font-medium text-gray-700">
@@ -787,27 +796,60 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                             </div>
 
                                                         </div>
-                                                        <div className="flex flex-col gap-1">
-                                                            <label htmlFor="company" className="block text-md font-medium text-gray-700">
-                                                                Company
-                                                            </label>
-                                                            <TextField
-                                                                type="text"
-                                                                autoComplete="company"
-                                                                placeholder="Company"
-                                                                name="company"
-                                                                variant="outlined"
-                                                                sx={sxTextField}
-                                                                value={createAccountAddress.company}
-                                                                onChange={(e) =>
-                                                                    setCreateAccountAddress(prev => ({
-                                                                        ...prev,
-                                                                        company: e.target.value
-                                                                    }))
-                                                                }
-                                                            />
+                                                        <div className="grid grid-cols-2 gap-3">
+                                                            <div className="flex flex-col gap-1">
+                                                                <label htmlFor="country" className="block text-md font-medium text-gray-700">
+                                                                    Country <span className="text-red-500">*</span>
+                                                                </label>
+                                                                {/* auto complate */}
+                                                                <FormControl className="w-full" sx={sxFormControl} size="small">
+                                                                    <Autocomplete
+                                                                        // disableClearable
+                                                                        noOptionsText="There is no coutries"
+                                                                        options={resCountries_List?.data || []}
+                                                                        componentsProps={componentsProps}
+                                                                        getOptionLabel={(option) => option.attributes.name}
+                                                                        filterOptions={(options, { inputValue }) =>
+                                                                            options.filter((option) =>
+                                                                                removeVietnameseTones(option.attributes.name)
+                                                                                    .toLowerCase()
+                                                                                    .includes(removeVietnameseTones(inputValue).toLowerCase())
+                                                                            )
+                                                                        }
+                                                                        onChange={handleChangeSearchCountry}
+                                                                        renderInput={(params) => (
+                                                                            <TextField  {...params}
+                                                                                placeholder="Search for countries..."
+                                                                                sx={sxTextField}
+                                                                                error={Boolean(errorEmptyAccountAddress.country_iso)}
+                                                                                helperText={errorEmptyAccountAddress.country_iso}
+                                                                            />
+                                                                        )}
+                                                                    />
+                                                                </FormControl>
+                                                            </div>
+                                                            <div className="flex flex-col gap-1">
+                                                                <label htmlFor="company" className="block text-md font-medium text-gray-700">
+                                                                    Company
+                                                                </label>
+                                                                <TextField
+                                                                    type="text"
+                                                                    autoComplete="company"
+                                                                    placeholder="Company"
+                                                                    name="company"
+                                                                    variant="outlined"
+                                                                    sx={sxTextField}
+                                                                    value={createAccountAddress.company}
+                                                                    onChange={(e) =>
+                                                                        setCreateAccountAddress(prev => ({
+                                                                            ...prev,
+                                                                            company: e.target.value
+                                                                        }))
+                                                                    }
+                                                                />
+                                                            </div>
                                                         </div>
-                                                        <div className='grid grid-cols-2 gap-3'>
+                                                        <div className='grid sm:grid-cols-2 gap-3'>
                                                             <div className="flex flex-col gap-1">
                                                                 <label htmlFor="address1" className="block text-md font-medium text-gray-700">
                                                                     Street and house number <span className="text-red-500">*</span>
@@ -852,7 +894,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <div className='grid grid-cols-3 gap-3'>
+                                                        <div className='grid grid-cols-2 gap-3'>
                                                             <div className="flex flex-col gap-1">
                                                                 <label htmlFor="city" className="block text-md font-medium text-gray-700">
                                                                     City <span className="text-red-500">*</span>
@@ -927,33 +969,34 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                                     helperText={errorEmptyAccountAddress.zipcode}
                                                                 />
                                                             </div>
+                                                            <div className="flex flex-col gap-1">
+                                                                <label htmlFor="phone" className="block text-md font-medium text-gray-700">
+                                                                    Phone
+                                                                </label>
+                                                                <TextField
+                                                                    type="text"
+                                                                    autoComplete="phone"
+                                                                    placeholder="Phone"
+                                                                    name="phone"
+                                                                    variant="outlined"
+                                                                    sx={sxTextField}
+                                                                    value={createAccountAddress.phone}
+                                                                    onChange={(e) =>
+                                                                        setCreateAccountAddress(prev => ({
+                                                                            ...prev,
+                                                                            phone: e.target.value
+                                                                        }))
+                                                                    }
+                                                                />
+                                                            </div>
                                                         </div>
-                                                        <div className="flex flex-col gap-1">
-                                                            <label htmlFor="phone" className="block text-md font-medium text-gray-700">
-                                                                Phone
-                                                            </label>
-                                                            <TextField
-                                                                type="text"
-                                                                autoComplete="phone"
-                                                                placeholder="Phone"
-                                                                name="phone"
-                                                                variant="outlined"
-                                                                sx={sxTextField}
-                                                                value={createAccountAddress.phone}
-                                                                onChange={(e) =>
-                                                                    setCreateAccountAddress(prev => ({
-                                                                        ...prev,
-                                                                        phone: e.target.value
-                                                                    }))
-                                                                }
-                                                            />
-                                                        </div>
-                                                        <div className="grid grid-cols-2 gap-3">
+
+                                                        <div className="flex gap-3 mt-3">
                                                             <button
                                                                 type="button"
                                                                 onClick={() => setOpenCreateAccountAddress(false)}
                                                                 className="
-                                                                    flex-1 py-3 rounded-xl 
+                                                                    flex-1 h-[45px] rounded-xl 
                                                                     text-lg font-semibold text-gray-700
                                                                     bg-gray-100 hover:bg-gray-200
                                                                     shadow-md hover:shadow-lg
@@ -964,12 +1007,12 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                             </button>
                                                             <button
                                                                 type="submit"
-                                                                className="rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                                                className="flex-1 rounded-xl h-[45px] bg-gradient-to-br from-green-500 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
 
                                                             >
-                                                                <span className="relative z-10">Create An Address</span>
+                                                                <span className="relative z-10">Create</span>
                                                                 <div className="absolute inset-0 overflow-hidden">
                                                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                                                 </div>
@@ -1019,53 +1062,56 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                             <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
                                                             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
                                                         </div>
-                                                        <div className="flex flex-col gap-3">
-                                                            {/* Name */}
-                                                            <h3 className="
-                                                      text-xl max-md:text-lg font-bold text-gray-900 
-                                                      group-hover:text-green-800 
-                                                      transition-colors duration-300
-                                                      truncate
-                                                    ">
-                                                                {res.attributes.firstname} {res.attributes.lastname}
-                                                            </h3>
-
-                                                            {/* Contact Information */}
-                                                            <div className="flex flex-col gap-1">
-
-                                                                {/* Phone */}
-                                                                {res.attributes.phone && (
-                                                                    <div className="flex items-center gap-1 text-gray-700">
-                                                                        <div className="transition-colors duration-300">
-                                                                            <MdOutlinePhoneIphone className="text-green-600 text-sm" />
-                                                                        </div>
-                                                                        <span className="font-medium text-gray-900 max-md:text-sm">{res.attributes.phone}</span>
-                                                                    </div>
-                                                                )}
-
-                                                                {/* Address */}
-                                                                <div className="flex items-center gap-1">
-                                                                    <div className="transition-colors duration-300">
-                                                                        <LuMapPinHouse className="text-green-600 text-sm" />
-                                                                    </div>
-                                                                    <div className="flex flex-wrap gap-1 text-gray-600 text-sm leading-relaxed">
-                                                                        {[
-                                                                            res.attributes.address1,
-                                                                            res.attributes.address2,
-                                                                            res.attributes.city,
-                                                                            res.attributes.state_name,
-                                                                            res.attributes.zipcode,
-                                                                            res.attributes.country_name
-                                                                        ]
-                                                                            .filter(Boolean)
-                                                                            .map((part, index, array) => (
-                                                                                <span key={index} className="text-gray-700">
-                                                                                    {part}{index < array.length - 1 ? ',' : ''}
+                                                        <div className="flex flex-col gap-3 ">
+                                                            <div className="flex gap-3 z-1 relative">
+                                                                <div className="relative ">
+                                                                    <Stack direction="row" spacing={2} sx={{ margin: '0 auto' }}>
+                                                                        <StyledBadge
+                                                                            overlap="circular"
+                                                                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                                            variant="dot"
+                                                                        >
+                                                                            <Avatar
+                                                                                sx={sxAvata}
+                                                                            >
+                                                                                <span className="text-md">
+                                                                                    {res.attributes.firstname.charAt(0).toUpperCase() ?? <FaRegUser className="mx-auto" />}
                                                                                 </span>
-                                                                            ))
-                                                                        }
-                                                                    </div>
+                                                                            </Avatar>
+                                                                        </StyledBadge >
+                                                                    </Stack>
+
                                                                 </div>
+                                                                <div>
+                                                                    <h3 className="text-lg font-bold text-gray-900 
+                                                                                                    group-hover:text-green-800 
+                                                                                                    transition-colors duration-300
+                                                                                                    truncate
+                                                                                                    ">
+                                                                        {res.attributes.firstname} {res.attributes.lastname}
+                                                                    </h3>
+                                                                    <span className="font-medium text-sm text-gray-900">{res.attributes.phone}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative flex z-1 flex-wrap items-center gap-1 text-gray-600 text-sm leading-relaxed">
+                                                                <div className=" transition-colors duration-300">
+                                                                    <LuMapPinHouse className="text-green-600 text-sm " />
+                                                                </div>
+                                                                {[
+                                                                    res.attributes.address1,
+                                                                    res.attributes.address2,
+                                                                    res.attributes.city,
+                                                                    res.attributes.state_name,
+                                                                    res.attributes.zipcode,
+                                                                    res.attributes.country_name
+                                                                ]
+                                                                    .filter(Boolean)
+                                                                    .map((part, index, array) => (
+                                                                        <span key={index} className="text-gray-700 ">
+                                                                            {part}{index < array.length - 1 ? ',' : ''}
+                                                                        </span>
+                                                                    ))
+                                                                }
                                                             </div>
                                                         </div>
                                                         <div className={`${valueIdShippingAddress === res.id ? 'opacity-5' : 'opacity-0'}
@@ -1087,8 +1133,8 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                     loading more...
                                 </p>
                             )}
-                        </RadioGroup>
-                    </div>
+                        </RadioGroup >
+                    </div >
                     <div className="flex justify-end gap-5">
                         <button className="md:px-16 px-4 md:text-md text-sm uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"
                             // disabled={activeStep === 1}
@@ -1112,7 +1158,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
 
                         </button>
                     </div>
-                </div>
+                </div >
                 :
                 <div className="flex flex-col gap-5">
                     {errorUpdateCheckOut &&
