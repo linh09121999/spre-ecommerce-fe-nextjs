@@ -593,7 +593,7 @@ const ViewCart: React.FC = () => {
 
                                 </div>
                             </div>
-                            {editMode && (
+                            {(editMode && resCart?.data.relationships.line_items && resCart?.data.relationships.line_items.data.length > 1) && (
                                 <div className="sm:hidden bg-white border-t border-gray-200 pt-5 z-10">
                                     <button
                                         onClick={handleRemoveAllItem}

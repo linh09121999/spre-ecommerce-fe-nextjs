@@ -569,14 +569,14 @@ const HeartFrom: React.FC = () => {
                                     </p>
                                 </div>
                                 <div className="flex lg:gap-5 gap-3 max-sm:hidden">
-                                    {resWishlists?.included.length > 0 &&
+                                    {resWishlists?.data.relationships.wished_items.data.length > 1 &&
                                         <button
                                             onClick={() => handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))}
                                             className="h-[45px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-orange-300 to-orange-400 text-white 
                             hover:from-orange-400 hover:to-orange-500 hover:shadow-xl whitespace-nowrap px-3
                             font-bold text-md transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                         >
-                                            Clear All Items
+                                            Delete All Items
                                             <div className="absolute inset-0 overflow-hidden">
                                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                             </div>
@@ -747,14 +747,14 @@ const HeartFrom: React.FC = () => {
                                     </div>
                                     {editMode &&
                                         <div className="sm:hidden bg-white z-10 flex flex-col gap-5">
-                                            {resWishlists?.included.length > 0 &&
+                                            {resWishlists?.data.relationships.wished_items.data.length > 1 &&
                                                 <button
                                                     onClick={() => handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))}
                                                     className="h-[45px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-orange-300 to-orange-400 text-white 
                             hover:from-orange-400 hover:to-orange-500 hover:shadow-xl whitespace-nowrap px-3
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                                 >
-                                                    Clear All Items
+                                                    Delete All Items
                                                     <div className="absolute inset-0 overflow-hidden">
                                                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                                     </div>
