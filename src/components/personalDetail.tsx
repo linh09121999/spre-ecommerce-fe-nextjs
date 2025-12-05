@@ -203,7 +203,7 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
     }
     return (
         <>
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col md:gap-10 gap-5">
                 {/* Header section with avatar and basic info */}
                 <div className="flex flex-col md:flex-row items-center gap-5">
                     <div className="relative">
@@ -256,7 +256,7 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
 
                 {/* Contact details section */}
                 <div className="flex flex-col gap-5">
-                    <h3 className="text-md tracking-wide text-black/70">Contact Information</h3>
+                    <h3 className="text-xl font-semibold">Contact Information</h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 gap-2">
                         {/* Item */}
@@ -299,7 +299,7 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
                 {openEdit &&
                     <div className="flex flex-col gap-5">
                         <div className="flex flex-col gap-1">
-                            <h3 className="text-md uppercase tracking-wide text-black/70">Edit Persional</h3>
+                            <h3 className="text-xl font-semibold">Edit Persional</h3>
                             <p className="text-md text-gray-500">Please update your contact details</p>
                         </div>
                         {errorUpdateAccount && (
@@ -476,7 +476,7 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
                                     type="button"
                                     onClick={() => setOpenEdit(false)}
                                     className="
-                                    flex-1 py-3 rounded-xl 
+                                    flex-1 h-[45px] rounded-xl 
                                     text-lg font-semibold text-gray-700
                                     bg-gray-100 hover:bg-gray-200
                                     shadow-md hover:shadow-lg
@@ -488,7 +488,7 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
                                 <button
                                     type="submit"
                                     className="
-                                    flex-1 py-3 rounded-xl 
+                                    flex-1 h-[45px] rounded-xl 
                                     text-lg font-semibold text-white
                                     bg-gradient-to-br from-green-500 to-emerald-600
                                     hover:from-green-600 hover:to-emerald-700
@@ -497,7 +497,7 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
                                     relative overflow-hidden
                                 "
                                 >
-                                    <span className="relative z-10">Update An Account</span>
+                                    <span className="relative z-10">Update</span>
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                                 </button>
                             </div>
