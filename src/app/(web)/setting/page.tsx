@@ -745,37 +745,7 @@ const SettingWeb: React.FC = () => {
                                                             }
                                                         />
                                                     </div>
-                                                    <div className="flex flex-col gap-1">
-                                                        <label htmlFor="country" className="block text-md font-medium text-gray-700">
-                                                            Country <span className="text-red-500">*</span>
-                                                        </label>
-                                                        {/* auto complate */}
-                                                        <FormControl className="w-full" sx={sxFormControl} size="small">
-                                                            <Autocomplete
-                                                                // disableClearable
-                                                                noOptionsText="There is no coutries"
-                                                                options={resCountries_List?.data || []}
-                                                                componentsProps={componentsProps}
-                                                                getOptionLabel={(option) => option.attributes.name}
-                                                                filterOptions={(options, { inputValue }) =>
-                                                                    options.filter((option) =>
-                                                                        removeVietnameseTones(option.attributes.name)
-                                                                            .toLowerCase()
-                                                                            .includes(removeVietnameseTones(inputValue).toLowerCase())
-                                                                    )
-                                                                }
-                                                                onChange={handleChangeSearchCountry}
-                                                                renderInput={(params) => (
-                                                                    <TextField  {...params}
-                                                                        placeholder="Search for countries..."
-                                                                        sx={sxTextField}
-                                                                        error={Boolean(errorEmptyAccountAddress.country_iso)}
-                                                                        helperText={errorEmptyAccountAddress.country_iso}
-                                                                    />
-                                                                )}
-                                                            />
-                                                        </FormControl>
-                                                    </div>
+
                                                     <div className='grid grid-cols-2 gap-3'>
                                                         <div className="flex flex-col gap-1">
                                                             <label htmlFor="firstName" className="block text-md font-medium text-gray-700">
@@ -825,25 +795,58 @@ const SettingWeb: React.FC = () => {
                                                         </div>
 
                                                     </div>
-                                                    <div className="flex flex-col gap-1">
-                                                        <label htmlFor="company" className="block text-md font-medium text-gray-700">
-                                                            Company
-                                                        </label>
-                                                        <TextField
-                                                            type="text"
-                                                            autoComplete="company"
-                                                            placeholder="Company"
-                                                            name="company"
-                                                            variant="outlined"
-                                                            sx={sxTextField}
-                                                            value={createAccountAddress.company}
-                                                            onChange={(e) =>
-                                                                setCreateAccountAddress(prev => ({
-                                                                    ...prev,
-                                                                    company: e.target.value
-                                                                }))
-                                                            }
-                                                        />
+                                                    <div className="grid grid-cols-2 gap-3">
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="country" className="block text-md font-medium text-gray-700">
+                                                                Country <span className="text-red-500">*</span>
+                                                            </label>
+                                                            {/* auto complate */}
+                                                            <FormControl className="w-full" sx={sxFormControl} size="small">
+                                                                <Autocomplete
+                                                                    // disableClearable
+                                                                    noOptionsText="There is no coutries"
+                                                                    options={resCountries_List?.data || []}
+                                                                    componentsProps={componentsProps}
+                                                                    getOptionLabel={(option) => option.attributes.name}
+                                                                    filterOptions={(options, { inputValue }) =>
+                                                                        options.filter((option) =>
+                                                                            removeVietnameseTones(option.attributes.name)
+                                                                                .toLowerCase()
+                                                                                .includes(removeVietnameseTones(inputValue).toLowerCase())
+                                                                        )
+                                                                    }
+                                                                    onChange={handleChangeSearchCountry}
+                                                                    renderInput={(params) => (
+                                                                        <TextField  {...params}
+                                                                            placeholder="Search for countries..."
+                                                                            sx={sxTextField}
+                                                                            error={Boolean(errorEmptyAccountAddress.country_iso)}
+                                                                            helperText={errorEmptyAccountAddress.country_iso}
+                                                                        />
+                                                                    )}
+                                                                />
+                                                            </FormControl>
+                                                        </div>
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="company" className="block text-md font-medium text-gray-700">
+                                                                Company
+                                                            </label>
+                                                            <TextField
+                                                                type="text"
+                                                                autoComplete="company"
+                                                                placeholder="Company"
+                                                                name="company"
+                                                                variant="outlined"
+                                                                sx={sxTextField}
+                                                                value={createAccountAddress.company}
+                                                                onChange={(e) =>
+                                                                    setCreateAccountAddress(prev => ({
+                                                                        ...prev,
+                                                                        company: e.target.value
+                                                                    }))
+                                                                }
+                                                            />
+                                                        </div>
                                                     </div>
                                                     <div className='grid sm:grid-cols-2 gap-3'>
                                                         <div className="flex flex-col gap-1">
