@@ -8,7 +8,7 @@ import { ListAllCountries, RetrieveAContry } from "@/service/storefront/countrie
 import { useStateGeneral } from "@/useState/useStateGeneralStoreFront"
 import { useState_ResCountries } from "@/useState/useStatestorefront"
 import { Autocomplete, Dialog, DialogContent, FormControl, TextField, Avatar, Stack, Badge, styled } from "@mui/material"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { FaEdit, FaRegUser, FaTrashAlt } from "react-icons/fa"
 import { MdOutlineErrorOutline, MdOutlinePhoneIphone } from "react-icons/md"
 import { toast, ToastContainer } from "react-toastify"
@@ -289,8 +289,8 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                     {data.length > 0 ?
                         <div className="flex flex-col gap-5 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
                             {data.map((res) => (
-                                <>
-                                    <div key={res.id} className="max-sm:hidden gap-3 grid w-full sm:p-5 sm:rounded-xl bg-white sm:border sm:border-gray-200 py-3 border-b border-gray-200  hover:bg-gray-50 transition-colors sm:shadow-sm sm:hover:shadow-lg  transition-all duration-300 ease-out sm:hover:-translate-y-2 hover:border-green-300 relative overflow-hidden group cursor-pointer backdrop-blur-sm ">
+                                <Fragment key={res.id}>
+                                    <div  className="max-sm:hidden gap-3 grid w-full sm:p-5 sm:rounded-xl bg-white sm:border sm:border-gray-200 py-3 border-b border-gray-200  hover:bg-gray-50 transition-colors sm:shadow-sm sm:hover:shadow-lg  transition-all duration-300 ease-out sm:hover:-translate-y-2 hover:border-green-300 relative overflow-hidden group cursor-pointer backdrop-blur-sm ">
                                         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                                             <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
                                             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
@@ -394,7 +394,6 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                         <div className="max-sm:hidden absolute inset-0 rounded-xl  bg-gradient-to-r from-green-400 via-blue-400 to-purple-400  opacity-0 group-hover:opacity-5  transition-opacity duration-300 -z-5 "></div>
                                     </div>
                                     <div
-                                        key={res.id}
                                         className="
                                 w-full bg-whitepy-3 border-b border-gray-200  hover:bg-gray-50 transition-colors
                                 transition-all duration-300 ease-out hover:border-green-300
@@ -527,7 +526,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                             loading more...
                                         </p>
                                     )}
-                                </>
+                                </Fragment>
                             ))}
 
 

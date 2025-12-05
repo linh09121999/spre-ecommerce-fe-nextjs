@@ -349,12 +349,11 @@ const HeartFrom: React.FC = () => {
                                     className={`w-full items-center flex justify-between transition-all duration-300 hover:bg-green-50 hover:text-green-600 hover:pl-2
                                 ${selectedWishlist === res.attributes.token ? 'pl-2  border-l-[4px] bg-green-100 border-l-green-500 text-green-800' : 'text-gray-500'}
                                 `} key={res.id}>
-                                    <button
-
+                                    <div
                                         className={` py-4  text-lg`}
                                     >
                                         <p className="relative z-10 text-start ">{res.attributes.name}</p>
-                                    </button>
+                                    </div>
                                     <button
                                         aria-label="delete wishlist"
                                         onClick={(e) => {
@@ -418,23 +417,22 @@ const HeartFrom: React.FC = () => {
                         data-aos-duration="3000"
                     >
                         {resWishlists_List?.data.map((res) => (
-                            <>
-                                <div className="relative group">
-                                    <button
-                                        aria-label="click wishlist"
-                                        className={`${selectedWishlist === res.attributes.token ? ' border border-green-700 shadow-md shadow-green-700/30' : 'bg-white shadow-md border border-slate-100'} group-hover:shadow-lg text-lg flex group items-center  group-hover:shadow-lg w-fit  gap-3 px-4 h-[45px] rounded-xl  transition-all duration-300`}
-                                        onClick={() =>
-                                            handleOpenWishList(res.attributes.token)
-                                        }>
-                                        <p className={`${selectedWishlist === res.attributes.token ? 'text-green-700 font-bold' : 'text-slate-700 group-hover:text-green-700'} max-sm:text-sm text-lg whitespace-nowrap transition-all duration-500`}>{res.attributes.name}</p>
-                                    </button>
-                                    <button
-                                        aria-label={`delete wishlist ${res.id}`}
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleDeleteWistlist(res.attributes.token)
-                                        }}
-                                        className="
+                            <div className="relative group" key={res.id}>
+                                <button
+                                    aria-label="click wishlist"
+                                    className={`${selectedWishlist === res.attributes.token ? ' border border-green-700 shadow-md shadow-green-700/30' : 'bg-white shadow-md border border-slate-100'} group-hover:shadow-lg text-lg flex group items-center  group-hover:shadow-lg w-fit  gap-3 px-4 h-[45px] rounded-xl  transition-all duration-300`}
+                                    onClick={() =>
+                                        handleOpenWishList(res.attributes.token)
+                                    }>
+                                    <p className={`${selectedWishlist === res.attributes.token ? 'text-green-700 font-bold' : 'text-slate-700 group-hover:text-green-700'} max-sm:text-sm text-lg whitespace-nowrap transition-all duration-500`}>{res.attributes.name}</p>
+                                </button>
+                                <button
+                                    aria-label={`delete wishlist ${res.id}`}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteWistlist(res.attributes.token)
+                                    }}
+                                    className="
                                                                     absolute -top-2 -right-2 w-8 h-8
                                                                     rounded-full bg-white shadow-lg flex items-center justify-center
                                                                     text-gray-600 text-sm font-bold
@@ -447,11 +445,10 @@ const HeartFrom: React.FC = () => {
                                                                     z-10
                                                                     transform-gpu
                                                                 "
-                                    >
-                                        <IoClose />
-                                    </button>
-                                </div>
-                            </>
+                                >
+                                    <IoClose />
+                                </button>
+                            </div>
 
                         ))}
                         <button
@@ -615,6 +612,7 @@ const HeartFrom: React.FC = () => {
                                     <div className="max-sm:hidden grid max-[420px]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                                         {processedWishedItems.map((res) => (
                                             <button
+                                                key={res.id}
                                                 onClick={() => {
                                                     router.push(`/product/${res?.slug}`)
                                                 }}

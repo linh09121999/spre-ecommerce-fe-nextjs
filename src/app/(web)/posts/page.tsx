@@ -57,26 +57,24 @@ const Posts: React.FC = () => {
             </div>
             <div className="grid gap-5 gird grid-cols-1 md:grid-cols-2 max-w-[1535px] mx-auto px-5 py-5">
                 {resPosts_List?.data.map((res, id) => (
-                    <>
-                        <button className=" flex flex-col gap-2" key={id}
-                            data-aos-duration="1200"
-                            data-aos="zoom-in"
-                            onClick={() => {
-                                router.push(`/post/${res.id}`)
-                            }}
-                        >
-                            <div className="relative group overflow-hidden rounded-xl shadow-lg">
-                                <img src={res.attributes.image_url!} alt={res.attributes.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity"></div>
-                                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent rounded-b-md">
-                                    <h3 className="text-xl text-white font-semibold mt-1">{res.attributes.title}</h3>
-                                    <p className="text-white/70 text-sm mt-1">
-                                        {res.attributes.author_name} | Published: {new Date(res.attributes.published_at).toLocaleDateString()}
-                                    </p>
-                                </div>
+                    <button className=" flex flex-col gap-2" key={id}
+                        data-aos-duration="1200"
+                        data-aos="zoom-in"
+                        onClick={() => {
+                            router.push(`/post/${res.id}`)
+                        }}
+                    >
+                        <div className="relative group overflow-hidden rounded-xl shadow-lg">
+                            <img src={res.attributes.image_url!} alt={res.attributes.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity"></div>
+                            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent rounded-b-md">
+                                <h3 className="text-xl text-white font-semibold mt-1">{res.attributes.title}</h3>
+                                <p className="text-white/70 text-sm mt-1">
+                                    {res.attributes.author_name} | Published: {new Date(res.attributes.published_at).toLocaleDateString()}
+                                </p>
                             </div>
-                        </button>
-                    </>
+                        </div>
+                    </button>
                 ))}
             </div>
             <ToastContainer position="top-right" autoClose={3000} />

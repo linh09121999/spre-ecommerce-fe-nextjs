@@ -436,6 +436,7 @@ const ViewCart: React.FC = () => {
                                 <div className={`transition-transform duration-300 ease-in-out `}>
                                     {itemsWithImages && itemsWithImages?.map((res) => (
                                         <div
+                                            key={res.id}
                                             onClick={() => router.push(`/product/${res.slug}`)}
                                             className={`flex max-sm:gap-2 group relative w-full flex-col sm:p-5 py-3 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors rounded-lg items-center transition-all duration-300`}>
                                             <h3 className="text-lg font-semibold text-gray-900 w-full sm:hidden">{res?.product_name}</h3>
