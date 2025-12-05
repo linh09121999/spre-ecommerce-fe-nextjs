@@ -88,11 +88,11 @@ const SettingWeb: React.FC = () => {
     };
 
     const sxSelect: SxProps<Theme> = {
+        borderRadius: "var(--radius-xl)",
         width: '100%',
         background: "var(--color-white)",
         height: '45px',
         padding: '3px 8px',
-        borderRadius: "10px",
         transition: 'all 0.3s',
         fontSize: 'var(--text-xl)',
         border: 'none',
@@ -1088,8 +1088,8 @@ const SettingWeb: React.FC = () => {
                                         background: "transparent",
                                     }}
                                 >
-                                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                                        <div className="w-full max-w-2xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-2xl relative overflow-hidden">
+                                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center md:p-5 p-3 z-50">
+                                        <div className="w-full max-w-3xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl lg:p-10 md:p-5 p-3 border border-white/40 shadow-2xl relative overflow-hidden">
                                             <button
                                                 onClick={() => {
                                                     setOpenCreateCredit(false);
@@ -1107,12 +1107,12 @@ const SettingWeb: React.FC = () => {
                                             <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
 
                                             <div className="relative z-10">
-                                                <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-6">
+                                                <h1 className="md:text-2xl text-xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-600">
                                                     Add Credit Card
                                                 </h1>
 
-                                                <div className="flex flex-col gap-1">
-                                                    <label className="block text-md font-medium text-gray-700 mb-2">
+                                                <div className="flex flex-col gap-1 mt-3">
+                                                    <label className="block text-md font-medium text-gray-700 ">
                                                         Payment Method <span className="text-red-500">*</span>
                                                     </label>
                                                     <Select

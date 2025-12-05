@@ -124,7 +124,7 @@ const ListAccountStoreCredits: React.FC<ResAccountCreditCard_ListAll_Prop> = ({ 
     return (
         <>
             {data.length > 0 ?
-                <div className="flex flex-wrap gap-5">
+                <div className="flex flex-wrap gap-5 justify-center">
                     {data.map((res) => {
                         const rawType = res.attributes.cc_type?.toLowerCase();
                         const type = Object.keys(cardStyles).includes(rawType)
@@ -217,7 +217,7 @@ const ListAccountStoreCredits: React.FC<ResAccountCreditCard_ListAll_Prop> = ({ 
                                 transition-all duration-300
                                 border border-gray-200
                                 hover:scale-110
-                                opacity-0 group-hover:opacity-100
+                                md:opacity-0 group-hover:opacity-100
                                 z-10
                                 transform-gpu
                             "

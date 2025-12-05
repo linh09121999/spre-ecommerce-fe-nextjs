@@ -10,6 +10,8 @@ import {
     CardCvcElement
 } from '@stripe/react-stripe-js';
 import { MdOutlineErrorOutline } from 'react-icons/md';
+import type { SxProps, Theme } from "@mui/material/styles";
+import { TextField } from '@mui/material';
 
 // Component form thanh toán với Stripe
 const StripePaymentForm = ({
@@ -23,6 +25,40 @@ const StripePaymentForm = ({
     error: string;
     publishableKey: string;
 }) => {
+
+    const sxTextField: SxProps<Theme> = {
+        width: '100%',
+        '& .MuiOutlinedInput-root': {
+            borderRadius: "var(--radius-xl)",
+            background: "var(--color-white)",
+            height: '45px',
+            padding: '3px 8px',
+            transition: 'all 0.3s',
+            fontSize: 'var(--text-md)',
+            border: '1px solid var(--color-gray-200)',
+        },
+
+        '& .MuiOutlinedInput-notchedOutline': {
+            border: 'none',
+        },
+
+        '&:hover .MuiOutlinedInput-notchedOutline': {
+            outline: 'none',
+            border: 'none'
+        },
+
+        '& .MuiOutlinedInput-input': {
+            padding: 0
+        },
+
+        '& .MuiInputBase-input': {
+            color: 'black',
+            fontSize: 'var(--text-lg)',
+            border: 'none',
+        },
+    }
+
+
     const stripe = useStripe();
     const elements = useElements();
     const [cardholderName, setCardholderName] = useState('');
@@ -103,15 +139,16 @@ const StripePaymentForm = ({
                 <div className="p-4 text-center mt-5 bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
                     <MdOutlineErrorOutline className="mx-auto" size={21} />{errorCreate}</div>
             }
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-5">
+            <form onSubmit={handleSubmit}
+                className="flex flex-col md:gap-5 gap-2 md:pt-5 pt-2">
                 <div className="flex flex-col gap-1">
                     <label className="block text-md font-medium text-gray-700">
                         Cardholder Name <span className="text-red-500">*</span>
                     </label>
-                    <input
+                    <TextField
                         type="text"
                         placeholder="Full name on card"
-                        className="w-full border border-gray-300 rounded-lg p-3 bg-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                        sx={sxTextField}
                         value={cardholderName}
                         onChange={(e) => setCardholderName(e.target.value)}
                         required
@@ -122,7 +159,7 @@ const StripePaymentForm = ({
                     <label className="block text-md font-medium text-gray-700">
                         Card Number <span className="text-red-500">*</span>
                     </label>
-                    <div className="border border-gray-300 rounded-lg p-3 bg-white focus-within:ring-2 focus-within:ring-green-500">
+                    <div className="border border-gray-300 rounded-xl p-3 bg-white focus-within:ring-2 focus-within:ring-green-500">
                         <CardNumberElement
                             options={stripeElementOptions}
                             onChange={(e) => setCardComplete(prev => ({ ...prev, cardNumber: e.complete }))}
@@ -135,7 +172,7 @@ const StripePaymentForm = ({
                         <label className="block text-md font-medium text-gray-700">
                             Expiry Date <span className="text-red-500">*</span>
                         </label>
-                        <div className="border border-gray-300 rounded-lg p-3 bg-white focus-within:ring-2 focus-within:ring-green-500">
+                        <div className="border border-gray-300 rounded-xl p-3 bg-white focus-within:ring-2 focus-within:ring-green-500">
                             <CardExpiryElement
                                 options={stripeElementOptions}
                                 onChange={(e) => setCardComplete(prev => ({ ...prev, cardExpiry: e.complete }))}
@@ -147,7 +184,7 @@ const StripePaymentForm = ({
                         <label className="block text-md font-medium text-gray-700">
                             CVC <span className="text-red-500">*</span>
                         </label>
-                        <div className="border border-gray-300 rounded-lg p-3 bg-white focus-within:ring-2 focus-within:ring-green-500">
+                        <div className="border border-gray-300 rounded-xl p-3 bg-white focus-within:ring-2 focus-within:ring-green-500">
                             <CardCvcElement
                                 options={stripeElementOptions}
                                 onChange={(e) => setCardComplete(prev => ({ ...prev, cardCvc: e.complete }))}
@@ -164,7 +201,7 @@ const StripePaymentForm = ({
                 <button
                     type="submit"
                     disabled={!stripe || loading || !isFormComplete}
-                    className="h-[50px] w-fit px-10 ml-auto rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 font-bold text-lg transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                    className="h-[45px] mt-3 w-full sm:w-fit px-10 ml-auto rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 font-bold text-lg transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
                 >
                     <span className="relative z-10">
                         {loading ? 'Processing...' : 'Add Credit Card'}
