@@ -768,7 +768,7 @@ const HeaderWeb: React.FC = () => {
                                     </List>
                                 </div>
                                 <div className='flex flex-col gap-4 px-[24px] p-5 mt-auto'>
-                                    <button className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                    <button className="h-[45px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl uppercase
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                         onClick={handleClickAccountDrawer}
@@ -784,7 +784,7 @@ const HeaderWeb: React.FC = () => {
                                             onClick={() => {
                                                 handleLogOut()
                                             }}
-                                            className='px-16 uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105'
+                                            className='px-16 uppercase h-[45px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105'
                                         >Log out</button>
                                     }
                                 </div>

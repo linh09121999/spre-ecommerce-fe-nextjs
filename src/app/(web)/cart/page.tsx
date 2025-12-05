@@ -26,13 +26,12 @@ const ViewCart: React.FC = () => {
     const sxTextField: SxProps<Theme> = {
         width: '100%',
         '& .MuiOutlinedInput-root': {
-            borderRadius: "10px",
+            borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
             height: '45px',
-            // boxShadow: 'var(--shadow-lg)',
             padding: '3px 8px',
             transition: 'all 0.3s',
-            fontSize: 'var(--text-xl)',
+            fontSize: 'var(--text-md)',
             border: '1px solid var(--color-gray-200)',
         },
 
@@ -598,7 +597,7 @@ const ViewCart: React.FC = () => {
                                 <div className="sm:hidden bg-white border-t border-gray-200 pt-5 z-10">
                                     <button
                                         onClick={handleRemoveAllItem}
-                                        className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
+                                        className="h-[45px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
                             hover:from-rose-600 hover:to-red-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                     >
@@ -658,7 +657,7 @@ const ViewCart: React.FC = () => {
                                                     <button
                                                         onClick={() => handleSelectWishlist(res.attributes.token)}
                                                         key={res.id}
-                                                        className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                                        className="h-[45px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group" >
                                                         {res.attributes.name}
@@ -678,7 +677,7 @@ const ViewCart: React.FC = () => {
                                             className="rounded-xl border-2 border-dashed border-gray-300
                                             text-gray-500 font-semibold text-lg flex items-center justify-center gap-2
                                              hover:border-green-400 hover:text-green-600
-                                             px-5 py-3
+                                             px-5 h-[45px]
                                               transition-all duration-300 transform hover:scale-105
                                              hover:shadow-xl
                                              bg-white/80 backdrop-blur-sm
@@ -766,7 +765,7 @@ const ViewCart: React.FC = () => {
                                                     setModalOpenSelectWishlist(true)
                                                 }}
                                                 className="
-                                                    flex-1 py-3 rounded-xl 
+                                                    flex-1 h-[45px] rounded-xl 
                                                     text-lg font-semibold text-gray-700
                                                     bg-gray-100 hover:bg-gray-200
                                                     shadow-md hover:shadow-lg
@@ -778,7 +777,7 @@ const ViewCart: React.FC = () => {
                                             <button
                                                 type="submit"
                                                 className="
-                                                    flex-1 py-3 rounded-xl 
+                                                    flex-1 h-[45px] rounded-xl 
                                                     text-lg font-semibold text-white
                                                     bg-gradient-to-br from-green-500 to-emerald-600
                                                     hover:from-green-600 hover:to-emerald-700
@@ -891,7 +890,7 @@ const ViewCart: React.FC = () => {
                                 onClick={() => {
                                     handleValidateOrderPayment("line_items")
                                 }}
-                                className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                className="h-[45px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                             >

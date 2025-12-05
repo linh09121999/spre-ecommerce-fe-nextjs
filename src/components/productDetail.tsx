@@ -31,10 +31,9 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
     const sxTextField: SxProps<Theme> = {
         width: '100%',
         '& .MuiOutlinedInput-root': {
-            borderRadius: "10px",
+            borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
-            height: '45px',
-            // boxShadow: 'var(--shadow-lg)',
+            height: '44px',
             padding: '3px 8px',
             transition: 'all 0.3s',
             fontSize: 'var(--text-xl)',
@@ -572,7 +571,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                         <button
                             onClick={handleAddToCart}
                             disabled={!selectedVariant?.attributes.in_stock}
-                            className={`h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white w-fit font-bold text-lg transition-all duration-300 transform  shadow-lg relative overflow-hidden group 
+                            className={`h-[45px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white w-fit font-bold text-lg transition-all duration-300 transform  shadow-lg relative overflow-hidden group 
                                 ${!selectedVariant?.attributes.in_stock
                                     ? 'opacity-60 cursor-not-allowed'
                                     : 'hover:from-green-600 hover:to-emerald-700 hover:shadow-xl hover:scale-105'}`}
@@ -604,7 +603,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                             onClick={handleSaveForLater}
                             disabled={!selectedVariant?.attributes.in_stock}
                             aria-label="Add to Wishlist"
-                            className={`group w-[50px] h-[50px] bg-white border-2 border-gray-300 rounded-xl hover:border-orange-400 transition-all duration-300
+                            className={`group w-[50px] h-[45px] bg-white border-2 border-gray-300 rounded-xl hover:border-orange-400 transition-all duration-300
                             ${!selectedVariant?.attributes.in_stock ? '' : 'hover:scale-110'}
                              shadow-md relative overflow-hidden`}
                         >
@@ -685,7 +684,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                                                 <button
                                                     onClick={() => handleSelectWishlist(res.attributes.token)}
                                                     key={res.id}
-                                                    className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                                    className="h-[45px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group" >
                                                     {res.attributes.name}
@@ -705,7 +704,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                                         className="rounded-xl border-2 border-dashed border-gray-300
                                             text-gray-500 font-semibold text-lg flex items-center justify-center gap-2
                                              hover:border-green-400 hover:text-green-600
-                                             px-5 py-3
+                                             px-5 h-[45px]
                                               transition-all duration-300 transform hover:scale-105
                                              hover:shadow-xl
                                              bg-white/80 backdrop-blur-sm
@@ -804,7 +803,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                                         </button>
                                         <button
                                             type="submit"
-                                            className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                            className="h-[45px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                         >

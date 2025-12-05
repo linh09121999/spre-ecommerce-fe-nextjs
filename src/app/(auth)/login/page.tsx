@@ -20,10 +20,9 @@ const Login: React.FC = () => {
     const sxTextField: SxProps<Theme> = {
         width: '100%',
         '& .MuiOutlinedInput-root': {
-            borderRadius: "10px",
+            borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
-            height: '40px',
-            // boxShadow: 'var(--shadow-lg)',
+            height: '45px',
             padding: '3px 8px',
             transition: 'all 0.3s',
             fontSize: 'var(--text-md)',
@@ -143,8 +142,8 @@ const Login: React.FC = () => {
             const previousPage = document.referrer;
             const referrerUrl = new URL(previousPage);
             const previousPath = referrerUrl.pathname;
-
-            if (previousPath === '/login') {
+            console.log(previousPath)
+            if (previousPath === '/login' || previousPath === '/') {
                 rounter.push('/');
             } else if (window.history.length > 1) {
                 rounter.back();

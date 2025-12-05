@@ -17,10 +17,9 @@ const Register: React.FC = () => {
     const sxTextField: SxProps<Theme> = {
         width: '100%',
         '& .MuiOutlinedInput-root': {
-            borderRadius: "10px",
+            borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
-            height: '40px',
-            // boxShadow: 'var(--shadow-lg)',
+            height: '45px',
             padding: '3px 8px',
             transition: 'all 0.3s',
             fontSize: 'var(--text-md)',

@@ -28,8 +28,11 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
         '& .MuiOutlinedInput-root': {
             borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
-            height: '45px',
-            // boxShadow: 'var(--shadow-lg)',
+            height: '40px',
+            '@media(max-width: 687px)': {
+                height: '35px',
+                fontSize: 'var(--text-sm)',
+            },
             padding: '3px 8px',
             transition: 'all 0.3s',
             fontSize: 'var(--text-xl)',

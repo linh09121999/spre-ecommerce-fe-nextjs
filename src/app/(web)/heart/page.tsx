@@ -23,13 +23,12 @@ const HeartFrom: React.FC = () => {
     const sxTextField: SxProps<Theme> = {
         width: '100%',
         '& .MuiOutlinedInput-root': {
-            borderRadius: "10px",
+            borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
             height: '45px',
-            // boxShadow: 'var(--shadow-lg)',
             padding: '3px 8px',
             transition: 'all 0.3s',
-            fontSize: 'var(--text-xl)',
+            fontSize: 'var(--text-md)',
             border: '1px solid var(--color-gray-200)',
         },
 
@@ -527,7 +526,7 @@ const HeartFrom: React.FC = () => {
                                                         type="button"
                                                         onClick={() => setOpenCreateWishlist(false)}
                                                         className="
-                                    flex-1 py-3 rounded-xl 
+                                    flex-1 h-[45px] rounded-xl 
                                     text-lg font-semibold text-gray-700
                                     bg-gray-100 hover:bg-gray-200
                                     shadow-md hover:shadow-lg
@@ -538,7 +537,7 @@ const HeartFrom: React.FC = () => {
                                                     </button>
                                                     <button
                                                         type="submit"
-                                                        className="h-[50px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
+                                                        className="h-[45px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                                     >
@@ -573,7 +572,7 @@ const HeartFrom: React.FC = () => {
                                     {resWishlists?.included.length > 0 &&
                                         <button
                                             onClick={() => handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))}
-                                            className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-orange-300 to-orange-400 text-white 
+                                            className="h-[45px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-orange-300 to-orange-400 text-white 
                             hover:from-orange-400 hover:to-orange-500 hover:shadow-xl whitespace-nowrap px-3
                             font-bold text-md transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                         >
@@ -589,7 +588,7 @@ const HeartFrom: React.FC = () => {
                                         onClick={() => {
                                             handleDeleteWistlist(resWishlists.data.attributes.token)
                                         }}
-                                        className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
+                                        className="h-[45px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
                             hover:from-rose-600 hover:to-red-700 hover:shadow-xl whitespace-nowrap px-3
                             font-bold text-md transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                     >
@@ -751,7 +750,7 @@ const HeartFrom: React.FC = () => {
                                             {resWishlists?.included.length > 0 &&
                                                 <button
                                                     onClick={() => handleRemoveAllItemWistlist(resWishlists?.data.attributes.token, resWishlists?.included.map((item) => item.id))}
-                                                    className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-orange-300 to-orange-400 text-white 
+                                                    className="h-[45px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-orange-300 to-orange-400 text-white 
                             hover:from-orange-400 hover:to-orange-500 hover:shadow-xl whitespace-nowrap px-3
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                                 >
@@ -767,7 +766,7 @@ const HeartFrom: React.FC = () => {
                                                 onClick={() => {
                                                     handleDeleteWistlist(resWishlists.data.attributes.token)
                                                 }}
-                                                className="h-[50px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
+                                                className="h-[45px] flex items-center justify-center w-full gap-3 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 text-white 
                             hover:from-rose-600 hover:to-red-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                             >

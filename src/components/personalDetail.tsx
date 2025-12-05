@@ -59,10 +59,9 @@ const PersonalDetail: React.FC<ResAccount_Prop> = ({ data, included, fnRetrieveA
     const sxTextField: SxProps<Theme> = {
         width: '100%',
         '& .MuiOutlinedInput-root': {
-            borderRadius: "10px",
+            borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
             height: '45px',
-            // boxShadow: 'var(--shadow-lg)',
             padding: '3px 8px',
             transition: 'all 0.3s',
             fontSize: 'var(--text-xl)',

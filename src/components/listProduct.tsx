@@ -64,9 +64,8 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
         '& .MuiOutlinedInput-root': {
             borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
-            boxShadow: 'var(--shadow-md)',
             height: '45px',
-            // boxShadow: 'var(--shadow-lg)',
+            boxShadow: 'var(--shadow-md)',
             padding: '3px 8px',
             transition: 'all 0.3s',
             fontSize: 'var(--text-xl)',
