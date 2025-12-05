@@ -108,7 +108,7 @@ const CheckoutDelivery: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBac
     return (
         <>
             <div className="flex flex-col  order-2 lg:order-1">
-                <div className="gap-10 flex flex-col">
+                <div className="gap-5 md:gap-10 flex flex-col">
                     {errorUpdateCheckOut &&
                         <div className="p-4 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
                             <MdOutlineErrorOutline className="mx-auto" size={21} />{errorUpdateCheckOut}</div>

@@ -1160,15 +1160,15 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                     </div>
                 </div >
                 :
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-5 order-2 lg:order-1">
                     {errorUpdateCheckOut &&
                         <div className="p-4 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
                             <MdOutlineErrorOutline className="mx-auto" size={21} />{errorUpdateCheckOut}</div>
                     }
                     <form onClick={handleNextToDelivery}>
-                        <div className="flex flex-col w-full gap-10 self-start flex-1 ">
+                        <div className="flex flex-col w-full gap-5 md:gap-10 self-start flex-1 ">
                             <div className="flex flex-col w-full gap-3">
-                                <div className="sm:flex items-center sm:justify-between grid gap-5">
+                                <div className="sm:flex items-center sm:justify-between grid gap-3 md:gap-5">
                                     <h3 className="text-xl font-semibold">
                                         Contact information
                                     </h3>
