@@ -466,48 +466,57 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                         </div>
                                                     )}
                                                     {/* Name */}
-                                                    <h3 className="text-lg font-bold text-gray-900 
+                                                    <div className="flex gap-3">
+                                                        <div className="relative">
+                                                            <Stack direction="row" spacing={2} sx={{ margin: '0 auto' }}>
+                                                                <StyledBadge
+                                                                    overlap="circular"
+                                                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                                    variant="dot"
+                                                                >
+                                                                    <Avatar
+                                                                        sx={sxAvata}
+                                                                    >
+                                                                        <span className="text-md">
+                                                                            {res.attributes.firstname.charAt(0).toUpperCase() ?? <FaRegUser className="mx-auto" />}
+                                                                        </span>
+                                                                    </Avatar>
+                                                                </StyledBadge >
+                                                            </Stack>
+
+                                                        </div>
+                                                        <div>
+                                                            <h3 className="text-lg font-bold text-gray-900 
                                         group-hover:text-green-800 
                                         transition-colors duration-300
                                         truncate
                                         ">
-                                                        {res.attributes.firstname} {res.attributes.lastname}
-                                                    </h3>
-
-                                                    {/* Contact Information */}
-                                                    <div className="flex flex-col gap-1">
-
-                                                        {/* Phone */}
-                                                        {res.attributes.phone && (
-                                                            <div className="flex items-center gap-1 text-gray-700">
-                                                                <div className=" transition-colors duration-300">
-                                                                    <MdOutlinePhoneIphone className="text-green-600 text-sm" />
-                                                                </div>
-                                                                <span className="font-medium text-gray-900">{res.attributes.phone}</span>
-                                                            </div>
-                                                        )}
-
-                                                        {/* Address */}
-                                                        <div className="flex flex-wrap items-center gap-1 text-gray-600 text-sm leading-relaxed">
-                                                            <div className=" transition-colors duration-300">
-                                                                <LuMapPinHouse className="text-green-600 text-sm " />
-                                                            </div>
-                                                            {[
-                                                                res.attributes.address1,
-                                                                res.attributes.address2,
-                                                                res.attributes.city,
-                                                                res.attributes.state_name,
-                                                                res.attributes.zipcode,
-                                                                res.attributes.country_name
-                                                            ]
-                                                                .filter(Boolean)
-                                                                .map((part, index, array) => (
-                                                                    <span key={index} className="text-gray-700 ">
-                                                                        {part}{index < array.length - 1 ? ',' : ''}
-                                                                    </span>
-                                                                ))
-                                                            }
+                                                                {res.attributes.firstname} {res.attributes.lastname}
+                                                            </h3>
+                                                            <span className="font-medium text-sm text-gray-900">{res.attributes.phone}</span>
                                                         </div>
+                                                    </div>
+                                                    
+                                                    {/* Address */}
+                                                    <div className="flex flex-wrap items-center gap-1 text-gray-600 text-sm leading-relaxed">
+                                                        <div className=" transition-colors duration-300">
+                                                            <LuMapPinHouse className="text-green-600 text-sm " />
+                                                        </div>
+                                                        {[
+                                                            res.attributes.address1,
+                                                            res.attributes.address2,
+                                                            res.attributes.city,
+                                                            res.attributes.state_name,
+                                                            res.attributes.zipcode,
+                                                            res.attributes.country_name
+                                                        ]
+                                                            .filter(Boolean)
+                                                            .map((part, index, array) => (
+                                                                <span key={index} className="text-gray-700 ">
+                                                                    {part}{index < array.length - 1 ? ',' : ''}
+                                                                </span>
+                                                            ))
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
