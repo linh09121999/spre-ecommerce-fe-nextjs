@@ -452,7 +452,7 @@ const CheckoutFrom: React.FC = () => {
                             </div>
                         }
 
-                        <aside className="order-1 lg:order-2 flex flex-col w-full gap-10 self-start flex-1 p-5 bg-gray-100 rounded-xl h-full">
+                        <aside className="order-1 lg:order-2 flex flex-col w-full md:gap-10 gap-5 self-start flex-1 p-5 bg-gray-100 rounded-xl h-full">
                             {errorValidate &&
                                 <div className="p-4 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
                                     <MdOutlineErrorOutline className="mx-auto" size={21} />{errorValidate}</div>
