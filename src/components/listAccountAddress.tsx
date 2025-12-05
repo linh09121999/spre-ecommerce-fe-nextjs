@@ -296,7 +296,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
                                         </div>
                                         <div className="flex gap-3 items-center w-full transition-all duration-300 z-1">
-                                            <div className="grid gap-3">
+                                            <div className="grid gap-3 w-full">
                                                 {res.attributes.label && (
                                                     <div className=" items-center gap-2 max-w-[200px]">
                                                         <span className="text-sm font-semibold px-3 py-[4px] rounded-full bg-green-100 text-green-700 shadow-md backdrop-blur-md">
