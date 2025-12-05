@@ -1,13 +1,13 @@
 "use client"
 import { useStateGeneral } from "@/useState/useStateGeneralStoreFront";
 import { useState_ResCheckout } from "@/useState/useStatestorefront";
-import { Badge, Box, FormHelperText, Step, StepLabel, Stepper, TextField } from "@mui/material";
+import { Badge, Box, FormHelperText, Step, StepConnector, stepConnectorClasses, StepIconProps, StepLabel, Stepper, TextField } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
 
 import React, { useState, useEffect, useMemo } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { MdOutlineErrorOutline } from "react-icons/md";
+import { MdOutlineErrorOutline, MdOutlineShoppingCart } from "react-icons/md";
 import { ListAllCountries } from "@/service/storefront/countries";
 import { useState_ResCountries } from "@/useState/useStatestorefront";
 import { CheckoutIncludedShippingAddress, IncludedCheckoutLineItem } from "@/interface/responseData/interfaceStorefront";
@@ -18,12 +18,92 @@ import CheckOutAddress from "@/components/checkOutAddress";
 import CheckoutDelivery from "@/components/checkoutDelivery";
 import CheckoutPaymetPage from "@/components/checkoutPayment";
 import { IncludedImage, IncludedVariant, ProcessedWishedItem } from "@/interface/interface";
+import { LuMapPinHouse } from "react-icons/lu";
+import { FaRegMoneyBillAlt, FaShippingFast } from "react-icons/fa";
+import { styled } from '@mui/material/styles';
+
+const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+    [`&.${stepConnectorClasses.alternativeLabel}`]: {
+        top: 22,
+    },
+    [`&.${stepConnectorClasses.active}`]: {
+        [`& .${stepConnectorClasses.line}`]: {
+            backgroundImage:
+                'linear-gradient( 95deg,var(--color-green-500) 0%,var(--color-emerald-600) 100%)',
+        },
+    },
+    [`&.${stepConnectorClasses.completed}`]: {
+        [`& .${stepConnectorClasses.line}`]: {
+            backgroundImage:
+                'linear-gradient( 95deg,var(--color-green-500) 0%,var(--color-emerald-600) 100%)',
+        },
+    },
+    [`& .${stepConnectorClasses.line}`]: {
+        height: 3,
+        border: 0,
+        backgroundColor: '#eaeaf0',
+        borderRadius: 1,
+        ...theme.applyStyles('dark', {
+            backgroundColor: theme.palette.grey[800],
+        }),
+    },
+}));
+
+const ColorlibStepIconRoot = styled('div')<{
+    ownerState: { completed?: boolean; active?: boolean };
+}>(({ theme }) => ({
+    backgroundColor: '#ccc',
+    zIndex: 1,
+    color: '#fff',
+    width: 45,
+    height: 45,
+    display: 'flex',
+    borderRadius: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...theme.applyStyles('dark', {
+        backgroundColor: theme.palette.grey[700],
+    }),
+    variants: [
+        {
+            props: ({ ownerState }) => ownerState.active,
+            style: {
+                backgroundImage:
+                    'linear-gradient( 136deg, var(--color-green-500) 0%,var(--color-emerald-600) 100%)',
+                boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
+            },
+        },
+        {
+            props: ({ ownerState }) => ownerState.completed,
+            style: {
+                backgroundImage:
+                    'linear-gradient( 136deg, var(--color-green-500) 0%,var(--color-emerald-600) 100%)',
+            },
+        },
+    ],
+}));
+
+function ColorlibStepIcon(props: StepIconProps) {
+    const { active, completed, className } = props;
+
+    const icons: { [index: string]: React.ReactElement<unknown> } = {
+        1: <MdOutlineShoppingCart />,
+        2: <LuMapPinHouse />,
+        3: <FaShippingFast />,
+        4: <FaRegMoneyBillAlt />
+    };
+
+    return (
+        <ColorlibStepIconRoot ownerState={{ completed, active }} className={className}>
+            {icons[String(props.icon)]}
+        </ColorlibStepIconRoot>
+    );
+}
 
 const CheckoutFrom: React.FC = () => {
     const router = useRouter()
     const sxStep: SxProps<Theme> = {
         py: '20px',
-        px: '20px',
         mx: 'auto',
         maxWidth: '1200px',
         '& .MuiStepLabel-root': {
@@ -42,6 +122,9 @@ const CheckoutFrom: React.FC = () => {
             '&.Mui-completed': {
                 color: 'var(--color-green-600)'
             }
+        },
+        '& .MuiStepLabel-label': {
+            marginTop: '6px'
         }
     }
 
@@ -282,7 +365,7 @@ const CheckoutFrom: React.FC = () => {
     return (
         <>
             <Box sx={{ width: '100%' }}>
-                <Stepper activeStep={activeStep} sx={sxStep}>
+                <Stepper alternativeLabel activeStep={activeStep} sx={sxStep} connector={<ColorlibConnector />}>
                     {steps.map((label, index) => {
                         const stepProps: { completed?: boolean } = {};
                         const labelProps: {
@@ -293,14 +376,14 @@ const CheckoutFrom: React.FC = () => {
                         }
                         return (
                             <Step key={label} {...stepProps}>
-                                <StepLabel {...labelProps}>{label}</StepLabel>
+                                <StepLabel {...labelProps} StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
                             </Step>
                         );
                     })}
                 </Stepper>
 
-                <div className="p-5 max-w-[1535px] mx-auto flex flex-col gap-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10">
+                <div className="md:p-5 px-5 pb-5 max-w-[1535px] mx-auto flex flex-col md:gap-10 gap-5">
+                    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] md:gap-10 gap-5">
                         {activeStep === 1 &&
                             <CheckOutAddress
                                 fnBackStep={() => handleBack()}
@@ -421,7 +504,7 @@ const CheckoutFrom: React.FC = () => {
                                     />
                                     <button
                                         onClick={handleApplyCouponCode}
-                                        className="h-[40px] rounded-xl bg-gradient-to-br from-green-500 px-3 w-fit to-emerald-600 text-white 
+                                        className="h-[45px] rounded-xl bg-gradient-to-br from-green-500 px-3 w-fit to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative group"
                                     >
