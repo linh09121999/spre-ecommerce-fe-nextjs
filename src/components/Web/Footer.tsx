@@ -132,14 +132,14 @@ const FooterWeb: React.FC = () => {
 
     return (
         <>
-            <section className="px-5 py-16 bg-gradient-to-b from-gray-100 to-gray-200 text-black">
+            <section className="px-5 py-5 md:py-10 bg-gradient-to-b from-gray-100 to-gray-200 text-black">
                 <div className="max-w-[900px] mx-auto flex flex-col gap-6 items-center text-center">
-                    <h3 className="text-3xl uppercase font-bold tracking-wide 
+                    <h3 className="xl:text-3xl md:text-2xl text-xl uppercase font-bold tracking-wide 
       bg-gradient-to-r from-green-500 to-green-700 text-transparent bg-clip-text">
                         Subscribe to our newsletter
                     </h3>
 
-                    <p className="text-black/60 text-lg max-w-[700px] leading-relaxed">
+                    <p className="text-black/60 xl:text-lg md:text-md text-sm max-w-[700px] leading-relaxed">
                         Stay updated with our latest products, offers and exclusive deals.
                         Every subscription goes directly to your customer dashboard for easy management.
                     </p>
