@@ -340,6 +340,8 @@ const HeaderWeb: React.FC = () => {
         setIsSearch, isSearch, loading,
         hoveredNav, setHoveredNav } = useStateGeneral()
 
+    const [error500, setError500] = useState<number>(201)
+
     const getApiStores = async () => {
         try {
             setLoading(true);
@@ -347,11 +349,18 @@ const HeaderWeb: React.FC = () => {
             setResStores(res.data)
         } catch (error: any) {
             toast.error(`Stores: ` + error.response.data.error)
+            setError500(error.response.status)
         }
         finally {
             setLoading(false); // 👈 tắt loading sau khi có dữ liệu
         }
     }
+
+    useEffect(() => {
+        if (error500 === 500) {
+            router.push('/500')
+        }
+    }, [error500, getApiStores])
 
     const getApiTaxons = async (page: number, per_page: number) => {
         try {
@@ -1066,7 +1075,7 @@ const HeaderWeb: React.FC = () => {
                         </Backdrop>
                     }
                 </div>
-                
+
                 {(hoveredNav === 1 || hoveredNav === 2) &&
                     <div
                         onMouseEnter={() => setHoveredNav(hoveredNav)} // Giữ hiển thị khi rê qua div này
