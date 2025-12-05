@@ -28,11 +28,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
         '& .MuiOutlinedInput-root': {
             borderRadius: "var(--radius-xl)",
             background: "var(--color-white)",
-            height: '40px',
-            '@media(max-width: 687px)': {
-                height: '35px',
-                fontSize: 'var(--text-sm)',
-            },
+            height: '45px',
             padding: '3px 8px',
             transition: 'all 0.3s',
             fontSize: 'var(--text-xl)',
@@ -463,12 +459,12 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                     sx={{
                                         padding: 0,
                                         borderRadius: "18px",
-                                        overflow: "hidden",
+                                        // overflow: "hidden",
                                         background: "transparent",
                                     }}
                                 >
-                                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                                        <div className="w-full max-w-3xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-2xl relative overflow-hidden">
+                                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center md:p-5 p-3 z-50">
+                                        <div className="w-full max-w-3xl bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-2xl lg:p-10 md:p-5 p-3 border border-white/40 shadow-2xl relative overflow-hidden">
                                             <button
                                                 onClick={() => setOpenUpdateAccountAddress(false)}
                                                 className="absolute top-3 right-3 w-10 h-10 z-50 flex items-center justify-center
@@ -481,7 +477,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                             <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-200/30 rounded-full blur-xl"></div>
                                             <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-200/30 rounded-full blur-xl"></div>
                                             <div className="relative z-10">
-                                                <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text mb-2">
+                                                <h1 className="md:text-2xl text-xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-600">
                                                     Update An Address
                                                 </h1>
                                                 {errorUpdateAccountAddress && (
@@ -490,7 +486,8 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                         <span>{errorUpdateAccountAddress}</span>
                                                     </div>
                                                 )}
-                                                <form onSubmit={handleUpdateAccountAddress} className="flex flex-col gap-5">
+                                                <form onSubmit={handleUpdateAccountAddress}
+                                                    className="flex flex-col md:gap-5 gap-2">
                                                     <div className="flex flex-col gap-1">
                                                         <label htmlFor="label" className="block text-md font-medium text-gray-700">
                                                             Label
@@ -611,7 +608,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                             }
                                                         />
                                                     </div>
-                                                    <div className='grid grid-cols-2 gap-3'>
+                                                    <div className='grid sm:grid-cols-2 gap-3'>
                                                         <div className="flex flex-col gap-1">
                                                             <label htmlFor="address1" className="block text-md font-medium text-gray-700">
                                                                 Street and house number <span className="text-red-500">*</span>
@@ -656,7 +653,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className='grid grid-cols-3 gap-3'>
+                                                    <div className='grid grid-cols-2 gap-3'>
                                                         <div className="flex flex-col gap-1">
                                                             <label htmlFor="city" className="block text-md font-medium text-gray-700">
                                                                 City <span className="text-red-500">*</span>
@@ -731,8 +728,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                                 helperText={errorEmptyAccountAddress.zipcode}
                                                             />
                                                         </div>
-                                                    </div>
-                                                    <div className="flex flex-col gap-1">
+                                                        <div className="flex flex-col gap-1">
                                                         <label htmlFor="phone" className="block text-md font-medium text-gray-700">
                                                             Phone
                                                         </label>
@@ -752,7 +748,9 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                             }
                                                         />
                                                     </div>
-                                                    <div className="flex gap-3">
+                                                    </div>
+                                                    
+                                                    <div className="flex gap-3 mt-3">
                                                         <button
                                                             type="button"
                                                             onClick={() => setOpenUpdateAccountAddress(false)}
@@ -778,7 +776,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                                         relative overflow-hidden
                                                                     "
                                                         >
-                                                            <span className="relative z-10">Update An Address</span>
+                                                            <span className="relative z-10">Update</span>
                                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                                                         </button>
                                                     </div>

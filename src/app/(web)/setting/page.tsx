@@ -726,7 +726,7 @@ const SettingWeb: React.FC = () => {
                                                 <form onSubmit={handleCreateAccountAddress}
                                                     className="flex flex-col md:gap-5 gap-2">
                                                     <div className="flex flex-col gap-1">
-                                                        <label htmlFor="label" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                        <label htmlFor="label" className="block text-md font-medium text-gray-700">
                                                             Label
                                                         </label>
                                                         <TextField
@@ -746,7 +746,7 @@ const SettingWeb: React.FC = () => {
                                                         />
                                                     </div>
                                                     <div className="flex flex-col gap-1">
-                                                        <label htmlFor="country" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                        <label htmlFor="country" className="block text-md font-medium text-gray-700">
                                                             Country <span className="text-red-500">*</span>
                                                         </label>
                                                         {/* auto complate */}
@@ -778,7 +778,7 @@ const SettingWeb: React.FC = () => {
                                                     </div>
                                                     <div className='grid grid-cols-2 gap-3'>
                                                         <div className="flex flex-col gap-1">
-                                                            <label htmlFor="firstName" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                            <label htmlFor="firstName" className="block text-md font-medium text-gray-700">
                                                                 First Name <span className="text-red-500">*</span>
                                                             </label>
                                                             <TextField
@@ -801,7 +801,7 @@ const SettingWeb: React.FC = () => {
                                                             />
                                                         </div>
                                                         <div className="flex flex-col gap-1">
-                                                            <label htmlFor="lastName" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                            <label htmlFor="lastName" className="block text-md font-medium text-gray-700">
                                                                 Last name <span className="text-red-500">*</span>
                                                             </label>
                                                             <TextField
@@ -826,7 +826,7 @@ const SettingWeb: React.FC = () => {
 
                                                     </div>
                                                     <div className="flex flex-col gap-1">
-                                                        <label htmlFor="company" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                        <label htmlFor="company" className="block text-md font-medium text-gray-700">
                                                             Company
                                                         </label>
                                                         <TextField
@@ -847,7 +847,7 @@ const SettingWeb: React.FC = () => {
                                                     </div>
                                                     <div className='grid sm:grid-cols-2 gap-3'>
                                                         <div className="flex flex-col gap-1">
-                                                            <label htmlFor="address1" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                            <label htmlFor="address1" className="block text-md font-medium text-gray-700">
                                                                 Street and house number <span className="text-red-500">*</span>
                                                             </label>
                                                             <TextField
@@ -870,7 +870,7 @@ const SettingWeb: React.FC = () => {
                                                             />
                                                         </div>
                                                         <div className="flex flex-col gap-1">
-                                                            <label htmlFor="address2" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                            <label htmlFor="address2" className="block text-md font-medium text-gray-700">
                                                                 Additional addresses
                                                             </label>
                                                             <TextField
@@ -890,9 +890,9 @@ const SettingWeb: React.FC = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className='grid smgrid-cols-3 gap-3'>
+                                                    <div className='grid grid-cols-2 gap-3'>
                                                         <div className="flex flex-col gap-1">
-                                                            <label htmlFor="city" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                            <label htmlFor="city" className="block text-md font-medium text-gray-700">
                                                                 City <span className="text-red-500">*</span>
                                                             </label>
                                                             <TextField
@@ -915,7 +915,7 @@ const SettingWeb: React.FC = () => {
                                                             />
                                                         </div>
                                                         <div className="flex flex-col gap-1">
-                                                            <label htmlFor="state_name" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                            <label htmlFor="state_name" className="block text-md font-medium text-gray-700">
                                                                 State name
                                                             </label>
                                                             <FormControl className="w-full" sx={sxFormControl} size="small">
@@ -943,7 +943,7 @@ const SettingWeb: React.FC = () => {
                                                             </FormControl>
                                                         </div>
                                                         <div className="flex flex-col gap-1">
-                                                            <label htmlFor="zipcode" className="block sm:text-md text-sm font-medium text-gray-700">
+                                                            <label htmlFor="zipcode" className="block text-md font-medium text-gray-700">
                                                                 Postal Code <span className="text-red-500">*</span>
                                                             </label>
                                                             <TextField
@@ -965,27 +965,28 @@ const SettingWeb: React.FC = () => {
                                                                 helperText={errorEmptyAccountAddress.zipcode}
                                                             />
                                                         </div>
+                                                        <div className="flex flex-col gap-1">
+                                                            <label htmlFor="phone" className="block text-md font-medium text-gray-700">
+                                                                Phone
+                                                            </label>
+                                                            <TextField
+                                                                type="text"
+                                                                autoComplete="phone"
+                                                                placeholder="Phone"
+                                                                name="phone"
+                                                                variant="outlined"
+                                                                sx={sxTextField}
+                                                                value={createAccountAddress.phone}
+                                                                onChange={(e) =>
+                                                                    setCreateAccountAddress(prev => ({
+                                                                        ...prev,
+                                                                        phone: e.target.value
+                                                                    }))
+                                                                }
+                                                            />
+                                                        </div>
                                                     </div>
-                                                    <div className="flex flex-col gap-1">
-                                                        <label htmlFor="phone" className="block sm:text-md text-sm font-medium text-gray-700">
-                                                            Phone
-                                                        </label>
-                                                        <TextField
-                                                            type="text"
-                                                            autoComplete="phone"
-                                                            placeholder="Phone"
-                                                            name="phone"
-                                                            variant="outlined"
-                                                            sx={sxTextField}
-                                                            value={createAccountAddress.phone}
-                                                            onChange={(e) =>
-                                                                setCreateAccountAddress(prev => ({
-                                                                    ...prev,
-                                                                    phone: e.target.value
-                                                                }))
-                                                            }
-                                                        />
-                                                    </div>
+
                                                     <div className="grid grid-cols-2 mt-3 gap-3">
                                                         <button
                                                             type="button"
@@ -1108,7 +1109,7 @@ const SettingWeb: React.FC = () => {
                                                 </h1>
 
                                                 <div className="flex flex-col gap-1">
-                                                    <label className="block sm:text-md text-sm font-medium text-gray-700 mb-2">
+                                                    <label className="block text-md font-medium text-gray-700 mb-2">
                                                         Payment Method <span className="text-red-500">*</span>
                                                     </label>
                                                     <Select
