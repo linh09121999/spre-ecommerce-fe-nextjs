@@ -247,25 +247,25 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
 
     return (
         <>
-            <div className={`relative overflow-hidden`}>
-                <div className={`transition-transform duration-500 ease-in-out `}>
+            <div className={`relative `}>
+                <div className={`transition-transform duration-300 ease-in-out `}>
                     {data.length > 0 ?
                         <div className="flex flex-col gap-5">
                             {data.map((res) => (
                                 <div
                                     key={res.id}
                                     className="
-                                w-full p-5 rounded-xl bg-white border border-gray-200 
-                                shadow-sm hover:shadow-lg 
-                                transition-all duration-500 ease-out
-                                hover:-translate-y-2 hover:border-green-300
+                                w-full sm:p-5 sm:rounded-xl bg-white sm:border sm:border-gray-200   py-3 border-b border-gray-200  hover:bg-gray-50 transition-colors
+                                sm:shadow-sm sm:hover:shadow-lg 
+                                transition-all duration-300 ease-out
+                                sm:hover:-translate-y-2 hover:border-green-300
                                 relative overflow-hidden
                                 group cursor-pointer
                                 backdrop-blur-sm
                                 "
                                 >
                                     {/* Gradient Background Effect */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                                    <div className="max-sm:hidden absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
                                         <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
                                     </div>
@@ -274,19 +274,12 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                     <div className="sm:flex sm:justify-between grid grid-cols-1 items-center sm:gap-5 relative z-10">
                                         <div className={`flex-row-reverse  transition-all duration-300 group flex relative sm:gap-10 gap-5 items-center w-full `}>
                                             {editMode &&
-                                                <div className={`flex gap-3 justify-center ml-auto sm:hidden transition-all duration-300`}>
+                                                <div className={`flex  justify-center ml-auto sm:hidden transition-all duration-300`}>
                                                     <button
                                                         aria-label="Edit contact"
-                                                        className="
-            p-3 rounded-xl bg-white text-green-600 
-            border border-green-200
-            hover:bg-green-50 hover:text-green-700 
-            hover:border-green-300
-            transition-all duration-300
-            hover:scale-105
-            shadow-sm hover:shadow-md
-            focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50
-          "
+                                                        className="max-md:min-w-[60px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[50px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] bg-gradient-to-br from-green-500 px-5 to-emerald-600 text-white 
+                            hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
+                            font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                                         onClick={() => {
                                                             setOpenUpdateAccountAddress(true)
                                                             getApiListCountries()
@@ -309,32 +302,31 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                             )
                                                         }}
                                                     >
-                                                        <FaEdit size={20} />
+                                                        <FaEdit size={20} className="mx-auto" />
+                                                        <div className="absolute inset-0 overflow-hidden">
+                                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                        </div>
+                                                        <div className="absolute inset-0 border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                                     </button>
 
                                                     <button
                                                         aria-label="Delete contact"
-                                                        className="
-            p-3 rounded-xl bg-white text-red-600 
-            border border-red-200
-            hover:bg-red-50 hover:text-red-700 
-            hover:border-red-300
-            transition-all duration-300
-            hover:scale-105
-            shadow-sm hover:shadow-md
-            focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50
-          "
+                                                        className="max-md:min-w-[60px] max-md:min-h-[100px] max-md:max-h-[100px] max-[400px]:min-w-[50px] max-[400px]:min-h-[80px] max-[400px]:max-h-[80px] items-center bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
                                                         onClick={() => handleDelate(res.id)}
                                                     >
-                                                        <FaTrashAlt size={20} />
+                                                        <FaTrashAlt size={20} className="mx-auto" />
+                                                        <div className="absolute inset-0 overflow-hidden">
+                                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                        </div>
+                                                        <div className="absolute inset-0 border-2 border-red-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                                     </button>
                                                 </div>
                                             }
                                             <div className={` relative grid gap-3 items-center w-full transition-all duration-300 min-w-[300px]`}>
                                                 {res.attributes.label && (
                                                     <div className=" items-center gap-2 max-w-[200px]">
-                                                        <span className="
-                                                text-md font-semibold px-3 py-[4px] rounded-full bg-green-100 text-green-700 shadow-md backdrop-blur-md">
+                                                        <span className=" 
+                                                sm:text-md text-sm font-semibold px-3 py-[4px] rounded-full bg-green-100 text-green-700 shadow-md backdrop-blur-md">
                                                             {/* <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> */}
                                                             {res.attributes.label}
                                                         </span>
@@ -342,7 +334,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                 )}
                                                 {/* Name */}
                                                 <h3 className="
-                                        text-2xl font-bold text-gray-900 
+                                        sm:text-xl text-lg font-bold text-gray-900 
                                         group-hover:text-green-800 
                                         transition-colors duration-300
                                         truncate
@@ -379,7 +371,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                             ]
                                                                 .filter(Boolean)
                                                                 .map((part, index, array) => (
-                                                                    <span key={index} className="text-gray-700">
+                                                                    <span key={index} className="text-gray-700 ">
                                                                         {part}{index < array.length - 1 ? ',' : ''}
                                                                     </span>
                                                                 ))
@@ -449,13 +441,12 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                     </div>
 
                                     {/* Hover Border Effect */}
-                                    <div className="
-      absolute inset-0 rounded-xl 
-      bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 
-      opacity-0 group-hover:opacity-5 
-      transition-opacity duration-500
-      -z-5
-    "></div>
+                                    <div className="max-sm:hidden absolute inset-0 rounded-xl 
+                                                    bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 
+                                                    opacity-0 group-hover:opacity-5 
+                                                    transition-opacity duration-300
+                                                    -z-5
+                                                    "></div>
                                 </div>
                             ))}
 
