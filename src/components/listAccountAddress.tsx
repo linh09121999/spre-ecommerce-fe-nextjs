@@ -371,7 +371,7 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="flex flex-wrap items-center gap-1 text-gray-600 text-sm leading-relaxed">
+                                        <div className="flex flex-wrap items-center gap-1 text-gray-600 text-sm leading-relaxed z-1 relative">
                                             <div className=" transition-colors duration-300">
                                                 <LuMapPinHouse className="text-green-600 text-sm " />
                                             </div>
