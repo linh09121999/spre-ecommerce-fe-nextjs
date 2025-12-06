@@ -367,7 +367,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
             </div>
 
             {/* Product Section */}
-            <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-[2fr_3fr] md:gap-10 gap-5 px-5 py-5">
+            <div className="max-w-[1535px] mx-auto grid grid-cols-1 lg:grid-cols-2 md:gap-10 gap-5 px-5 md:py-5">
 
                 {/* Left: Images */}
                 <div className="flex max-lg:flex-col gap-4"
@@ -400,7 +400,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                         ))}
                     </div>
                     <div
-                        className="order-1 lg:order-2 aspect-square rounded-xl overflow-hidden relative group shadow-lg"
+                        className="order-1 lg:order-2 aspect-square rounded-xl overflow-hidden relative group shadow-lg  aspect-[1/1]"
                         rounded-xl="fade-up"
                     >
                         {mainImage && (
@@ -416,7 +416,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                 </div>
 
                 {/* Right: Product Info */}
-                <div className="flex flex-col gap-5"
+                <div className="flex flex-col xl:gap-5 gap-3"
                     data-aos-duration="1200"
                     data-aos="fade-left"
                 >
@@ -622,12 +622,6 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                         </button>
                     </div>
 
-                    {/* Description */}
-                    <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">Description</h3>
-                        {data && <div className="text-gray-600 leading-relaxed" dangerouslySetInnerHTML={{ __html: data.attributes.description }} />}
-                    </div>
-
                     <div className="flex flex-wrap gap-4">
                         <div className="flex items-center gap-2 ">
                             <FaShippingFast className='text-green-500' />
@@ -644,6 +638,13 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                     </div>
                 </div>
             </div>
+
+            {/* Description */}
+            <div className='max-w-[1535px] mx-auto flex flex-col px-5 pt-5'>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Description</h3>
+                {data && <div className="text-gray-600 leading-relaxed" dangerouslySetInnerHTML={{ __html: data.attributes.description }} />}
+            </div>
+
             <Dialog
                 open={modalOpenSelectWishlist}
                 onClose={() => setModalOpenSelectWishlist(false)}
