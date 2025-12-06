@@ -196,7 +196,7 @@ const Register: React.FC = () => {
                     before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-emerald-500/20 before:via-transparent before:to-cyan-500/20 before:blur-2xl before:-z-10">
                     <div className="md:gap-5 gap-3 flex flex-col justify-center">
                         <img
-                            className="relative w-36 drop-shadow-2xl 
+                            className="relative md:w-36 w-32 drop-shadow-2xl 
         animate-[float_4s_ease-in-out_infinite] transition-transform duration-300 hover:scale-105 mx-auto"
                             alt="Spree Logo"
                             src="../../LogoFullBlack.webp"
@@ -213,15 +213,15 @@ const Register: React.FC = () => {
                             onClick={handleSubmit}
                             className="flex flex-col md:gap-5 gap-2">
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="email" className="md:text-xl text-md font-medium text-gray-300">
+                                <label htmlFor="inputEmail" className="block md:text-xl text-md font-medium text-gray-300">
                                     Email
                                 </label>
                                 <TextField
                                     type="email"
                                     required
-                                    autoComplete="email"
+                                    autoComplete="inputEmail"
                                     placeholder="Email"
-                                    name="email"
+                                    name="inputEmail"
                                     slotProps={{
                                         input: {
                                             startAdornment: (
@@ -239,7 +239,7 @@ const Register: React.FC = () => {
                                         setRegister(prev =>
                                         ({
                                             ...prev,
-                                            username: e.target.value
+                                            email: e.target.value
                                         })
                                         )
                                     }
