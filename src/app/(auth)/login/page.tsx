@@ -139,10 +139,22 @@ const Login: React.FC = () => {
             const token = res.data.access_token
             handleLogin(token)
             setErrorLogin("")
+
             const previousPage = document.referrer;
-            const referrerUrl = new URL(previousPage);
-            const previousPath = referrerUrl.pathname;
+
+            let previousPath = "/";
+
+            if (previousPage && previousPage.startsWith("http")) {
+                try {
+                    const referrerUrl = new URL(previousPage);
+                    previousPath = referrerUrl.pathname;
+                } catch (e) {
+                    previousPath = "/";
+                }
+            }
+
             console.log(previousPath)
+
             if (previousPath === '/login' || previousPath === '/') {
                 rounter.push('/');
             } else if (window.history.length > 1) {
