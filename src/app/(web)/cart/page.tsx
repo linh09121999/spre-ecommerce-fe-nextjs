@@ -893,10 +893,11 @@ const ViewCart: React.FC = () => {
                                 onClick={() => {
                                     handleValidateOrderPayment("line_items")
                                 }}
-                                className="h-[45px] rounded-xl bg-gradient-to-br from-green-500 px-10 to-emerald-600 text-white 
-                            hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
-                            font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-                            >
+                                disabled={Number(resCart?.data.attributes.item_count) === 0}
+                                className={`h-[45px] rounded-xl bg-gradient-to-br from-green-500 w-full to-emerald-600 text-white w-fit font-bold text-lg transition-all duration-300 transform  shadow-lg relative overflow-hidden group 
+                                ${Number(resCart?.data.attributes.item_count) === 0
+                                    ? 'opacity-60 cursor-not-allowed'
+                                    : 'hover:from-green-600 hover:to-emerald-700 hover:shadow-xl hover:scale-105'}`}>
                                 Checkout
                                 <div className="absolute inset-0 overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
