@@ -480,10 +480,14 @@ const SettingWeb: React.FC = () => {
             return;
         }
 
+        const gatewayPaymentProfileId =
+            resAccountCreditCard_All?.data?.[0]?.attributes?.gateway_payment_profile_id
+            ?? paymentMethodId;
+
         const data: CheckoutPayment = {
             payment_method_id: idPaymentMethod,
             source_attributes: {
-                gateway_payment_profile_id: resAccountCreditCard_All?.data[0].attributes.gateway_payment_profile_id ?? paymentMethodId, // Sử dụng paymentMethodId từ Stripe
+                gateway_payment_profile_id: gatewayPaymentProfileId,
                 cc_type: cardData.cc_type,
                 last_digits: cardData.last_digits,
                 month: cardData.month,
@@ -990,6 +994,8 @@ const SettingWeb: React.FC = () => {
                                                                         phone: e.target.value
                                                                     }))
                                                                 }
+                                                                error={Boolean(errorEmptyAccountAddress.phone)}
+                                                                helperText={errorEmptyAccountAddress.phone}
                                                             />
                                                         </div>
                                                     </div>

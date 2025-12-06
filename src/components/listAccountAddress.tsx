@@ -825,6 +825,8 @@ const ListAccountAddressPage: React.FC<ResAccountAddress_ListAll_Prop> = ({ data
                                                                         phone: e.target.value
                                                                     }))
                                                                 }
+                                                                error={Boolean(errorEmptyAccountAddress.phone)}
+                                                                helperText={errorEmptyAccountAddress.phone}
                                                             />
                                                         </div>
                                                     </div>

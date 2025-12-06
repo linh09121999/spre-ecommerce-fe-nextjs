@@ -987,6 +987,8 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                                             phone: e.target.value
                                                                         }))
                                                                     }
+                                                                    error={Boolean(errorEmptyAccountAddress.phone)}
+                                                                    helperText={errorEmptyAccountAddress.phone}
                                                                 />
                                                             </div>
                                                         </div>
