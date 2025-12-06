@@ -1070,7 +1070,7 @@ const SettingWeb: React.FC = () => {
                                 <h3 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-700 text-transparent bg-clip-text">
                                     Store Credits
                                 </h3>
-                                <button
+                                {/* <button
                                     aria-label='add address'
                                     className="h-[45px] w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
@@ -1087,7 +1087,7 @@ const SettingWeb: React.FC = () => {
                                     </div>
                                     <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-                                </button>
+                                </button> */}
                             </div>
                             <Dialog open={openCreateCredit} onClose={() => setOpenCreateCredit(false)} maxWidth="md" fullWidth>
                                 <DialogContent

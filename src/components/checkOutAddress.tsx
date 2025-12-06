@@ -299,33 +299,6 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
         }
     }
 
-    const handleChangeSearchCountry = (
-        _: React.SyntheticEvent | null,
-        newValue: Country | null
-    ) => {
-        if (!newValue) return;
-        setOrder(prev => ({
-            ...prev,
-            bill_address_attributes: {
-                ...prev.bill_address_attributes,
-                country_iso: newValue.attributes.iso
-            },
-        }))
-        getApiRetrieveCountry(newValue.attributes.iso, 'states')
-    }
-
-    const handleChangeSearchState = (_: React.SyntheticEvent | null,
-        newValue: CountryInclude | null) => {
-        if (!newValue) return;
-        setOrder(prev => ({
-            ...prev,
-            bill_address_attributes: {
-                ...prev.bill_address_attributes,
-                state_name: newValue.attributes.abbr
-            },
-        }))
-    }
-
     const { resCountries_List, setResCountries_List, resCountries_Retrieve, setResCountries_Retrieve } = useState_ResCountries()
 
     const handleNextToDelivery = async (e: React.FormEvent) => {
@@ -408,6 +381,54 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
             label: "",
         }
     )
+
+
+    const handleChangeSearchCountry = (
+        _: React.SyntheticEvent | null,
+        newValue: Country | null
+    ) => {
+        if (!newValue) return;
+        setOrder(prev => ({
+            ...prev,
+            bill_address_attributes: {
+                ...prev.bill_address_attributes,
+                country_iso: newValue.attributes.iso
+            },
+        }))
+
+        getApiRetrieveCountry(newValue.attributes.iso, 'states')
+    }
+
+    const handleChangeSearchCountryCreate = (_: React.SyntheticEvent | null,
+        newValue: Country | null) => {
+        if (!newValue) return;
+        setCreateAccountAddress(prev => ({
+            ...prev,
+            country_iso: newValue.attributes.iso
+        }))
+        getApiRetrieveCountry(newValue.attributes.iso, 'states')
+    }
+
+    const handleChangeSearchState = (_: React.SyntheticEvent | null,
+        newValue: CountryInclude | null) => {
+        if (!newValue) return;
+        setOrder(prev => ({
+            ...prev,
+            bill_address_attributes: {
+                ...prev.bill_address_attributes,
+                state_name: newValue.attributes.abbr
+            },
+        }))
+    }
+
+    const handleChangeSearchStateCreate = (_: React.SyntheticEvent | null,
+        newValue: CountryInclude | null) => {
+        if (!newValue) return;
+        setCreateAccountAddress(prev => ({
+            ...prev,
+            state_name: newValue.attributes.abbr
+        }))
+    }
 
     const validateFieldsAccountAddress = () => {
         let newErrors: any = {};
@@ -657,27 +678,29 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                 </button>
                             </div>
                             <div className='flex gap-3'>
-                                <TextField
-                                    type="search"
-                                    placeholder="Search of address..."
-                                    sx={sxTextField}
-                                    onChange={(e) => setInputValueAccountAddress(e.target.value)}
-                                    value={inputValueAccountAddress}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    sx={{ color: 'var(--color-gray-300)' }}
-                                                >
-                                                    <IoMdSearch className="mx-auto" />
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
+                                {resDataAccountAddress_All.length > 0 &&
+                                    <TextField
+                                        type="search"
+                                        placeholder="Search of address..."
+                                        sx={sxTextField}
+                                        onChange={(e) => setInputValueAccountAddress(e.target.value)}
+                                        value={inputValueAccountAddress}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        sx={{ color: 'var(--color-gray-300)' }}
+                                                    >
+                                                        <IoMdSearch className="mx-auto" />
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                }
                                 <button
                                     aria-label='add address'
-                                    className="h-[45px] max-md:hidden w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
+                                    className="h-[45px] ml-auto max-md:hidden w-[45px] rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
 
@@ -816,7 +839,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                                                     .includes(removeVietnameseTones(inputValue).toLowerCase())
                                                                             )
                                                                         }
-                                                                        onChange={handleChangeSearchCountry}
+                                                                        onChange={handleChangeSearchCountryCreate}
                                                                         renderInput={(params) => (
                                                                             <TextField  {...params}
                                                                                 placeholder="Search for countries..."
@@ -936,7 +959,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                                                                     .includes(removeVietnameseTones(inputValue).toLowerCase())
                                                                             )
                                                                         }
-                                                                        onChange={handleChangeSearchState}
+                                                                        onChange={handleChangeSearchStateCreate}
                                                                         renderInput={(params) => (
                                                                             <TextField  {...params}
                                                                                 placeholder="Search for state..."
@@ -1029,113 +1052,121 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
                                 </Dialog>
                             </div>
                         </div>
-                        <RadioGroup
-                            aria-labelledby="demo-controlled-radio-buttons-group"
-                            name="controlled-radio-buttons-group"
-                            value={valueIdShippingAddress}
-                            onChange={handleChangeShippingAddress}
-                        >
-                            {(filterAccountAddress) &&
-                                <div className="flex flex-col gap-5">
-                                    {filterAccountAddress.map((res) => (
-                                        <div
-                                            key={res.id}
-                                            className={`${valueIdShippingAddress === res.id ? 'border-green-500 border shadow-sm' : ' '} w-full rounded-xl bg-white  
+                        {resDataAccountAddress_All.length > 0 ?
+                            <RadioGroup
+                                aria-labelledby="demo-controlled-radio-buttons-group"
+                                name="controlled-radio-buttons-group"
+                                value={valueIdShippingAddress}
+                                onChange={handleChangeShippingAddress}
+                            >
+                                {(filterAccountAddress) &&
+                                    <div className="flex flex-col gap-5">
+                                        {filterAccountAddress.map((res) => (
+                                            <div
+                                                key={res.id}
+                                                className={`${valueIdShippingAddress === res.id ? 'border-green-500 border shadow-sm' : ' '} w-full rounded-xl bg-white  
                                                          hover:shadow-lg 
                                                         transition-all duration-500 ease-out
                                                         hover:-translate-y-2 hover:border-green-300
                                                         relative overflow-hidden
                                                         group cursor-pointer
                                                         backdrop-blur-sm`}
-                                        >
-                                            <FormControlLabel
-                                                value={res.id}
-                                                control={<Radio sx={{
-                                                    zIndex: '10',
-                                                    p: 0,
-                                                    '&.Mui-checked': {
-                                                        color: 'var(--color-green-600)',
-                                                    },
-                                                }} />}
-                                                sx={sxRadio}
-                                                label={
-                                                    <div>
-                                                        <div className={`${valueIdShippingAddress === res.id ? 'opacity-100' : 'opacity-0'} absolute inset-0  group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}>
-                                                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
-                                                            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
-                                                        </div>
-                                                        <div className="flex flex-col gap-3 ">
-                                                            <div className="flex gap-3 z-1 relative">
-                                                                <div className="relative ">
-                                                                    <Stack direction="row" spacing={2} sx={{ margin: '0 auto' }}>
-                                                                        <StyledBadge
-                                                                            overlap="circular"
-                                                                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                                                            variant="dot"
-                                                                        >
-                                                                            <Avatar
-                                                                                sx={sxAvata}
+                                            >
+                                                <FormControlLabel
+                                                    value={res.id}
+                                                    control={<Radio sx={{
+                                                        zIndex: '10',
+                                                        p: 0,
+                                                        '&.Mui-checked': {
+                                                            color: 'var(--color-green-600)',
+                                                        },
+                                                    }} />}
+                                                    sx={sxRadio}
+                                                    label={
+                                                        <div>
+                                                            <div className={`${valueIdShippingAddress === res.id ? 'opacity-100' : 'opacity-0'} absolute inset-0  group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}>
+                                                                <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full blur-3xl"></div>
+                                                                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-green-100 to-teal-50 rounded-full blur-2xl"></div>
+                                                            </div>
+                                                            <div className="flex flex-col gap-3 ">
+                                                                <div className="flex gap-3 z-1 relative">
+                                                                    <div className="relative ">
+                                                                        <Stack direction="row" spacing={2} sx={{ margin: '0 auto' }}>
+                                                                            <StyledBadge
+                                                                                overlap="circular"
+                                                                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                                                variant="dot"
                                                                             >
-                                                                                <span className="text-md">
-                                                                                    {res.attributes.firstname.charAt(0).toUpperCase() ?? <FaRegUser className="mx-auto" />}
-                                                                                </span>
-                                                                            </Avatar>
-                                                                        </StyledBadge >
-                                                                    </Stack>
+                                                                                <Avatar
+                                                                                    sx={sxAvata}
+                                                                                >
+                                                                                    <span className="text-md">
+                                                                                        {res.attributes.firstname.charAt(0).toUpperCase() ?? <FaRegUser className="mx-auto" />}
+                                                                                    </span>
+                                                                                </Avatar>
+                                                                            </StyledBadge >
+                                                                        </Stack>
 
-                                                                </div>
-                                                                <div>
-                                                                    <h3 className="text-lg font-bold text-gray-900 
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 className="text-lg font-bold text-gray-900 
                                                                                                     group-hover:text-green-800 
                                                                                                     transition-colors duration-300
                                                                                                     truncate
                                                                                                     ">
-                                                                        {res.attributes.firstname} {res.attributes.lastname}
-                                                                    </h3>
-                                                                    <span className="font-medium text-sm text-gray-900">{res.attributes.phone}</span>
+                                                                            {res.attributes.firstname} {res.attributes.lastname}
+                                                                        </h3>
+                                                                        <span className="font-medium text-sm text-gray-900">{res.attributes.phone}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="relative flex z-1 flex-wrap items-center gap-1 text-gray-600 text-sm leading-relaxed">
+                                                                    <div className=" transition-colors duration-300">
+                                                                        <LuMapPinHouse className="text-green-600 text-sm " />
+                                                                    </div>
+                                                                    {[
+                                                                        res.attributes.address1,
+                                                                        res.attributes.address2,
+                                                                        res.attributes.city,
+                                                                        res.attributes.state_name,
+                                                                        res.attributes.zipcode,
+                                                                        res.attributes.country_name
+                                                                    ]
+                                                                        .filter(Boolean)
+                                                                        .map((part, index, array) => (
+                                                                            <span key={index} className="text-gray-700 ">
+                                                                                {part}{index < array.length - 1 ? ',' : ''}
+                                                                            </span>
+                                                                        ))
+                                                                    }
                                                                 </div>
                                                             </div>
-                                                            <div className="relative flex z-1 flex-wrap items-center gap-1 text-gray-600 text-sm leading-relaxed">
-                                                                <div className=" transition-colors duration-300">
-                                                                    <LuMapPinHouse className="text-green-600 text-sm " />
-                                                                </div>
-                                                                {[
-                                                                    res.attributes.address1,
-                                                                    res.attributes.address2,
-                                                                    res.attributes.city,
-                                                                    res.attributes.state_name,
-                                                                    res.attributes.zipcode,
-                                                                    res.attributes.country_name
-                                                                ]
-                                                                    .filter(Boolean)
-                                                                    .map((part, index, array) => (
-                                                                        <span key={index} className="text-gray-700 ">
-                                                                            {part}{index < array.length - 1 ? ',' : ''}
-                                                                        </span>
-                                                                    ))
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                        <div className={`${valueIdShippingAddress === res.id ? 'opacity-5' : 'opacity-0'}
+                                                            <div className={`${valueIdShippingAddress === res.id ? 'opacity-5' : 'opacity-0'}
                                                             absolute inset-0 rounded-xl 
                                                             bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 
                                                              group-hover:opacity-5 
                                                             transition-opacity duration-500
                                                             -z-5`}></div>
-                                                    </div>
-                                                }>
+                                                        </div>
+                                                    }>
 
-                                            </FormControlLabel>
-                                        </div>
-                                    ))}
-                                </div>
-                            }
-                            {loadingReadMore && (
-                                <p className="text-center py-4 text-gray-500 animate-pulse">
-                                    loading more...
-                                </p>
-                            )}
-                        </RadioGroup >
+                                                </FormControlLabel>
+                                            </div>
+                                        ))}
+                                    </div>
+                                }
+                                {loadingReadMore && (
+                                    <p className="text-center py-4 text-gray-500 animate-pulse">
+                                        loading more...
+                                    </p>
+                                )}
+                            </RadioGroup >
+                            :
+                            <div className="flex flex-col gap-1">
+                                <img src="../../no-address.webp" alt="no order" className="w-[200px] mx-auto" />
+                                <p className="text-center text-gray-500 text-md">No addresses yet.</p>
+                                <p className="text-center text-gray-500 text-sm">Add a delivery address to proceed with checkout.</p>
+                            </div>
+                        }
                     </div >
                     <div className="flex justify-end gap-5">
                         <button className="md:px-16 px-4 md:text-md text-sm uppercase h-[50px] rounded-xl border border-green-600 text-green-600 font-semibold transition-transform hover:border-green-700 hover:scale-105"

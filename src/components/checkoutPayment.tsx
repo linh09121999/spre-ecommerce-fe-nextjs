@@ -240,7 +240,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
         }
     }
 
-    const {isAuthenticated } = useAuth();
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -253,9 +253,9 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                 name: "",
             })
         } else {
-            getApiListPaymentMethods()
             setResAccountCreditCard_All(undefined)
         }
+        getApiListPaymentMethods()
     }, [isAuthenticated])
 
 
@@ -588,23 +588,25 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                         </h3>
                                         <p className="text-sm text-gray-500">All transactions are secure and encrypted</p>
                                     </div>
-                                    <button
-                                        aria-label='add address'
-                                        className="h-[45px] w-[45px] rounded-xl bg-gradient-to-br from-green-500  to-emerald-600 text-white 
+                                    {(resAccountCreditCard_All?.data && resAccountCreditCard_All?.data.length > 0) &&
+                                        <button
+                                            aria-label='add address'
+                                            className="h-[45px] w-[45px] rounded-xl bg-gradient-to-br from-green-500  to-emerald-600 text-white 
                             hover:from-green-600 hover:to-emerald-700 hover:shadow-xl
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
-                                        onClick={() => {
-                                            getApiListPaymentMethods()
-                                            setOpenCreateCredit(true)
-                                        }}
-                                    >
-                                        <IoMdAdd size={18} className="mx-auto" />
-                                        <div className="absolute inset-0 overflow-hidden">
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                        </div>
-                                        <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                            onClick={() => {
+                                                getApiListPaymentMethods()
+                                                setOpenCreateCredit(true)
+                                            }}
+                                        >
+                                            <IoMdAdd size={18} className="mx-auto" />
+                                            <div className="absolute inset-0 overflow-hidden">
+                                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                            </div>
+                                            <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-                                    </button>
+                                        </button>
+                                    }
                                 </div>
                                 <Dialog open={openCreateCredit} onClose={() => setOpenCreateCredit(false)} maxWidth="md" fullWidth>
                                     <DialogContent
@@ -679,13 +681,14 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                         </div>
                                     </DialogContent>
                                 </Dialog>
-                                <RadioGroup
-                                    aria-labelledby="demo-controlled-radio-buttons-group"
-                                    name="controlled-radio-buttons-group"
-                                    value={valueIdCreditCard}
-                                    onChange={handleSelectCreditCard}
-                                >
-                                    {resAccountCreditCard_All &&
+                                {(resAccountCreditCard_All?.data && resAccountCreditCard_All?.data.length > 0) ?
+                                    <RadioGroup
+                                        aria-labelledby="demo-controlled-radio-buttons-group"
+                                        name="controlled-radio-buttons-group"
+                                        value={valueIdCreditCard}
+                                        onChange={handleSelectCreditCard}
+                                    >
+
                                         <div className="flex flex-col gap-5">
                                             {resAccountCreditCard_All?.data.map((res) => {
                                                 const rawType = res.attributes.cc_type?.toLowerCase();
@@ -744,9 +747,48 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                                                 )
                                             })}
                                         </div>
-                                    }
 
-                                </RadioGroup>
+                                    </RadioGroup>
+                                    :
+                                    <div className="flex flex-col gap-1">
+                                        <div className="flex flex-col gap-1 mt-3">
+                                            <label className="block text-md font-medium text-gray-700 mb-2">
+                                                Payment Method <span className="text-red-500">*</span>
+                                            </label>
+                                            <Select
+                                                MenuProps={MenuProps}
+                                                sx={sxSelect}
+                                                value={idPaymentMethod}
+                                                onChange={handleChangeCreditCard}
+                                                displayEmpty
+                                            >
+                                                <MenuItem value="" disabled>
+                                                    <em>Select a payment method</em>
+                                                </MenuItem>
+                                                {resCheckoutPayments_List?.data.map((data) => (
+                                                    <MenuItem key={data.id} value={data.id}>
+                                                        {data.attributes.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </div>
+
+                                        {publishableKey && stripePromise ? (
+                                            <Elements stripe={stripePromise}>
+                                                <StripePaymentForm
+                                                    onSubmit={handleCreateCredit}
+                                                    loading={loading}
+                                                    error={errorCreateCredit}
+                                                    publishableKey={publishableKey}
+                                                />
+                                            </Elements>
+                                        ) : (
+                                            <div className="text-center py-8 text-gray-500">
+                                                Please select a payment method to continue
+                                            </div>
+                                        )}
+                                    </div>
+                                }
                             </div>
                             {/* {showSetKey &&
                             <div className="flex flex-col gap-1">
