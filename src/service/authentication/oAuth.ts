@@ -1,5 +1,6 @@
 import { AuthLogin } from "@/interface/interface";
 import api from "../../api/apiToken";
+import Cookies from 'js-cookie';
 
 export const GeneratingOAuthToken = (
     data: AuthLogin
@@ -26,4 +27,24 @@ export const RefreshingOAuthToken = (
             },
         }
     )
+}
+
+// Helper function để lưu refresh token vào cookie
+export const saveRefreshTokenToCookie = (refreshToken: string) => {
+    Cookies.set('refresh_token', refreshToken, {
+        httpOnly: false, // js-cookie không hỗ trợ httpOnly trong browser
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        expires: 7 // 7 ngày
+    });
+}
+
+// Helper function để lấy refresh token từ cookie
+export const getRefreshTokenFromCookie = (): string | undefined => {
+    return Cookies.get('refresh_token');
+}
+
+// Helper function để xóa refresh token từ cookie
+export const removeRefreshTokenFromCookie = () => {
+    Cookies.remove('refresh_token');
 }

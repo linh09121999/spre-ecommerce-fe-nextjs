@@ -136,8 +136,7 @@ const Login: React.FC = () => {
         try {
             setLoading(true);
             const res = await GeneratingOAuthToken(data)
-            const token = res.data.access_token
-            handleLogin(token)
+            handleLogin(res.data)
             setErrorLogin("")
 
             const previousPage = document.referrer;

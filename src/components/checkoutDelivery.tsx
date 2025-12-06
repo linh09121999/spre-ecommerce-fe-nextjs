@@ -12,6 +12,7 @@ import type { SxProps, Theme } from "@mui/material/styles";
 import { FaRegUser } from "react-icons/fa"
 import { MdOutlineEmail, MdOutlineErrorOutline } from "react-icons/md"
 import { LuMapPinHouse } from "react-icons/lu"
+import { useAuth } from "./contexts/AuthContext"
 
 
 const CheckoutDelivery: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBackStep, lengthStep }) => {
@@ -32,13 +33,9 @@ const CheckoutDelivery: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBac
         }
     }
 
-    const [token, setToken] = useState<string | null>(null);
-    const { resAccount } = useState_ResAccount()
+    const { isAuthenticated } = useAuth();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token")
-        setToken(token);
-    }, [])
+    const { resAccount } = useState_ResAccount()
 
     const { resCheckout, setResCheckout } = useState_ResCheckout()
     const {
@@ -113,7 +110,7 @@ const CheckoutDelivery: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBac
                         <div className="p-4 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">
                             <MdOutlineErrorOutline className="mx-auto" size={21} />{errorUpdateCheckOut}</div>
                     }
-                    {token ?
+                    {isAuthenticated ?
                         <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
                             <div className="flex items-center justify-between">
                                 <h3 className="text-xl font-semibold">

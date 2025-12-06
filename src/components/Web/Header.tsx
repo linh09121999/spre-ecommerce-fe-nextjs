@@ -425,26 +425,26 @@ const HeaderWeb: React.FC = () => {
         }
     }
 
-    const [token, setToken] = useState<string | null>(null);
+    const { handleLogOut, isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getApiAccount("default_billing_address")
+        }
+    }, [isAuthenticated])
 
     useEffect(() => {
         getApiStores()
         getApiTaxons(1, 100)
         postApiCart()
-        const token = localStorage.getItem("token")
-        setToken(token);
-        if (token) {
-            getApiAccount("default_billing_address")
-        }
     }, [])
-    const { handleLogOut } = useAuth();
+
 
     const [anchorElAccount, setAnchorElAccount] = useState<null | HTMLElement>(null);
     const openAccount = Boolean(anchorElAccount);
 
     const handleClickAccount = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const token = localStorage.getItem('token')
-        token ?
+        isAuthenticated ?
             (
                 setAnchorElAccount(event.currentTarget)
             )
@@ -543,8 +543,7 @@ const HeaderWeb: React.FC = () => {
     };
 
     const handleHeart = () => {
-        const token = localStorage.getItem("token")
-        if (token) {
+        if (isAuthenticated) {
             router.push('/heart')
         } else {
             router.push('/login')
@@ -634,8 +633,7 @@ const HeaderWeb: React.FC = () => {
     const [showWellness, setShowWellness] = useState<boolean>(false);
 
     const handleClickAccountDrawer = () => {
-        const token = localStorage.getItem('token')
-        if (token) {
+        if (isAuthenticated) {
             setOpenDrawer(false)
             router.push('/setting')
         } else {
@@ -781,13 +779,13 @@ const HeaderWeb: React.FC = () => {
                             font-bold text-lg transition-all duration-500 transform hover:scale-105 shadow-lg relative overflow-hidden group"
                                         onClick={handleClickAccountDrawer}
                                     >
-                                        {token ? 'My Account' : 'Login'}
+                                        {isAuthenticated ? 'My Account' : 'Login'}
                                         <div className="absolute inset-0 overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                                         </div>
                                         <div className="absolute inset-0 rounded-xl border-2 border-green-400 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                     </button>
-                                    {token &&
+                                    {isAuthenticated &&
                                         <button
                                             onClick={() => {
                                                 handleLogOut()
@@ -865,7 +863,7 @@ const HeaderWeb: React.FC = () => {
                                     </StyledBadge >
                                 </Stack>
                             </button>
-                            {token &&
+                            {isAuthenticated &&
                                 <Menu
                                     anchorEl={anchorElAccount}
                                     open={openAccount}

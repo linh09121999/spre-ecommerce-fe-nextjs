@@ -23,6 +23,7 @@ import {
 import StripePaymentForm from '@/components/stripePaymentForm';
 import Stripe from 'stripe';
 import { MarkThePaymentIntentAsConfirmedAndMoveTheOrderToTheCompleteState } from "@/service/storefront/stripe";
+import { useAuth } from "./contexts/AuthContext";
 
 type CardType = "visa" | "jcb" | "mastercard" | "amex";
 
@@ -202,8 +203,6 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
         }
     }
 
-
-    const [token, setToken] = useState<string | null>(null);
     const { resAccount } = useState_ResAccount()
 
     const { resAccountCreditCard_All, setResAccountCreditCard_All } = useState_ResAccountCreditCard()
@@ -241,10 +240,10 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
         }
     }
 
+    const {isAuthenticated } = useAuth();
+
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        setToken(token);
-        if (token) {
+        if (isAuthenticated) {
             getApiListAllCreditCart("payment_method")
             setResCheckoutPayments_List(undefined)
             setDataCreatePayment({
@@ -257,7 +256,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
             getApiListPaymentMethods()
             setResAccountCreditCard_All(undefined)
         }
-    }, [])
+    }, [isAuthenticated])
 
 
     const filterAddressCheckout = useMemo(
@@ -421,7 +420,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
             const response = await CreateNewPayment(data, { include });
             setErrorCreateCredit("");
             setOpenCreateCredit(false);
-            if (token) {
+            if (isAuthenticated) {
                 getApiListAllCreditCart("payment_method");
             }
             toast.success("Credit card added successfully!");
@@ -448,7 +447,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                             <MdOutlineErrorOutline className="mx-auto" size={21} />
                             {errorComplate}</div>
                     }
-                    {token ?
+                    {isAuthenticated ?
                         <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
                             <div className="flex items-center justify-between">
                                 <h3 className="text-xl font-semibold">
@@ -579,7 +578,7 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
                         </div>
                     }
 
-                    {token ?
+                    {isAuthenticated ?
                         <>
                             <div className="flex flex-col gap-5 rounded-xl border p-5 border-gray-200 shadow-lg">
                                 <div className="flex justify-between items-center">

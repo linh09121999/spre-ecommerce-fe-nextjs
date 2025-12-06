@@ -20,6 +20,7 @@ import { TbTag } from 'react-icons/tb';
 import { toast, ToastContainer } from 'react-toastify';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useAuth } from './contexts/AuthContext';
 
 interface SelectedOptions {
     [key: string]: string;
@@ -222,17 +223,20 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
         }
     }
 
+    const { isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getApiListWishlist("wished_items")
+        }
+    }, [isAuthenticated])
+
     useEffect(() => {
         AOS.init({
             duration: 2000,
             once: false,
             mirror: true,
         });
-        const token = localStorage.getItem("token")
-
-        if (token) {
-            getApiListWishlist("wished_items")
-        }
     }, [])
 
     const [modalOpenSelectWishlist, setModalOpenSelectWishlist] = useState<boolean>(false)
@@ -269,8 +273,7 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
     }
 
     const handleSaveForLater = () => {
-        const token = localStorage.getItem("token")
-        if (token) {
+        if (isAuthenticated) {
             setModalOpenSelectWishlist(true)
         } else {
             router.push('/login')

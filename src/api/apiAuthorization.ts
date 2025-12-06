@@ -1,3 +1,4 @@
+import { useState_ResOAuth } from '@/useState/useStateOAuth';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 
 // Tạo instance axios với config mặc định
@@ -9,11 +10,16 @@ const api: AxiosInstance = axios.create({
     },
 });
 
+// Hàm lấy token từ zustand store
+const getTokenFromStore = (): string | null => {
+    const state = useState_ResOAuth.getState();
+    return state.resOAuth?.access_token || null;
+};
 // Interceptor xử lý request
 api.interceptors.request.use(
     (config) => {
         // Ví dụ: thêm token vào header nếu có
-        const token = localStorage.getItem("token");
+        const token = getTokenFromStore();
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }

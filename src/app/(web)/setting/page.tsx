@@ -30,6 +30,7 @@ import {
     Elements,
 } from '@stripe/react-stripe-js';
 import StripePaymentForm from '@/components/stripePaymentForm';
+import { useAuth } from '@/components/contexts/AuthContext';
 
 const SettingWeb: React.FC = () => {
     const sxTextField: SxProps<Theme> = {
@@ -170,6 +171,16 @@ const SettingWeb: React.FC = () => {
         selectTab, setSelectTab, loading
     } = useStateGeneral()
 
+    const { isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getApiListOrder(1, 12, "payments,shipments,user,billing_address")
+        } else {
+            router.push('/')
+        }
+    }, [isAuthenticated])
+
     useEffect(() => {
         setSelectNav(null)
         AOS.init({
@@ -177,13 +188,6 @@ const SettingWeb: React.FC = () => {
             once: false,
             mirror: true,
         });
-        const token = localStorage.getItem("token")
-        if (token) {
-            getApiListOrder(1, 12, "payments,shipments,user,billing_address")
-        }
-        else {
-            router.push('/')
-        }
 
     }, [])
 

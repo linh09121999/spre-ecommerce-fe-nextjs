@@ -21,6 +21,7 @@ import { IncludedImage, IncludedVariant, ProcessedWishedItem } from "@/interface
 import { LuMapPinHouse } from "react-icons/lu";
 import { FaRegMoneyBillAlt, FaShippingFast } from "react-icons/fa";
 import { styled } from '@mui/material/styles';
+import { useAuth } from "@/components/contexts/AuthContext";
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -237,18 +238,22 @@ const CheckoutFrom: React.FC = () => {
         }
     }
 
+    const {isAuthenticated } = useAuth();
+
+    useEffect(() => {
+            if (isAuthenticated) {
+                setResCountries_List(undefined)
+            }else{
+                getApiListCountries()
+            }
+        }, [isAuthenticated])
+
     useEffect(() => {
         setSelectNav(null)
         setActiveStep(1)
         const cart_number = localStorage.getItem("cart_number")
         if (Number(cart_number) === 0) {
             router.push('/')
-        }
-        const token = localStorage.getItem('token')
-        if (token) {
-            setResCountries_List(undefined)
-        } else {
-            getApiListCountries()
         }
         handleValidateOrderPayment("line_items,line_items.variant,line_items.variant.images,shipping_address")
     }, [])

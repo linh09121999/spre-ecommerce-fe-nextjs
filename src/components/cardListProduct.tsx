@@ -2,6 +2,7 @@ import { ColorOption, IncludedImage, IncludedVariant, IncludedTaxon, PriceInfo, 
 import { Product } from '@/interface/responseData/interfaceStorefront';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { useAuth } from './contexts/AuthContext';
 
 const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => {
     const router = useRouter();
@@ -183,10 +184,11 @@ const ListProductCard: React.FC<ProductCardProps> = ({ products, included }) => 
 
     const [openSelectWishlist, setOpenSelectWishlist] = useState<boolean>(false)
 
+    const { isAuthenticated } = useAuth();
+
     const handleAddHeart = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-        const token = localStorage.getItem("token")
-        if (token) {
+        if (isAuthenticated) {
             setOpenSelectWishlist(true)
         } else {
             router.push('/login')

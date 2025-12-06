@@ -17,6 +17,7 @@ import { Product, WishListItem } from "@/interface/responseData/interfaceStorefr
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { IoClose } from "react-icons/io5";
+import { useAuth } from "@/components/contexts/AuthContext";
 
 const HeartFrom: React.FC = () => {
     const router = useRouter()
@@ -136,6 +137,16 @@ const HeartFrom: React.FC = () => {
 
     const [selectedWishlist, setSelectedWishlist] = useState<string | null>(null);
 
+    const { isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getApiListWishlist("wished_items")
+        } else {
+            router.push('/')
+        }
+    }, [isAuthenticated])
+
     useEffect(() => {
         setSelectNav(null)
         AOS.init({
@@ -143,13 +154,6 @@ const HeartFrom: React.FC = () => {
             once: false,
             mirror: true,
         });
-        const token = localStorage.getItem("token")
-        if (token) {
-            getApiListWishlist("wished_items")
-        }
-        else {
-            router.push('/')
-        }
     }, [])
 
     const handleOpenWishList = (token: string) => {

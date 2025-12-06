@@ -20,6 +20,7 @@ import { MdOutlineErrorOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useAuth } from "@/components/contexts/AuthContext";
 
 const ViewCart: React.FC = () => {
 
@@ -208,7 +209,14 @@ const ViewCart: React.FC = () => {
         }
     }
 
-    const [token, setToken] = useState<string | null>(null)
+    const { isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getApiListWishlist("wished_items")
+        }
+    }, [isAuthenticated])
+
 
     useEffect(() => {
         setSelectNav(null)
@@ -219,11 +227,6 @@ const ViewCart: React.FC = () => {
         });
         // getApiEstimatedShippingRate()
         getApiRetrieveCart("line_items,line_items.variant,line_items.variant.images")
-        const token = localStorage.getItem("token")
-        setToken(token)
-        if (token) {
-            getApiListWishlist("wished_items")
-        }
     }, [])
 
 
@@ -281,8 +284,7 @@ const ViewCart: React.FC = () => {
     }
 
     const handleSaveForLater = (id: string, quantity: number) => {
-        const token = localStorage.getItem("token")
-        if (token) {
+        if (isAuthenticated) {
             setModalOpenSelectWishlist(true)
             setSelectedIdVariant(id);
             setSelectedQuantity(quantity);

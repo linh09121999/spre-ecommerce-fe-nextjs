@@ -20,6 +20,7 @@ import { RetrieveAnAccount } from "@/service/storefront/account";
 import { IoMdAdd, IoMdSearch } from "react-icons/io";
 import { CreateAccountAddress, ListAccountAddress } from "@/service/storefront/accountAddress";
 import { LuMapPinHouse } from "react-icons/lu";
+import { useAuth } from "./contexts/AuthContext";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     width: '45px',
@@ -174,19 +175,18 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
         }
     }
 
+    const { isAuthenticated } = useAuth();
 
-    const [token, setToken] = useState<string | null>(null);
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        setToken(token);
-        if (token) {
+        if (isAuthenticated) {
             getApiAccount("default_billing_address")
             getApiListAllAddress(1, 12)
         } else {
             setResAccount(undefined)
             setResDataAccountAddress_All([])
         }
-    }, [])
+    }, [isAuthenticated])
+
 
     const [errorUpdateCheckOut, setErrorUpdateCheckOut] = useState<string>("")
 
@@ -597,7 +597,7 @@ const CheckOutAddress: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnBack
 
     return (
         <>
-            {token ?
+            {isAuthenticated ?
                 <div className="flex flex-col gap-5 order-2 lg:order-1">
                     {errorUpdateCheckOut &&
                         <div className="p-4 text-center bg-red-50/80 flex flex-col backdrop-blur-sm border border-red-200 rounded-xl gap-1 text-red-600">

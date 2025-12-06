@@ -1,37 +1,72 @@
 import { create } from 'zustand'
 import { ResOAuth } from '@/interface/responseData/interfaceOAuth'
-
-import Cookies from 'js-cookie'
-import { RefreshingOAuthToken } from '@/service/authentication/oAuth';
+import { getRefreshTokenFromCookie, RefreshingOAuthToken, removeRefreshTokenFromCookie, saveRefreshTokenToCookie } from '@/service/authentication/oAuth';
 
 interface State_ResOAuth {
     resOAuth: ResOAuth | undefined;
-    setResOAuth: (data: ResOAuth | undefined) => void;
+    setResOAuth: (data: ResOAuth) => void;
     clearOAuth: () => void;
-    refreshToken: () => Promise<void>;
+    refreshAccessToken: () => Promise<string | null>;
+    isRefreshing: boolean;
 }
 
 export const useState_ResOAuth = create<State_ResOAuth>((set, get) => ({
     resOAuth: undefined,
-    setResOAuth: (data) => set({ resOAuth: data }),
-    clearOAuth: () => set({ resOAuth: undefined }),
-
-    refreshToken: async () => {
+    isRefreshing: false,
+    
+    setResOAuth: (data) => {
+        // Lưu refresh token vào cookie
+        saveRefreshTokenToCookie(data.refresh_token);
+        // Lưu vào state
+        set({ resOAuth: data });
+    },
+    
+    clearOAuth: () => {
+        // Xóa khỏi cookie
+        removeRefreshTokenFromCookie();
+        // Xóa khỏi state
+        set({ resOAuth: undefined });
+    },
+    
+    refreshAccessToken: async () => {
         try {
-            // Lấy refresh_token từ cookie httpOnly nếu có
-            const refresh_token = Cookies.get('refresh_token')
-            if (!refresh_token) throw new Error('No refresh_token available')
-
-            const response = await RefreshingOAuthToken({ grant_type: 'refresh_token', refresh_token })
-            const data: ResOAuth = response.data
-
-            // Cập nhật zustand
-            set({ resOAuth: data })
-            // Cập nhật lại refresh_token vào cookie
-            Cookies.set('refresh_token', data.refresh_token, { expires: data.expires_in / (60 * 60 * 24), secure: true, sameSite: 'Strict' })
+            // Kiểm tra nếu đang refresh thì không gọi lại
+            if (get().isRefreshing) {
+                return null;
+            }
+            
+            const refreshToken = getRefreshTokenFromCookie();
+            if (!refreshToken) {
+                throw new Error('No refresh token available');
+            }
+            
+            set({ isRefreshing: true });
+            
+            const response = await RefreshingOAuthToken({
+                grant_type: 'refresh_token',
+                refresh_token: refreshToken
+            });
+            
+            const newTokenData: ResOAuth = response.data;
+            
+            // Lưu refresh token mới vào cookie
+            saveRefreshTokenToCookie(newTokenData.refresh_token);
+            
+            // Cập nhật state
+            set({ 
+                resOAuth: newTokenData,
+                isRefreshing: false 
+            });
+            
+            return newTokenData.access_token;
+            
         } catch (error) {
-            console.error('Failed to refresh token', error)
-            set({ resOAuth: undefined })
+            console.error('Failed to refresh token:', error);
+            set({ isRefreshing: false });
+            
+            // Nếu refresh thất bại, clear hết
+            get().clearOAuth();
+            return null;
         }
     }
-}))
+}));
