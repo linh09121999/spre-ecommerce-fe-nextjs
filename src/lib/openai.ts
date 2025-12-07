@@ -57,7 +57,7 @@ export async function getChatbotResponse(
 ): Promise<any> {
     try {
         const allProducts = await getProductsForChatbot();
-
+        console.log(process.env.NEXT_PUBLIC_OPENAI_API_KEY)
         const messages: any[] = [
             { role: 'system', content: SYSTEM_PROMPT },
             ...chatHistory.slice(-10),
