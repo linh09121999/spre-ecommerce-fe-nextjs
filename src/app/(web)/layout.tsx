@@ -8,6 +8,7 @@ import HeaderWeb from "@/components/Web/Header";
 import FooterWeb from "@/components/Web/Footer";
 import { AuthProvider } from "@/components/contexts/AuthContext";
 import { Analytics } from "@vercel/analytics/next"
+import { ChatBot } from "@/components/chatbot";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -45,6 +46,7 @@ const RootLayout = ({
           <main className="min-h-[60vh]">{children}</main>
           <Analytics />
           <FooterWeb />
+          <ChatBot />
         </AuthProvider>
       </body>
     </html>
