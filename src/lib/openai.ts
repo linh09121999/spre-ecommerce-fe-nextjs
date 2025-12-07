@@ -2,7 +2,7 @@ import OpenAI from 'openai';
 import { getProductsForChatbot, filterProductsByContext, SimplifiedProduct } from './product-utils';
 
 const openai = new OpenAI({
-    apiKey: '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',
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true
 });
 
@@ -75,6 +75,8 @@ export async function getChatbotResponse(
                 )}`
             }
         ];
+
+        console.log(process.env.OPENAI_API_KEY);
 
         const completion = await openai.chat.completions.create({
             model: 'gpt-4o-mini',

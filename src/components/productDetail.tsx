@@ -374,11 +374,11 @@ const ProductDetailCompoment: React.FC<ResProduct_Retrieve> = ({ data, included 
                     data-aos-duration="1200"
                     data-aos="zoom-in"
                 >
-                    <div className="flex flex-col gap-3 order-2 lg:order-1">
+                    <div className="flex lg:flex-col gap-3 order-2 lg:order-1 overflow-x-auto scroll-x lg:overflow-y-auto lg:scroll-y">
                         {displayImages.map((image, index) => (
                             <button
                                 key={image.id}
-                                className={` flex-shrink-0 w-20 h-20 rounded-xl overflow-x-auto scroll-x border-2 transition-all duration-300 ${index === selectedImageIndex
+                                className={` flex-shrink-0 w-20 h-20 rounded-xl  border-2 transition-all duration-300 ${index === selectedImageIndex
                                     ? "border-green-500 ring-2 ring-green-200"
                                     : "border-gray-200 hover:border-green-300"
                                     }`}

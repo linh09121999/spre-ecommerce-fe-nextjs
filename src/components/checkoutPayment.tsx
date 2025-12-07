@@ -352,7 +352,8 @@ const CheckoutPaymetPage: React.FC<Checkout_Storefont_Prop> = ({ fnNextStep, fnB
     // const [showSetKey, setShowSetKey] = useState<boolean>(false)
 
     const handlePayNow = async () => {
-        const stripe = new Stripe('sk_test_51SWqj0BuXLUBsTeOJKdqHvV341Rwc1YtM2eEqmwz4WX5j3WX52u8jGn8OTOGEGD7mWUMxtmzIiLA51Xvh3OWTn0q00dOFMy5Pw');
+        const key = process.env.NEXT_PUBLIC_STRIPE_API_KEY ?? ''
+        const stripe = new Stripe(key);
         try {
             setLoading(true)
             const paymentIntent = await stripe.paymentIntents.create({
