@@ -41,7 +41,7 @@ const BackToTop: React.FC = () => {
             {isVisible && (
                 <button aria-label='back to top'
                     onClick={scrollToTop}
-                    className="shadow-lg backdrop-blur-[10px] transition-all duration-300 fixed bottom-[24px] right-[30px] text-orange-700 rounded-full flex items-center justify-center z-1000 css-icon"
+                    className="shadow-lg backdrop-blur-[10px] transition-all duration-300 fixed bottom-3 right-[30px] text-orange-700 rounded-full flex items-center justify-center z-1000 css-icon"
 
                 >
                     <CircularProgress variant="determinate" value={scrollPercent} size="50px" sx={{ color: "var(--color-green-700)" }} />

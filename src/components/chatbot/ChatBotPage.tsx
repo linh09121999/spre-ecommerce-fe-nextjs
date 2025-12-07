@@ -104,7 +104,7 @@ const ChatBot: React.FC = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-20 right-[30px] w-14 h-14 rounded-full flex items-center justify-center z-50 bg-gradient-to-br from-green-500 to-emerald-600 text-white font-bold text-lg transition-all duration-300 transform shadow-lg hover:from-green-600 hover:to-emerald-700 hover:shadow-xl hover:scale-105 group"
+          className="fixed bottom-18 right-[30px] w-14 h-14 rounded-full flex items-center justify-center z-50 bg-gradient-to-br from-green-500 to-emerald-600 text-white font-bold text-lg transition-all duration-300 transform shadow-lg hover:from-green-600 hover:to-emerald-700 hover:shadow-xl hover:scale-105 group"
           aria-label="Open chatbot"
         >
           <RiRobot2Line className="w-6 h-6" />
@@ -117,8 +117,8 @@ const ChatBot: React.FC = () => {
 
       {isOpen && (
         <div
-          className={`fixed ${isExpanded ? 'inset-0 rounded-none border-none' : 'bottom-20 sm:right-[30px] right-[15px] rounded-2xl border border-green-200'
-            } z-50 ${isExpanded ? 'w-full h-full' : 'sm:w-96 w-80 h-[600px]'
+          className={`fixed ${isExpanded ? 'inset-0 rounded-none border-none' : 'bottom-18 sm:right-[30px] right-[15px] rounded-2xl border border-green-200'
+            } z-199 ${isExpanded ? 'w-full h-full' : 'sm:w-96 w-80 sm:h-[600px] h-[500px]'
             } bg-white shadow-2xl flex flex-col overflow-hidden transition-all`}
         >
           {/* HEADER */}
