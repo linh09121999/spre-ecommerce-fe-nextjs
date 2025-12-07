@@ -2,7 +2,7 @@ import OpenAI from 'openai';
 import { getProductsForChatbot, filterProductsByContext, SimplifiedProduct } from './product-utils';
 
 const openai = new OpenAI({
-    apiKey: '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',
+    apiKey: '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',
     dangerouslyAllowBrowser: true
 });
 
