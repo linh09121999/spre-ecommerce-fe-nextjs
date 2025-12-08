@@ -16,6 +16,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useRouter } from "next/navigation";
 import { IoClose } from "react-icons/io5";
+import { useMediaQuery } from '@mui/material';
 
 interface ListProduct extends ProductCardProps {
     taxonsRetrieve: ResTaxons_Retrieve;
@@ -1125,6 +1126,8 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
 
     const router = useRouter()
 
+    const isXL = useMediaQuery('(min-width:1280px)');
+
     const [openDrawerSort, setOpenDrawerSort] = useState<boolean>(false);
 
     const toggleDrawerSort = (newOpen: boolean) => () => {
@@ -1136,6 +1139,13 @@ const ListProduct: React.FC<ListProduct> = ({ products, included, taxonsRetrieve
     const toggleDrawerFilter = (newOpen: boolean) => () => {
         setOpenDrawerFilter(newOpen);
     };
+
+    useEffect(() => {
+        if (isXL && (openDrawerSort || openDrawerFilter)) {
+            setOpenDrawerSort(false);
+            setOpenDrawerFilter(false)
+        }
+    }, [isXL]);
 
     return (
         <>

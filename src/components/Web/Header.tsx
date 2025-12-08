@@ -38,6 +38,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { ListAllProducts } from '@/service/storefront/products';
 import { IncludedImage } from '@/interface/interface';
 import { RiMenuFoldLine, RiMenuUnfold3Line, RiMenuUnfoldLine } from 'react-icons/ri';
+import { useMediaQuery } from '@mui/material';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     width: '35px',
@@ -355,6 +356,13 @@ const HeaderWeb: React.FC = () => {
             setLoading(false); // 👈 tắt loading sau khi có dữ liệu
         }
     }
+
+    const isXL = useMediaQuery('(min-width:1280px)');
+    useEffect(() => {
+        if (isXL && openDrawer) {
+            setOpenDrawer(false);
+        }
+    }, [isXL]);
 
     useEffect(() => {
         if (error500 === 500) {
