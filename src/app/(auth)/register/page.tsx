@@ -210,7 +210,7 @@ const Register: React.FC = () => {
                         }
 
                         <form
-                            onClick={handleSubmit}
+                            onSubmit={handleSubmit}
                             className="flex flex-col md:gap-5 gap-2">
                             <div className="flex flex-col gap-1">
                                 <label htmlFor="inputEmail" className="block md:text-xl text-md font-medium text-gray-300">

@@ -233,7 +233,7 @@ const Login: React.FC = () => {
                                 <MdOutlineErrorOutline className="mx-auto" size={21} />{errorLogin}</div>
                         }
                         <form
-                            onClick={handleSubmit}
+                            onSubmit={handleSubmit}
                             className="flex flex-col md:gap-5 gap-2">
                             <div className="flex flex-col gap-1">
                                 <label htmlFor="email" className="block md:text-xl text-md font-medium text-gray-300">
